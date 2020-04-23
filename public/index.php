@@ -3,6 +3,7 @@
 
 <html>
   <head>
+      <title>Immersion HEPL - Accueil</title>
     <?php require_once(__DIR__."/inc/head.php"); ?>
   </head>
   <body>
@@ -11,15 +12,65 @@
 
   <section>
 
+      <div class="row">
+          <div class="col-xl-6">
 
-      <div class="jumbotron">
-          <h1 class="display-3">Bienvenue sur HEPL Immersion !</h1>
-          <p class="lead">Ce site, spécialement concu pour les étudiant de secondaire, vous permet de vous inscrire aux journée immersion proposée par l'école !</p>
-          <hr class="my-4">
-          <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-          <p class="lead">
-              <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-          </p>
+              <div class="welcome-block">
+
+                  <div class="center while-text">
+
+                        <h2>Bienvenue !</h2>
+
+                  </div>
+
+
+              </div>
+
+          </div>
+          <div class="col-xl-6">
+
+
+              <div class="status-block">
+
+              </div>
+
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-xl-4">
+
+
+              <div class="nb-cours-block">
+
+              </div>
+
+          </div>
+          <div class="col-xl-4">
+
+
+              <div class="nb-profs-block">
+
+              </div>
+
+          </div>
+          <div class="col-xl-4">
+
+
+              <div class="nb-days-block">
+
+              </div>
+
+
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-xl-12">
+
+              <div class="why-block">
+
+              </div>
+
+          </div>
       </div>
 
   </section>

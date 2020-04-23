@@ -2,4 +2,62 @@ section {
   margin: 1%;
 }
 
+.bg-primary {
+  background-color: #cb2020 !important;
+}
+
+.nav-logo {
+  width: auto;
+  height: 38px;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+.why-block, .nb-days-block, .nb-profs-block, .nb-cours-block, .status-block, .welcome-block {
+  width: 100%;
+  height: 500px;
+  background-color: red;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.welcome-block {
+  background-color: green;
+}
+
+.status-block {
+  background-color: #18877e;
+}
+
+.nb-cours-block {
+  background-color: cornflowerblue;
+}
+
+.nb-profs-block {
+  background-color: darkseagreen;
+}
+
+.nb-days-block {
+  background-color: #462c01;
+}
+
+.why-block {
+  background-color: #ab32cd;
+}
+
+.while-text {
+  color: white;
+}
+
 /*# sourceMappingURL=style.css.map */
