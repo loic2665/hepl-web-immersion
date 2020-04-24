@@ -8,18 +8,89 @@
 /***********************************************************/
 
 
+require_once(__DIR__."/Database.php");
+
 class Enseignant
 {
 
+    /*récupérer tous les professeurs de la base de donnée*/
+    public static function getAllTeachers()
+    {
+        $db = new Database();
 
-    // recuperer tout les professeur
-    // recuperer un prof par nom ou prenom
-    // recuperer un prof par id
-    // recuperer tout les professeur donnant un cours spécifié ($idCours)
-    // compter les profs (data de la page d'accueil)
+        $result = $db->conn->query("
+        SELECT *
+        FROM enseignants 
+        ");
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+    }
+
+    /*récupérer tous les professeurs de la base de donnée selon le nom ou le prénom*/
+    public static function getTeachersByName($name)
+    {
+        /* evite les attaques SQL (securite)  échape --> ' " \ */
+        $name = addslashes(htmlspecialchars($name));
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT *
+        FROM enseignants
+        WHERE nom like '%".$name."%'
+        OR prenom like '%".$name."%'" );
+        $array = $result->fetchAll();
+
+        return $array;
+    }
+
+    /*récupérer le professeur de la base de donnée selon l'identifiant*/
+    public static function getTeacherById($id)
+    {
+        /* evite les attaques SQL (securite)  échape --> ' " \ */
+        $id = addslashes(htmlspecialchars($id));
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT *
+        FROM enseignants
+        WHERE id = '".$id."'" );
+        $line = $result->fetch();
+
+        return $line;
+    }
+
+
+    /*récupérer les professeurs de la base de donnée selon l'identifiant d'un cours*/
+    public static function getTeacherBySubjectId($id)
+    {
+        /* evite les attaques SQL (securite)  échape --> ' " \ */
+        $id = addslashes(htmlspecialchars($id));
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT *
+        FROM enseignants
+            INNER JOIN enseignants_cours e_c on enseignants.id = e_c.id_enseignant
+        WHERE e_c.id_cours = '".$id."'" );
+        $array = $result->fetchAll();
+
+        return $array;
+    }
+
+    /*récupérer le nombre de professeurs de la base de donnée*/
+    public static function countTeachers()
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT COUNT(*)
+        FROM enseignants" );
+        $line = $result->fetch();
+
+        return $line;
+    }
+
 
     // ...
-
-
 
 }

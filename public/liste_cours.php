@@ -47,7 +47,7 @@ $class = "";
 
         <?php
 
-        $courses = Cours::getAllCourses();
+        $courses = Horaire::getAllCourses();
 
         ?>
 

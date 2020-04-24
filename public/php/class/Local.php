@@ -8,12 +8,23 @@
 /***********************************************************/
 
 
-class Locaux
+require_once(__DIR__."/Database.php");
+
+class Local
 {
 
+    /*récupérer tous les locaux de la base de donnée*/
+    public static function getAllLocals()
+    {
+        $db = new Database();
 
-    // recupere tout les locaux
+        $result = $db->conn->query("
+        SELECT *
+        FROM locaux
+        ");
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
-
+        return $array;
+    }
 
 }

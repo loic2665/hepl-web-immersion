@@ -1,17 +1,29 @@
-section{
+/***********************************************************/
+/*Auteurs : COLLETTE Loic et DELAVAL Kevin                 */
+/*Groupe : 2203                                            */
+/*Labo : Programmation Web avancée                         */
+/*Application : Site d'immersion à l'école                 */
+/*Date de la dernière mise à jour : 26/04/2020             */
+/***********************************************************/
+
+section
+{
   margin: 1%;
 }
 
-.bg-primary{
+.bg-primary
+{
   background-color: #cb2020 !important;
 }
 
-.nav-logo{
+.nav-logo
+{
   width: auto;
   height: 38px;
 }
 
-.center {
+.center
+{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -20,11 +32,13 @@ section{
   transform: translateX(-50%) translateY(-50%);
 }
 
-.row{
+.row
+{
   margin-bottom: 10px;
 }
 
-%block{
+%block
+{
    width: 100%;
    height: 500px;
    background-color: red;
@@ -36,36 +50,43 @@ section{
 
 
 
-.welcome-block{
+.welcome-block
+{
   @extend %block;
   background-color: green;
 }
 
-.status-block{
+.status-block
+{
   @extend %block;
   background-color: #18877e;
 }
 
-.nb-cours-block{
+.nb-cours-block
+{
   @extend %block;
   background-color: cornflowerblue;
 }
 
-.nb-profs-block{
+.nb-profs-block
+{
   @extend %block;
   background-color: darkseagreen;
 }
 
-.nb-days-block{
+.nb-days-block
+{
   @extend %block;
   background-color: #462c01;
 }
 
-.why-block{
+.why-block
+{
   @extend %block;
   background-color: #ab32cd;
 }
 
-.while-text{
+.while-text
+{
   color: white;
 }
