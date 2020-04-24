@@ -1,3 +1,12 @@
+<!-- ---------------------------------------------------- -->
+<!--Auteurs : COLLETTE Loic et DELAVAL Kevin              -->
+<!--Groupe : 2203                                         -->
+<!--Labo : Programmation Web avancée                      -->
+<!--Application : Site d'immersion à l'école              -->
+<!--Date de la dernière mise à jour : 26/04/2020          -->
+<!-- ---------------------------------------------------- -->
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#"><img class="nav-logo" alt="HEPL IMMERSION" src="/img/logo.png"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
