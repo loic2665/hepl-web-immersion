@@ -13,7 +13,7 @@ require_once(__DIR__."/Database.php");
 class Enseignant
 {
 
-    /*récupérer tous les professeurs de la base de donnée*/
+    /*récupérer tous les professeurs de la base de données*/
     public static function getAllTeachers()
     {
         $db = new Database();
@@ -27,7 +27,7 @@ class Enseignant
         return $array;
     }
 
-    /*récupérer tous les professeurs de la base de donnée selon le nom ou le prénom*/
+    /*récupérer tous les professeurs de la base de données selon le nom ou le prénom*/
     public static function getTeachersByName($name)
     {
         /* evite les attaques SQL (securite)  échape --> ' " \ */
@@ -44,7 +44,7 @@ class Enseignant
         return $array;
     }
 
-    /*récupérer le professeur de la base de donnée selon l'identifiant*/
+    /*récupérer le professeur de la base de données selon l'identifiant*/
     public static function getTeacherById($id)
     {
         /* evite les attaques SQL (securite)  échape --> ' " \ */
@@ -61,7 +61,7 @@ class Enseignant
     }
 
 
-    /*récupérer les professeurs de la base de donnée selon l'identifiant d'un cours*/
+    /*récupérer les professeurs de la base de données selon l'identifiant d'un cours*/
     public static function getTeacherBySubjectId($id)
     {
         /* evite les attaques SQL (securite)  échape --> ' " \ */
@@ -78,7 +78,7 @@ class Enseignant
         return $array;
     }
 
-    /*récupérer le nombre de professeurs de la base de donnée*/
+    /*récupérer le nombre de professeurs de la base de données*/
     public static function countTeachers()
     {
         $db = new Database();

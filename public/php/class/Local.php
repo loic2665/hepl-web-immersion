@@ -13,7 +13,7 @@ require_once(__DIR__."/Database.php");
 class Local
 {
 
-    /*récupérer tous les locaux de la base de donnée*/
+    /*récupérer tous les locaux de la base de données*/
     public static function getAllLocals()
     {
         $db = new Database();

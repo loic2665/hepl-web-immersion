@@ -13,8 +13,8 @@ require_once(__DIR__."/Database.php");
 class Horaire
 {
 
-    /*récupérer tous les cours de l'horaire dans la base de donnée*/
-    public static function getAllCourses()
+    /*récupérer tous les cours de l'horaire dans la base de données*/
+    public static function getAllLessons()
     {
 
         $db = new Database();
@@ -30,8 +30,8 @@ class Horaire
         return $array;
     }
 
-    /*récupérer tous les cours de l'horaire dans la base de donnée d'après l'intitulé*/
-    public static function getCoursesByName($name)
+    /*récupérer tous les cours de l'horaire dans la base de données d'après l'intitulé*/
+    public static function getLessonsByName($name)
     {
 
         /* evite les attaques SQL (securite)  échape --> ' " \ */
