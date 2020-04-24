@@ -44,7 +44,7 @@ class Horaire
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
         WHERE intitule like '%".$name."%'");
-        $array = $result->fetchAll();
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
     }

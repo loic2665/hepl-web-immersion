@@ -39,7 +39,7 @@ class Enseignant
         FROM enseignants
         WHERE nom like '%".$name."%'
         OR prenom like '%".$name."%'" );
-        $array = $result->fetchAll();
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
     }
@@ -55,7 +55,7 @@ class Enseignant
         SELECT *
         FROM enseignants
         WHERE id = '".$id."'" );
-        $line = $result->fetch();
+        $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
     }
@@ -73,7 +73,7 @@ class Enseignant
         FROM enseignants
             INNER JOIN enseignants_cours e_c on enseignants.id = e_c.id_enseignant
         WHERE e_c.id_cours = '".$id."'" );
-        $array = $result->fetchAll();
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
     }
