@@ -10,5 +10,24 @@
 
 class Cours
 {
+    //avoir tt les cours + type
+    /*récupérer tous les professeurs de la base de donnée*/
+    public static function getAllTeachers()
+    {
+        $db = new Database();
+
+        $result = $db->conn->query("
+        SELECT *
+        FROM enseignants 
+        ");
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+    }
+
+    
+    //avoir tt les cours + type selon intitule
+
+    //avoir tt les cours + type selon id
 
 }
