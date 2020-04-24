@@ -87,7 +87,7 @@ class Enseignant
         FROM enseignants" );
         $line = $result->fetch();
 
-        return $line;
+        return $line[0];
     }
 
 

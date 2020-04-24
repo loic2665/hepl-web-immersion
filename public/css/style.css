@@ -65,11 +65,19 @@ section {
 }
 
 .why-block {
-  background-color: rgba(171, 50, 205, 0.3);
+  background-color: rgba(78, 78, 78, 0.66);
 }
 
 .white-text {
   color: white;
+}
+
+.big-size {
+  font-size: 35px;
+}
+
+.medium-size {
+  font-size: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */
