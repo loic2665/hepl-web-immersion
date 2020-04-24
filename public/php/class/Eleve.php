@@ -10,9 +10,11 @@
 
 require_once(__DIR__."/Database.php");
 
-class User
+class Eleve
 {
+    //get inscription by email
 
+    // register inscription by email
 
 
 }
