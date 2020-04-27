@@ -14,6 +14,7 @@
 <div class="form-group">
     <label for="nb-days">Nombre de jours</label>
     <select class="form-control nb-days" id="nb-days">
+        <option selected disabled value="0">Choisissez un nombre de jours</option>
         <?php for($i = 1; $i <= 10; $i++){ // a changer avec la configuration du site et le calcul !!! ?>
             <option value="<?php echo($i); ?>"><?php echo($i > 1 ? $i." jours" : $i." jour"); ?></option>
         <?php } ?>

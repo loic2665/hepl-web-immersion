@@ -13,3 +13,4 @@ require_once(__DIR__ . "/class/Eleve.php");
 require_once(__DIR__ . "/class/Horaire.php");
 require_once(__DIR__ . "/class/Cours.php");
 require_once(__DIR__ . "/class/Enseignant.php");
+require_once(__DIR__ . "/fonctions.php");

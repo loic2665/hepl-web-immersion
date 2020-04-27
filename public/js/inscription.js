@@ -13,21 +13,6 @@ $(document).ready(function () {
     // init fan and functions
     console.log("pret");
 
-    var screens = [
-        "step-welcome",
-        "stp-nb-days", // decaler l'index
-        "step-day-horaire-1",
-        "step-day-horaire-2",
-        "step-day-horaire-3",
-        "step-day-horaire-4",
-        "step-summary",
-        "step-register",
-    ];
-
-    var inscription = new Object(); // ou step = {} mais c'est moche et pas lisible...
-
-    inscription.currentStep = 0;
-
     // preparation
 
     $("#"+screens[0]).css("visibility", "visible");

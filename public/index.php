@@ -37,12 +37,7 @@
             ?>
 
 
-            <?php $i = 0; ?>
-            <ol>
-                <?php foreach ($steps as $step){ ?>
-                <li><a class="step-click" id="list-step-<?php echo($step[0]); ?>" data-target="<?php echo($i); ?>"><?php echo($step[1]); $i++; ?></a></li>
-                <?php } ?>
-            </ol>
+            <?php generateHTMLForStepList($steps); ?>
 
         </div>
     </div>
@@ -51,14 +46,8 @@
 
             <!-- les sections sont ici -->
 
-            <?php $i = 0; ?>
-            <?php foreach ($steps as $step){ $stepName = $step[0]; ?>
-            <section id="<?php echo($stepName);?>" style="visibility: hidden">
-                <div class="center white-text">
-                    <?php include_once(__DIR__."/views/prerequis/".$stepName.".php"); ?>
-                </div>
-            </section>
-            <?php $i++; } ?>
+
+            <?php generateHTMLForSectionScreen($steps, "prerequis"); ?>
 
 
         </div>
@@ -91,6 +80,13 @@
 </body>
 
 <script src="/js/common.js"></script>
+<script>
+
+    var screens = [
+        <?php generateJSScreens($steps); ?>
+    ];
+
+</script>
 <script src="/js/prerequis.js"></script>
 </html>
 
