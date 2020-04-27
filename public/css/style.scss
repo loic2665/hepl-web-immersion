@@ -6,10 +6,6 @@
 /*Date de la dernière mise à jour : 26/04/2020             */
 /***********************************************************/
 
-section
-{
-  margin: 1%;
-}
 
 $primary-color : rgba(203, 32, 32, 100);
 $primary-color-light : rgba(203, 32, 32, 0.5);
@@ -42,58 +38,45 @@ $primary-color-light : rgba(203, 32, 32, 0.5);
 %block
 {
    width: 100%;
-   height: 300px;
+   height: 75vh;
 
   text-align: center;
   vertical-align: middle;
 
 }
 
-%contour-block{
-  border: rgba(193, 193, 193, 0.4) solid 2px;
-  border-radius: 3px;
+/*
+.navbar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 }
+*/
 
-.welcome-block{
+.block-gauche{
   @extend %block;
-  @extend %contour-block;
-  background-color: $primary-color;
+  background-color: $primary-color-light;
 }
 
-.status-block
+.block-droite
 {
   @extend %block;
-  @extend %contour-block;
-  background-color: rgba(24, 135, 126, 0.84);
+  background-color: rgb(141, 24, 24);
 }
-
-.nb-cours-block
+.petit-block-gauche
 {
   @extend %block;
-  @extend %contour-block;
-  background-color: rgba(100, 149, 237, 1);
+  background-color: rgba(0,0,0,0);
+  height: 8vh;
 }
 
-.nb-profs-block
-{
+.petit-block-droite{
   @extend %block;
-  @extend %contour-block;
-  background-color: rgba(143, 188, 143, 1);
+  background-color: rgba(0,0,0,0);
+  height: 8vh;
 }
 
-.nb-days-block
-{
-  @extend %block;
-  @extend %contour-block;
-  background-color: rgba(70, 44, 1, 1.0);
-}
-
-.why-block
-{
-  @extend %block;
-  @extend %contour-block;
-  background-color: rgba(78, 78, 78, 0.66);
-}
 
 .white-text{
   color: white;
@@ -105,4 +88,34 @@ $primary-color-light : rgba(203, 32, 32, 0.5);
 
 .medium-size{
   font-size: 20px;
+}
+
+
+%center-content{
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+
+}
+
+.block-button{
+  @extend %center-content;
+  height: auto;
+  width: 100%;
+
+}
+
+.row {
+  margin-bottom: 0;
+  div{
+    padding: 0;
+}
+}
+
+#content{
+  margin: 2%;
 }

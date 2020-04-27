@@ -6,10 +6,6 @@
 /*Application : Site d'immersion à l'école                 */
 /*Date de la dernière mise à jour : 26/04/2020             */
 /***********************************************************/
-section {
-  margin: 1%;
-}
-
 .bg-primary {
   background-color: #cb2020 !important;
 }
@@ -32,40 +28,37 @@ section {
   margin-bottom: 10px;
 }
 
-.why-block, .nb-days-block, .nb-profs-block, .nb-cours-block, .status-block, .welcome-block {
+.petit-block-droite, .petit-block-gauche, .block-droite, .block-gauche {
   width: 100%;
-  height: 300px;
+  height: 75vh;
   text-align: center;
   vertical-align: middle;
 }
 
-.why-block, .nb-days-block, .nb-profs-block, .nb-cours-block, .status-block, .welcome-block {
-  border: rgba(193, 193, 193, 0.4) solid 2px;
-  border-radius: 3px;
+/*
+.navbar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+*/
+.block-gauche {
+  background-color: rgba(203, 32, 32, 0.5);
 }
 
-.welcome-block {
-  background-color: #cb2020;
+.block-droite {
+  background-color: #8d1818;
 }
 
-.status-block {
-  background-color: rgba(24, 135, 126, 0.84);
+.petit-block-gauche {
+  background-color: rgba(0, 0, 0, 0);
+  height: 8vh;
 }
 
-.nb-cours-block {
-  background-color: cornflowerblue;
-}
-
-.nb-profs-block {
-  background-color: darkseagreen;
-}
-
-.nb-days-block {
-  background-color: #462c01;
-}
-
-.why-block {
-  background-color: rgba(78, 78, 78, 0.66);
+.petit-block-droite {
+  background-color: rgba(0, 0, 0, 0);
+  height: 8vh;
 }
 
 .white-text {
@@ -78,6 +71,31 @@ section {
 
 .medium-size {
   font-size: 20px;
+}
+
+.block-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.block-button {
+  height: auto;
+  width: 100%;
+}
+
+.row {
+  margin-bottom: 0;
+}
+.row div {
+  padding: 0;
+}
+
+#content {
+  margin: 2%;
 }
 
 /*# sourceMappingURL=style.css.map */
