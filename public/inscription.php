@@ -28,7 +28,8 @@ if(!isset($_GET["nbDay"]) || empty($_GET["nbDay"])){
     // recupère la donnée
 }
 
-$steps = getListCode($nbDay);
+$steps_inscription = getListCodeInscription($nbDay);
+$steps_register = getListCodeRegister();
 
 ?>
 
@@ -49,13 +50,14 @@ $steps = getListCode($nbDay);
         <div class="block-gauche">
             <br/>
             <h1>Inscription</h1>
-            <?php generateHTMLForStepList($steps); ?>
+            <?php generateHTMLForStepList($steps_inscription, $steps_register); ?>
         </div>
     </div>
     <div class="col-xl-9">
         <div class="block-droite">
             <!-- les sections sont ici -->
-            <?php generateHTMLForSectionScreen($steps, "inscriptions"); ?>
+            <?php generateHTMLForSectionScreenDays($steps_inscription, "inscriptions"); ?>
+            <?php generateHTMLForSectionScreenRegister($steps_register, "register"); ?>
         </div>
     </div>
 </div>
@@ -90,7 +92,7 @@ $steps = getListCode($nbDay);
 <script>
 
     var screens = [
-        <?php generateJSScreens($steps); ?>
+        <?php generateJSScreens($steps_inscription, $steps_register); ?>
     ];
 
 </script>
