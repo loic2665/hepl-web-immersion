@@ -11,7 +11,36 @@
 <script src="/js/popper.js"></script>
 <script src="/js/bootstrap.js"></script>
 
+<script src="/js/toastr.min.js"></script>
+
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+</script>
+
 <link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/toastr.min.css">
 <link rel="stylesheet" href="/css/style.css">
 
 <meta charset="utf-8" />
+
+<?php
+
+@session_start();
+
+?>

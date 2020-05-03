@@ -21,72 +21,103 @@
 <?php require_once(__DIR__."/inc/nav.php"); ?>
 
 <section id="content">
-<div class="row">
-    <div class="col-xs-12 col-xl-3">
-        <div class="block-gauche">
-            <br/>
-            <h1>Prérequis</h1>
 
-            <?php
+    <h1>Pré-requis</h1>
 
-            $steps = array(
-                array("step-welcome", "Bienvenue"),
-                array("step-nb-days", "Nombre de jours"),
-            );
+    <?php
 
-            ?>
+    $champs = array(
+        array(
+            "id" => "nom",
+            "type" => "text",
+            "placeholder" => "Nom",
+            "label" => "Nom",
+            "name" => "nom"
+        ),
+        array(
+            "id" => "prenom",
+            "type" => "text",
+            "placeholder" => "Prénom",
+            "label" => "Prénom",
+            "name" => "prenom",
+        ),
+        array(
+            "id" => "interet",
+            "type" => "select",
+            "label" => "Quel est votre intêret ?",
+            "name" => "interet",
+            "options" => [
+                ["value" => "gestion", "text" => "Informatique de gestion"],
+                ["value" => "reseau", "text" => "Informatique réseau télécom"],
+                ["value" => "indus", "text" => "Informatique industrielle"],
+            ],
+        ),
+        array(
+            "id" => "jours",
+            "type" => "number",
+            "label" => "Combien de jours allez-vous participer ?",
+            "name" => "jours",
+            "min" => 1,
+            "max" => 10,
+            "step" => 1,
+            "placeholder" => "Nombre de jours"
+        ),
+    );
+    ?>
 
-
-            <?php generateHTMLForStepList($steps); ?>
-
-        </div>
-    </div>
-    <div class="col-xl-9">
-        <div class="block-droite">
-
-            <!-- les sections sont ici -->
-
-
-            <?php generateHTMLForSectionScreen($steps, "prerequis"); ?>
-
-
-        </div>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-xs-12 col-xl-9">
-
-        <div class="petit-block-gauche"></div>
-
-    </div>
-    <div class="col-xl-3">
-
-        <div class="petit-block-droite block-button">
-
-            <div>
-                <a class="btn btn-info prev-button">Précédent</a>
-                <a class="btn btn-warning suiv-button">Suivant</a>
-            </div>
-
-        </div>
+    <fieldset>
+        <legend>Qui êtes-vous ?</legend>
+        <?php generateForm($champs); ?>
+    </fieldset>
 
 
-    </div>
-</div>
+
+    <button class="btn btn-success" id="send_btn">Commencer</button>
+
+
 
 </section>
 </body>
-
-<script src="/js/common.js"></script>
 <script>
 
-    var screens = [
-        <?php generateJSScreens($steps); ?>
-    ];
+    $("#nom, #prenom, #interet, #jours").on("focus", function () {
+        $(this).removeClass("is-invalid");
+    });
+
+    $("#send_btn").on("click", function () {
+
+        $.ajax({
+            type: "POST",                                    // type de requete
+            url: "/api/welcome.php",                         // url de la requete
+            data: {                                          // data de la requetes, les paramètres
+                nom: $("#nom").val(),
+                prenom: $("#prenom").val(),
+                interet: $("#interet").val(),
+                jours: $("#interet").val(),
+            },
+            dataType: "json",                                 // le type de data attendu par jquery
+            success: function (result, data, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error
+                if(xhrStatus.status === 200){
+                    if(result.error === true){
+                        toastr["warning"](result.message, "Erreur");              // on affiche le toast
+                        result.input_error.forEach(element => $("#"+element).addClass("is-invalid"));  // pour chaque element des input en erreur j'ajoute la classe d'invalidité du champs
+                    }else{                                                                             // merci bootsrap
+                        toastr["success"](result.message, "Succès");              // on affiche le toast
+                        setTimeout(function(){ window.location = "/inscription.php" }, 5000);
+                    }
+                }
+            },
+            error: function (result) {
+                toastr["error"]("Oops !", "Erreur !"); // toast..
+            },
+            complete: function(result){ // on execute le quoi que ce soit une erreur ou non
+
+            },
+        });
+
+    });
+
 
 </script>
-<script src="/js/prerequis.js"></script>
 </html>
 

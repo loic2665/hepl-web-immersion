@@ -4,7 +4,7 @@
 //--Groupe : 2203                                         -->
 //--Labo : Programmation Web avancée                      -->
 //--Application : Site d'immersion à l'école              -->
-//--Date de la dernière mise à jour : 27/4/2020           -->
+//--Date de la dernière mise à jour : 03/5/2020           -->
 //-- ---------------------------------------------------- -->
 
 require_once(__DIR__."/php/require_all.php");
@@ -43,10 +43,46 @@ if(!isset($_GET["nbDay"]) || empty($_GET["nbDay"])){
 <?php require_once(__DIR__."/inc/nav.php"); ?>
 
 <section id="content">
+    <div class="row">
+        <div class="col-xs-12 col-xl-3">
+            <div class="block-gauche">
+                <br/>
+                <h1>Inscription</h1>
 
-    <h1>Pré-requis</h1>
+
+            </div>
+        </div>
+        <div class="col-xl-9">
+            <div class="block-droite">
 
 
+                <!-- les sections sont ici -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12 col-xl-9">
+
+            <div class="petit-block-gauche"></div>
+
+        </div>
+        <div class="col-xl-3">
+
+            <div class="petit-block-droite block-button">
+
+                <div>
+                    <a class="btn btn-info prev-button">Précédent</a>
+                    <a class="btn btn-warning suiv-button">Suivant</a>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
 
 </section>
 </body>
