@@ -1,11 +1,11 @@
 <?php
-//-- ---------------------------------------------------- -->
-//--Auteurs : COLLETTE Loic et DELAVAL Kevin              -->
-//--Groupe : 2203                                         -->
-//--Labo : Programmation Web avancée                      -->
-//--Application : Site d'immersion à l'école              -->
-//--Date de la dernière mise à jour : [DATE DU JOUR]      -->
-//-- ---------------------------------------------------- -->
+/***********************************************************/
+/*Auteurs : COLLETTE Loic et DELAVAL Kevin                 */
+/*Groupe : 2203                                            */
+/*Labo : Programmation Web avancée                         */
+/*Application : Site d'immersion à l'école                 */
+/*Date de la dernière mise à jour : 28/04/2020             */
+/***********************************************************/
 
 
 @session_start();
@@ -33,7 +33,7 @@ if ($error) {
     $toReturn = array(
         "error" => true,
         "message" => $message,
-        "input_error" => $input_error,
+        "input_error" => $input_error,  // pour savoir quoi mettre en rouge
     );
 
 } else {

@@ -1,3 +1,4 @@
+<?php
 /***********************************************************/
 /*Auteurs : COLLETTE Loic et DELAVAL Kevin                 */
 /*Groupe : 2203                                            */
@@ -6,8 +7,6 @@
 /*Date de la dernière mise à jour : 28/04/2020             */
 /***********************************************************/
 
-
-<?php
 require_once(__DIR__ . "/php/require_all.php");
 
 define("premier", 1);
