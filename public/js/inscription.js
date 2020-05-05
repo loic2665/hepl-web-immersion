@@ -6,64 +6,15 @@
 //--Date de la dernière mise à jour : [DATE DU JOUR]      -->
 //-- ---------------------------------------------------- -->
 
-var blocChoisi = 1;
-var canUseDate = false;
+var cours1 = 0;
+var cours2 = 0;
+var cours3 = 0;
+var cours4 = 0;
 
-$(".bloc").on("click", function () {
 
-    // quand je clique sur n'importe quel élément qui a la classe .bloc alors...
+$(".clickable").on("click", function () {
 
-    $(".bloc").removeClass("active");
-    // je retire à tout les tag qui ont la classe 'bloc' la classe active (pour le visuel) => tout est blanc
-    $(this).addClass("active");
-    // je touche à celui que j'ai cliqué (mal gres le même nom de classe, le this permet de prendre l'element courant
-    // je lui ajoute la classe 'active' et donc visuellement il devient bleu
-    blocChoisi = $(this).data("bloc");
-    // je récupère le data du bloc
-    /*
-    * Explication time !
-    *
-    * Pas de stress, j'utilise la méthode .data() qui me permet de récuperer des valeur personnalisée dans l'attribut du bloc
-    * c'est utilie quand on veut récupérer un chiffre sans vouloir forcément l'afficher.
-    *
-    * l'attribut dans l'html s'appelle 'data-bloc', jQuery vas se charger de diviser cet attribut data-bloc en deux
-    * grace au '-' et donc il va pouvoir récupérer la valeur avec l'attribut 'bloc'
-    *
-    * tout ça évidemment toujours avec l'opérateur this qui touche seulement à l'objet actuel.
-    *
-    * */
 
-    $.ajax({
-        type: "POST",                                    // type de requete
-        url: "/api/inscription/getAllHorairesByBloc.php",// url de la requete
-        data: {                                          // data de la requetes, les paramètres
-            bloc: blocChoisi,
-        },
-        dataType: "json",                                 // le type de data attendu par jquery
-        success: function (result, data, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error
-            if(xhrStatus.status === 200){
-                if(result.error === true){
-                    toastr["warning"](result.message, "Erreur");              // on affiche le toast
-                    canUseDate = false;
-                    }else{
-                    toastr["success"](result.message, "Succès");              // on affiche le toast
-
-                    $('#dateJour').find('option:not(:first)').remove();
-                    // dans le selecteur de dateJour, je veux trouver tout les tag options (sauf le premier), je veux ensuite les enelever,
-                    result.data.forEach(date => $('#dateJour').append($('<option>').val(date.value).text(date.text)));
-                    canUseDate = true;
-
-                }
-            }
-        },
-        error: function (result) {
-            toastr["error"]("Oops !", "Erreur !"); // toast..
-            canUseDate = false;
-        },
-        complete: function(result){ // on execute le quoi que ce soit une erreur ou non
-
-        },
-    });
 
 });
 
@@ -72,13 +23,77 @@ $("#dateJour").on("change", function () {
     let dateChoisie = $(this).val();
     // récupère la valeur du select
 
+    function createCoursElement(cours_id, intitule, bloc, gestion, indus, reseau, heure_debut, heure_fin, type, horaire){
+
+        /*
+        <a href="#" data-cours-id="0" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">List group item heading</h5>
+                <small>3 days ago</small>
+            </div>
+            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+        </a>
+        */
+
+
+        let a = document.createElement("a");
+        // a.tout ce que tu veux
+        let a_class = ["list-group-item ", "list-group-item-action ", "clickable ", "horaire"+horaire];
+        a_class.forEach(classElement => a.className += classElement);
+
+        a.setAttribute("data-cours-id", cours_id);
+
+        let div = document.createElement("div");
+        //pareil
+        let div_class = ["d-flex ", "w-100 ", "justify-content-between"];
+        div_class.forEach(classElement => div.className += classElement);
+
+        let h5 = document.createElement("h5");
+        h5.innerText = intitule;
+        let h5_class = ["mb-1 "];
+        h5_class.forEach(classElement => h5.className += classElement);
+
+
+        let small = document.createElement("small");
+        small.innerText = heure_debut + "~" + heure_fin;
+        let small_class = ["mb-1 "];
+        small_class.forEach(classElement => small.className += classElement);
+
+        div.appendChild(h5);
+        div.appendChild(small);
+
+
+        let p = document.createElement("p");
+        p.innerText = "Type de cours : " + type;
+
+
+        p.innerText += " / Finalités : ";
+        if(gestion === "1"){
+            p.innerText += "Gestion ";
+        }
+        if(reseau === "1"){
+            p.innerText += "Réseaux ";
+        }
+        if(indus === "1"){
+            p.innerText += "Indus ";
+        }
+
+        let p_class = ["mb-1 "];
+        p_class.forEach(classElement => p.className += classElement);
+
+        a.appendChild(div);
+        a.appendChild(p);
+
+        return a;
+    }
+
+
     function updateSelect(tranche){
         // on va faire 4 req. ajax, chaque vont peupler les select correpondant
         $.ajax({
             type: "POST",                                           // type de requete
             url: "/api/inscription/getAllHorairesByDate.php",       // url de la requete
             data: {                                                 // data de la requetes, les paramètres
-                bloc: blocChoisi,
                 date: dateChoisie,
                 tranche: tranche,
             },
@@ -90,9 +105,21 @@ $("#dateJour").on("change", function () {
                     }else{
                         toastr["success"](result.message, "Succès");              // on affiche le toast
 
-                        $('#cours'+tranche).find('option:not(:first)').remove();
+
+
                         // dans le selecteur de dateJour, je veux trouver tout les tag options (sauf le premier), je veux ensuite les enelever,
-                        result.data.forEach(horaire => $('#cours'+tranche).append($('<option>').val(horaire.value).text(horaire.text)));
+                        result.data.forEach(horaire => $('#liste-cours-horaire-tranche-'+tranche).append(createCoursElement(
+                            horaire.cours_id,
+                            horaire.intitule,
+                            horaire.bloc,
+                            horaire.gestion,
+                            horaire.indus,
+                            horaire.reseau,
+                            horaire.heure_debut,
+                            horaire.heure_fin,
+                            horaire.type,
+                            tranche,
+                        )));
 
                     }
                 }

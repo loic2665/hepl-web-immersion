@@ -93,7 +93,7 @@
                 nom: $("#nom").val(),
                 prenom: $("#prenom").val(),
                 interet: $("#interet").val(),
-                jours: $("#interet").val(),
+                jours: $("#jours").val(),
             },
             dataType: "json",                                 // le type de data attendu par jquery
             success: function (result, data, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error

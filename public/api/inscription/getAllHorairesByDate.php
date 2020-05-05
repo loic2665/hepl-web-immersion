@@ -10,7 +10,7 @@
 require_once(__DIR__ . "/../../php/require_all.php");
 
 
-$posts = array("bloc", "date", "tranche");
+$posts = array("date", "tranche");
 $data = array();
 
 /*
@@ -52,16 +52,25 @@ if ($error) {
 
 } else {
 
-    $bloc_user = addslashes(htmlspecialchars($_POST["bloc"]));
     $date_user = addslashes(htmlspecialchars($_POST["date"]));
     $tranche_user = addslashes(htmlspecialchars($_POST["tranche"]));
 
-    $dates = Horaire::getLessonsByBlocAndDateAndTrancheHoraire($bloc_user, $date_user, $tranche_user);
+    $dates = Horaire::getLessonsByDateAndTrancheHoraire($date_user, $tranche_user);
 
     $dataToReturn = array();
 
     foreach ($dates as $date) {
-        array_push($dataToReturn, array("value" => $date["id"], "text" => $date["intitule"]));
+        array_push($dataToReturn, array(
+            "cours_id" => $date["id"],
+            "intitule" => $date["intitule"],
+            "bloc" => $date["bloc"],
+            "type" => $date["type"],
+            "gestion" => $date["gestion"],
+            "indus" => $date["indus"],
+            "reseau" => $date["reseau"],
+            "heure_debut" => $date["heure_debut"],
+            "heure_fin" => $date["heure_fin"],
+        ));
     }
 
     /*

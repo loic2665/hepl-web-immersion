@@ -47,16 +47,7 @@ $afficheJour = $_SESSION["currJour"] + 1;
 
 
     <div class="row">
-        <div class="col-md-3 col-lg-3 col-xl-2">
-            <div id="block-blocs">
-                <div class="list-group">
-                    <?php for($i = 1; $i <= 3; $i++){ ?>
-                        <a href="#" class="list-group-item list-group-item-action bloc" data-bloc="<?php echo($i); ?>">Bloc <?php echo($i); ?></a>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-9 col-lg-9 col-xl-10">
+        <div class="col-xl-12">
             <div id="block-contentJour">
 
                 <fieldset>
@@ -75,25 +66,17 @@ $afficheJour = $_SESSION["currJour"] + 1;
 
                     );
 
-                    for($i_horaire = 1; $i_horaire <= 4; $i_horaire++){
-                        $horaire = array(
-                            "label" => "Choix du cours ".($i_horaire),
-                            "type" => "select",
-                            "name" => "cours".$i_horaire,
-                            "id" => "cours".$i_horaire,
-                            //"options" => [["value" => "123", "text" => "123"]],
-                            "options" => [],
-                        );
-
-                        // le options sera rempli en
-
-                        array_push($champs, $horaire);
+                    /* todo, à changer lorsqu'on aura + que un champ généré.. ou alors le champ de
+                        la date devra rester le premier truc généré
+                    */
+                    foreach (Horaire::getAllDateLessons() as $date){
+                        array_push($champs[0]["options"], array("value" => $date["date_cours"], "text" => $date["date_cours"]));
                     }
-
-
 
                     generateForm($champs);
                     ?>
+
+
 
 
 
@@ -102,6 +85,71 @@ $afficheJour = $_SESSION["currJour"] + 1;
             </div>
         </div>
     </div>
+
+    <!-- todo:  previsualiser ses choix ici -->
+
+    <div class="alert alert-primary" role="alert">
+        Veuillez sélectionner des cours
+    </div>
+    <!-- section des cours a afficher  -->
+
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+            <h3>Horaire 1</h3>
+            <div id="cours-tranche-1">
+                <div class="list-group" id="liste-cours-horaire-tranche-1">
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xl-6">
+            <h3>Horaire 2</h3>
+            <div id="cours-tranche-2">
+
+                <div class="list-group" id="liste-cours-horaire-tranche-2">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-lg-6">
+            <h3>Horaire 3</h3>
+            <div id="cours-tranche-3">
+
+                <div class="list-group" id="liste-cours-horaire-tranche-3">
+
+                    <?php if($_SESSION["jours"] > 1){ ?>
+                    <a href="#" data-cours-id="0" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Pas de cours</h5>
+                        </div>
+                    </a>
+                    <?php } ?>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Horaire 4</h3>
+            <div id="cours-tranche-4">
+
+                <div class="list-group" id="liste-cours-horaire-tranche-4">
+
+                    <a href="#" data-cours-id="0" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Pas de cours</h5>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <script src="/js/inscription.js"></script>

@@ -65,24 +65,41 @@ class Horaire
         return $array;
 
     }
-    /*recupere les lessons par date par bloc et par tranche*/
-    public static function getLessonsByBlocAndDateAndTrancheHoraire($bloc, $date, $tranche){
+    /* recupère les cours par date et tranche horaire*/
+    public static function getLessonsByDateAndTrancheHoraire($date, $tranche){
 
-        $bloc = addslashes(htmlspecialchars($bloc));
         $date = addslashes(htmlspecialchars($date));
 
         $db = new Database();
         $result = $db->conn->query("
-        SELECT horaires.id, c.intitule
+        SELECT horaires.id, c.intitule, c.bloc, tc.type, horaires.gestion, horaires.indus, horaires.reseau, th.heure_debut, th.heure_fin
         FROM horaires
             INNER JOIN tranches_horaires th on horaires.id_tranche_horaire = th.id
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
-        WHERE bloc = ".$bloc." AND date_cours = '".$date."' AND th.tranche_horaire = ".$tranche.";");
+        WHERE date_cours = '".$date."' AND th.tranche_horaire = ".$tranche.";");
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
 
     }
+
+    /* recupère toutes les dates de cours dispo et affichable */
+
+    public static function getAllDateLessons(){
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT DISTINCT date_cours
+        FROM horaires
+            INNER JOIN cours c on horaires.id_cours = c.id
+            INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
+        WHERE 1;");
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+
+    }
+
 
 }
