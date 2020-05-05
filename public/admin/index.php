@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<?php require_once(__DIR__."/../inc/nav.php"); ?>
+<?php require_once(__DIR__."/../inc/nav_admin.php"); ?>
 
 <section id="content">
 

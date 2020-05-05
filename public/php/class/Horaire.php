@@ -85,7 +85,6 @@ class Horaire
     }
 
     /* recupère toutes les dates de cours dispo et affichable */
-
     public static function getAllDateLessons(){
 
         $db = new Database();

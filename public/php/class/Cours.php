@@ -62,4 +62,16 @@ class Cours
 
         return $line;
     }
+
+    /*récupérer le nombre de cours de la base de données*/
+    public static function countSubjects()
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT COUNT(*)
+        FROM cours" );
+        $line = $result->fetch();
+
+        return $line[0];
+    }
 }

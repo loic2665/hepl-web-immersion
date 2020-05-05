@@ -38,4 +38,30 @@ class Eleve
 
     }
 
+
+    /*récupérer le nombre d'élèves de la base de données*/
+    public static function countStudents()
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT COUNT(*)
+        FROM eleves" );
+        $line = $result->fetch();
+
+        return $line[0];
+    }
+
+    /*récupérer les 5 derniers élèves inscrits de la base de données*/
+    public static function getFiveLastStudents()
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT *
+        FROM eleves
+        ORDER BY id DESC
+        LIMIT 5" );
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+    }
 }
