@@ -12,18 +12,12 @@ var cours3 = 0;
 var cours4 = 0;
 
 
-$(".clickable").on("click", function () {
-
-
-
-});
-
 $("#dateJour").on("change", function () {
 
     let dateChoisie = $(this).val();
     // récupère la valeur du select
 
-    function createCoursElement(cours_id, intitule, bloc, gestion, indus, reseau, heure_debut, heure_fin, type, horaire){
+    function createCoursElement(cours_id, intitule, bloc, gestion, indus, reseau, heure_debut, heure_fin, type, tranche){
 
         /*
         <a href="#" data-cours-id="0" class="list-group-item list-group-item-action">
@@ -38,10 +32,11 @@ $("#dateJour").on("change", function () {
 
         let a = document.createElement("a");
         // a.tout ce que tu veux
-        let a_class = ["list-group-item ", "list-group-item-action ", "clickable ", "horaire"+horaire];
-        a_class.forEach(classElement => a.className += classElement);
+        let a_class = ["list-group-item", "list-group-item-action", "clickable", "tranche"+tranche];
+        a_class.forEach(classElement => $(a).addClass(classElement));
 
         a.setAttribute("data-cours-id", cours_id);
+        a.setAttribute("data-tranche", tranche);
 
         let div = document.createElement("div");
         //pareil
@@ -91,6 +86,7 @@ $("#dateJour").on("change", function () {
     function updateSelect(tranche){
         // on va faire 4 req. ajax, chaque vont peupler les select correpondant
         $.ajax({
+            async: false, // AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH je sais pas comment faire autrmement
             type: "POST",                                           // type de requete
             url: "/api/inscription/getAllHorairesByDate.php",       // url de la requete
             data: {                                                 // data de la requetes, les paramètres
@@ -105,6 +101,14 @@ $("#dateJour").on("change", function () {
                     }else{
                         toastr["success"](result.message, "Succès");              // on affiche le toast
 
+
+                        if(nbJours > 1){
+                            $('#liste-cours-horaire-tranche-'+tranche).find('a:not(:first)').remove();
+
+                        }else{
+                            $('#liste-cours-horaire-tranche-'+tranche).find('a').remove();
+
+                        }
 
 
                         // dans le selecteur de dateJour, je veux trouver tout les tag options (sauf le premier), je veux ensuite les enelever,
@@ -150,5 +154,42 @@ $("#dateJour").on("change", function () {
         updateSelect(iHoraire);
         iHoraire++;
     }
+    createEvents();
 
 });
+
+function createEvents(){
+
+    $(".clickable").off("click").on("click", function () {
+
+
+        var tranche = $(this).data("tranche");
+        $(".tranche"+tranche).removeClass("active");
+        $(this).addClass("active");
+        var cours = $(this).data("cours-id");
+
+        switch (tranche) {
+            case 1:
+                cours1 = cours;
+                break;
+            case 2:
+                cours2 = cours;
+                break;
+            case 3:
+                cours3 = cours;
+                break;
+            case 4:
+                cours4 = cours;
+                break;
+            default:
+                toastr["warning"]("Tranche invalide ! ("+tranche+")", "Attention !");
+                break;
+        }
+
+        console.log(tranche, cours1, cours2, cours3, cours4);
+
+
+    });
+
+
+}

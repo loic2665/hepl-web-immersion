@@ -69,8 +69,14 @@ $afficheJour = $_SESSION["currJour"] + 1;
                     /* todo, à changer lorsqu'on aura + que un champ généré.. ou alors le champ de
                         la date devra rester le premier truc généré
                     */
+
+                    var_dump(setlocale(LC_TIME, 'fr_FR'));
+
                     foreach (Horaire::getAllDateLessons() as $date){
-                        array_push($champs[0]["options"], array("value" => $date["date_cours"], "text" => $date["date_cours"]));
+                        array_push($champs[0]["options"], array(
+                                "value" => $date["date_cours"],
+                                "text" => strftime("%A %d %B %G", strtotime($date["date_cours"]))
+                        ));
                     }
 
                     generateForm($champs);
@@ -123,7 +129,7 @@ $afficheJour = $_SESSION["currJour"] + 1;
                 <div class="list-group" id="liste-cours-horaire-tranche-3">
 
                     <?php if($_SESSION["jours"] > 1){ ?>
-                    <a href="#" data-cours-id="0" class="list-group-item list-group-item-action">
+                    <a href="#" data-cours-id="0" data-tranche="3" class="list-group-item list-group-item-action clickable tranche3">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Pas de cours</h5>
                         </div>
@@ -139,7 +145,7 @@ $afficheJour = $_SESSION["currJour"] + 1;
 
                 <div class="list-group" id="liste-cours-horaire-tranche-4">
 
-                    <a href="#" data-cours-id="0" class="list-group-item list-group-item-action">
+                    <a href="#" data-cours-id="0" data-tranche="4" class="list-group-item list-group-item-action clickable tranche4">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Pas de cours</h5>
                         </div>
@@ -152,6 +158,9 @@ $afficheJour = $_SESSION["currJour"] + 1;
 
 
 
+    <script>
+        var nbJours = <?php echo($_SESSION["jours"]); ?>;
+    </script>
     <script src="/js/inscription.js"></script>
 
 
