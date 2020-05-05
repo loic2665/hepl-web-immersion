@@ -1,21 +1,21 @@
 <?php
-//-- ---------------------------------------------------- -->
-//--Auteurs : COLLETTE Loic et DELAVAL Kevin              -->
-//--Groupe : 2203                                         -->
-//--Labo : Programmation Web avancée                      -->
-//--Application : Site d'immersion à l'école              -->
-//--Date de la dernière mise à jour : [DATE DU JOUR]      -->
-//-- ---------------------------------------------------- -->
+/***********************************************************/
+/*Auteurs : COLLETTE Loic et DELAVAL Kevin                 */
+/*Groupe : 2203                                            */
+/*Labo : Programmation Web avancée                         */
+/*Application : Site d'immersion à l'école                 */
+/*Date de la dernière mise à jour : 26/04/2020             */
+/***********************************************************/
 
 
 /*
  *
- * Ce fichier est un fichier de fonction uq'on utilisera un peu partout sur le site, je n'avais pas d'autres idées
+ * Ce fichier est un fichier de fonction qu'on utilisera un peu partout sur le site, je n'avais pas d'autres idées
  * de comment l'apeller donc voilà.
  *
  *
- * concernant generateForm => le nom de la fonction est un peu tordu, il ne génère pas un firmulaire sémantique
- * mais bien juste les champs l'un à la suite de l'autre, pour savoir comment l'utiliser tu peux regarder le fichier
+ * concernant generateForm => le nom de la fonction est un peu tordu, il ne génère pas un formulaire sémantique
+ * mais bien juste les champs les uns à la suite des l'autres, pour savoir comment l'utiliser tu peux regarder le fichier
  * /admin/index.php pour la connexion de l'administrateur, c'est court et simple.
  *
  *
