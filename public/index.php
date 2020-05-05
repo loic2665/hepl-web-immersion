@@ -3,9 +3,8 @@
 <!--Groupe : 2203                                         -->
 <!--Labo : Programmation Web avancée                      -->
 <!--Application : Site d'immersion à l'école              -->
-<!--Date de la dernière mise à jour : 26/04/2020          -->
+<!--Date de la dernière mise à jour : 28/04/2020          -->
 <!-- ---------------------------------------------------- -->
-
 
 <?php require_once(__DIR__."/php/require_all.php"); ?>
 
