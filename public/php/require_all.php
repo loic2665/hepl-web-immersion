@@ -7,6 +7,12 @@
 /*Date de la dernière mise à jour : 26/04/2020             */
 /***********************************************************/
 
+@session_start();
+
+/*
+ * je démarre la session dans toutes les pages, c'est plus simple que devoir s'en soucier...
+ *
+ * */
 
 require_once(__DIR__."/class/Database.php");
 require_once(__DIR__ . "/class/Eleve.php");

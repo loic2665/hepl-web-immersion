@@ -14,7 +14,7 @@ class Database
     private $host = "localhost";
     private $port = 3306;
     private $user = "root";
-    private $pass = "";
+    private $pass = "root";
     private $name = "hepl-immersion";
 
     public $conn = null;
@@ -29,7 +29,13 @@ class Database
         }
         catch (Exception $e)
         {
-            die("Connection to database cannot be etablished, error : ". $e->getMessage());
+
+            $error = array(
+                "error" => true,
+                "message" => "Impossible de se connecter à la base de données : ".$e->getMessage(),
+            );
+
+            die(json_encode($error));
         }
 
 

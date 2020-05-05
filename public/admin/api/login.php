@@ -7,28 +7,28 @@
 //--Date de la dernière mise à jour : [DATE DU JOUR]      -->
 //-- ---------------------------------------------------- -->
 
+
 @session_start();
 
-$posts = array("nom", "prenom", "interet", "jours");
+$posts = array("utilisateur", "motdepasse");
+
+
 $data = array();
-
-
-
 $message = "Attention, les champs ";
 $error = false;
 $input_error = array();
-foreach($posts as $post){
-    if(!isset($_POST[$post]) || empty($_POST[$post])){
-        $message .= $post.", ";
+foreach ($posts as $post) {
+    if (!isset($_POST[$post]) || empty($_POST[$post])) {
+        $message .= $post . ", ";
         array_push($input_error, $post);
         $error = true;
-    }else{
+    } else {
         $data[$post] = addslashes(htmlspecialchars($_POST[$post]));
     }
 }
 $message .= " ne sont pas défini.";
 
-if($error){
+if ($error) {
 
     $toReturn = array(
         "error" => true,
@@ -36,27 +36,31 @@ if($error){
         "input_error" => $input_error,
     );
 
-}else{
+} else {
 
-    $toReturn = array(
-        "error" => false,
-        "message" => "Bienvenue ".$data["prenom"]." ! Le programme peut commencer.",
-    );
+    $testUSER = "admin";
+    $testPASS = "12345";
 
-    $_SESSION["jours"] = $data["jours"];
-    $_SESSION["currJour"] = 0;
-    $_SESSION["data_jours"] = array();
+    if($data["utilisateur"] != $testUSER || $data["motdepasse"] != $testPASS){
 
-    for($i = 0; $i < $data["jours"]; $i++){
 
-        array_push($_SESSION["data_jours"], array());
-        $_SESSION["data_jours"][$i]["date"] = "";
-        $_SESSION["data_jours"][$i]["cours"] = array();
-        for($j = 0; $j <= 3; $j++){
-            array_push($_SESSION["data_jours"][$i]["cours"], array());
-        }
+        $toReturn = array(
+            "error" => true,
+            "message" => "Attention, login incorrect.",
+            "input_error" => $posts, // on met tout les champs en rouge sinon ce serai un risque de securité de montrer ce qui va pas
+        );
 
+    }else{
+
+        $toReturn = array(
+            "error" => false,
+            "message" => "Bienvenue " . $data["utilisateur"] . " ! Vous allez être redirigé.",
+        );
     }
+
+
+
+
 
 }
 echo(json_encode($toReturn));

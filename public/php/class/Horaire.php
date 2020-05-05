@@ -43,10 +43,46 @@ class Horaire
         FROM horaires
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
-        WHERE intitule like '%".$name."%'");
+        WHERE intitule like '%".$name."%';");
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
+    }
+    /* recupere tout les cours de l'horaire d'après le bloc */
+    public static function getLessonsDateByBloc($bloc){
+
+        $bloc = addslashes(htmlspecialchars($bloc));
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT DISTINCT date_cours
+        FROM horaires
+            INNER JOIN cours c on horaires.id_cours = c.id
+            INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
+        WHERE bloc = ".$bloc.";");
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+
+    }
+    /*recupere les lessons par date par bloc et par tranche*/
+    public static function getLessonsByBlocAndDateAndTrancheHoraire($bloc, $date, $tranche){
+
+        $bloc = addslashes(htmlspecialchars($bloc));
+        $date = addslashes(htmlspecialchars($date));
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT horaires.id, c.intitule
+        FROM horaires
+            INNER JOIN tranches_horaires th on horaires.id_tranche_horaire = th.id
+            INNER JOIN cours c on horaires.id_cours = c.id
+            INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
+        WHERE bloc = ".$bloc." AND date_cours = '".$date."' AND th.tranche_horaire = ".$tranche.";");
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+
     }
 
 }
