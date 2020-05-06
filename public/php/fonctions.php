@@ -156,6 +156,8 @@ function generateArray($col)
         SELECT *
         FROM ".$table.";");
 
+        var_dump($table);
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         $tab = array(
@@ -234,7 +236,7 @@ function generateArray($col)
             );
         }
     }
-    else if (strpos($col["Type"], "date") !== FALSE)
+    else if (strpos($col["Type"], "date") !== FALSE) /* Premet de crée le tableau pour les champs date*/
     {
         return array(
             "id" => $col["Field"],
@@ -242,6 +244,19 @@ function generateArray($col)
             "placeholder" => $col["Field"],
             "label" => $col["Field"],
             "name" => $col["Field"]
+        );
+    }
+    else if (strpos($col["Type"], "int") !== FALSE) /* Premet de crée le tableau pour les champs number*/
+    {
+        return array(
+            "id" => $col["Field"],
+            "type" => "number",
+            "label" => $col["Field"],
+            "name" => $col["Field"],
+            "min" => 0,
+            "max" => 10000,
+            "step" => 1,
+            "placeholder" => $col["Field"]
         );
     }
 }

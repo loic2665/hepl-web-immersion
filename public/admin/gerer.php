@@ -33,6 +33,10 @@
     {
         echo("<h1>Erreur lors de la requête</h1>");
     }
+    else if($result->rowCount() == 0) /* Si la requête SQL donne un résultat mais que la table est vide */
+    {
+        echo("<h1>Il n'y à pas de données pour cette table</h1>");
+    }
     else /* Sinon on effectue le traitement */
     {
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
