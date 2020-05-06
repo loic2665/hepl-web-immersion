@@ -31,6 +31,13 @@ function generateForm($champs){
                 <input type="text" class="form-control" name="<?php echo($champ["name"]); ?>" placeholder="<?php echo($champ["placeholder"]); ?>" id="<?php echo($champ["id"]); ?>">
             </div>
 
+        <?php }else if($champ["type"] == "email"){ ?>
+
+            <div class="form-group">
+                <label class="col-form-label" for="<?php echo($champ["id"]); ?>"><?php echo($champ["label"]); ?></label>
+                <input type="email" class="form-control" name="<?php echo($champ["name"]); ?>" placeholder="<?php echo($champ["placeholder"]); ?>" id="<?php echo($champ["id"]); ?>">
+            </div>
+
         <?php }else if($champ["type"] == "password"){ ?>
 
             <div class="form-group">
@@ -102,4 +109,51 @@ function generateForm($champs){
 
     }
 
+}
+
+function generateArray($col)
+{
+    if (strpos($col["Type"], "int") !== FALSE)
+    {
+        return array(
+            "id" => $col["Field"],
+            "type" => "number",
+            "placeholder" => $col["Field"],
+            "label" => $col["Field"],
+            "name" => $col["Field"]
+        );
+    }
+    else if (strpos($col["Type"], "varchar") !== FALSE)
+    {
+        if($col["Field"] == "email")
+        {
+            return array(
+                "id" => $col["Field"],
+                "type" => "email",
+                "placeholder" => $col["Field"],
+                "label" => $col["Field"],
+                "name" => $col["Field"]
+            );
+        }
+        else
+        {
+            return array(
+                "id" => $col["Field"],
+                "type" => "text",
+                "placeholder" => $col["Field"],
+                "label" => $col["Field"],
+                "name" => $col["Field"]
+            );
+        }
+    }
+    else if (strpos($col["Type"], "date") !== FALSE)
+    {
+        return array(
+            "id" => $col["Field"],
+            "type" => "date",
+            "placeholder" => $col["Field"],
+            "label" => $col["Field"],
+            "name" => $col["Field"]
+        );
+    }
 }

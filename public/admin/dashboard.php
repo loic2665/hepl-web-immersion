@@ -12,7 +12,7 @@
 
 <html>
 <head>
-    <title>Immersion HEPL - Accueil</title>
+    <title>Immersion HEPL - Dashboard</title>
     <?php require_once(__DIR__."/../inc/head.php"); ?>
 </head>
 <body>

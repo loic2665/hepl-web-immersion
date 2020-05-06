@@ -19,17 +19,17 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/admin">Accueil<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/gerer_professeurs.php">Gérer les professeurs</a>
+            <li class="nav-item"> <!-- permet d'envoyer la valeur enseignants à la page gerer.php via $_GET -->
+                <a class="nav-link" href="/admin/gerer.php?gerer=enseignants">Gérer les professeurs</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/gerer_eleves.php">Gérer les élèves</a>
+            <li class="nav-item"> <!-- permet d'envoyer la valeur eleves à la page gerer.php via $_GET -->
+                <a class="nav-link" href="/admin/gerer.php?gerer=eleves">Gérer les élèves</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/gerer_cours.php">Gérer les cours</a>
+            <li class="nav-item"> <!-- permet d'envoyer la valeur cours à la page gerer.php via $_GET -->
+                <a class="nav-link" href="/admin/gerer.php?gerer=cours">Gérer les cours</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/gerer_horraire.php">Gérer l'horraire</a>
+            <li class="nav-item"> <!-- permet d'envoyer la valeur horaires à la page gerer.php via $_GET -->
+                <a class="nav-link" href="/admin/gerer.php?gerer=horaires">Gérer l'horraire</a>
             </li>
         </ul>
     </div>
