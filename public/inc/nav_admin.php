@@ -20,10 +20,13 @@
                 <a class="nav-link" href="/admin">Accueil<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/gerer_cours.php">Gérer les cours</a>
+                <a class="nav-link" href="/admin/gerer_professeurs.php">Gérer les professeurs</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/gerer_eleves.php">Gérer les élèves</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/gerer_cours.php">Gérer les cours</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/gerer_horraire.php">Gérer l'horraire</a>
