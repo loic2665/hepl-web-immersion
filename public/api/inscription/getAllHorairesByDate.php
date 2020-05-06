@@ -10,7 +10,7 @@
 require_once(__DIR__ . "/../../php/require_all.php");
 
 
-$posts = array("date", "tranche");
+$posts = array("date");
 $data = array();
 
 /*
@@ -53,14 +53,16 @@ if ($error) {
 } else {
 
     $date_user = addslashes(htmlspecialchars($_POST["date"]));
-    $tranche_user = addslashes(htmlspecialchars($_POST["tranche"]));
 
-    $dates = Horaire::getLessonsByDateAndTrancheHoraire($date_user, $tranche_user);
+    $dates = Horaire::getLessonsByDate($date_user);
 
     $dataToReturn = array();
+    for($i = 0; $i < 4; $i++){
+        array_push($dataToReturn, array());
+    }
 
     foreach ($dates as $date) {
-        array_push($dataToReturn, array(
+        array_push($dataToReturn[$date["tranche_horaire"]-1], array(
             "cours_id" => $date["id"],
             "intitule" => $date["intitule"],
             "bloc" => $date["bloc"],
@@ -80,7 +82,7 @@ if ($error) {
 
     $toReturn["error"] = false;
     $toReturn["data"] = $dataToReturn;
-    $toReturn["message"] = "Les cours du ".$date_user." de la tranche horaire ".$tranche_user." ont bien été chargé.";
+    $toReturn["message"] = "Les cours du ".$date_user." ont bien été chargé.";
 
 }
 

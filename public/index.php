@@ -41,6 +41,13 @@
             "name" => "prenom",
         ),
         array(
+            "id" => "etablissement",
+            "type" => "text",
+            "placeholder" => "Votre établissement scolaire actuel",
+            "label" => "Établissement scolaire actuel",
+            "name" => "etablissement",
+        ),
+        array(
             "id" => "interet",
             "type" => "select",
             "label" => "Quel est votre intêret ?",
@@ -79,7 +86,7 @@
 </body>
 <script>
 
-    $("#nom, #prenom, #interet, #jours").on("focus", function () {
+    $("#nom, #prenom, #interet, #etablissement, #jours").on("focus", function () {
         $(this).removeClass("is-invalid");
     });
 
@@ -92,6 +99,7 @@
                 nom: $("#nom").val(),
                 prenom: $("#prenom").val(),
                 interet: $("#interet").val(),
+                etablissement: $("#etablissement").val(),
                 jours: $("#jours").val(),
             },
             dataType: "json",                                 // le type de data attendu par jquery

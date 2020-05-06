@@ -17,6 +17,11 @@ $("#dateJour").on("change", function () {
     let dateChoisie = $(this).val();
     // récupère la valeur du select
 
+    cours1 = 0;
+    cours2 = 0;
+    cours3 = 0;
+    cours4 = 0;
+
     function createCoursElement(cours_id, intitule, bloc, gestion, indus, reseau, heure_debut, heure_fin, type, tranche){
 
         /*
@@ -59,10 +64,10 @@ $("#dateJour").on("change", function () {
 
 
         let p = document.createElement("p");
-        p.innerText = "Type de cours : " + type;
+        p.innerText = "Bloc "+ bloc +" | Type de cours : " + type;
 
 
-        p.innerText += " / Finalités : ";
+        p.innerText += " | Finalités : ";
         if(gestion === "1"){
             p.innerText += "Gestion ";
         }
@@ -83,15 +88,13 @@ $("#dateJour").on("change", function () {
     }
 
 
-    function updateSelect(tranche){
+    function updateSelect(){
         // on va faire 4 req. ajax, chaque vont peupler les select correpondant
         $.ajax({
-            async: false, // AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH je sais pas comment faire autrmement
             type: "POST",                                           // type de requete
             url: "/api/inscription/getAllHorairesByDate.php",       // url de la requete
             data: {                                                 // data de la requetes, les paramètres
                 date: dateChoisie,
-                tranche: tranche,
             },
             dataType: "json",                                 // le type de data attendu par jquery
             success: function (result, data, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error
@@ -101,29 +104,36 @@ $("#dateJour").on("change", function () {
                     }else{
                         toastr["success"](result.message, "Succès");              // on affiche le toast
 
+                        console.log(result.data);
 
-                        if(nbJours > 1){
-                            $('#liste-cours-horaire-tranche-'+tranche).find('a:not(:first)').remove();
+                        for(let i = 0; i < result.data.length; i++){
 
-                        }else{
-                            $('#liste-cours-horaire-tranche-'+tranche).find('a').remove();
+                            if((i === 2 || i === 3) && nbJours > 1){
+                                $('#liste-cours-horaire-tranche-'+(i+1)).find('a:not(:first)').remove();
+                            }else{
+                                $('#liste-cours-horaire-tranche-'+(i+1)).find('a').remove();
+
+                            }
+
+
+                            // dans le selecteur de dateJour, je veux trouver tout les tag options (sauf le premier), je veux ensuite les enelever,
+                            result.data[i].forEach(horaire => $('#liste-cours-horaire-tranche-'+(i+1)).append(createCoursElement(
+                                horaire.cours_id,
+                                horaire.intitule,
+                                horaire.bloc,
+                                horaire.gestion,
+                                horaire.indus,
+                                horaire.reseau,
+                                horaire.heure_debut,
+                                horaire.heure_fin,
+                                horaire.type,
+                                i+1,
+                            )));
 
                         }
 
 
-                        // dans le selecteur de dateJour, je veux trouver tout les tag options (sauf le premier), je veux ensuite les enelever,
-                        result.data.forEach(horaire => $('#liste-cours-horaire-tranche-'+tranche).append(createCoursElement(
-                            horaire.cours_id,
-                            horaire.intitule,
-                            horaire.bloc,
-                            horaire.gestion,
-                            horaire.indus,
-                            horaire.reseau,
-                            horaire.heure_debut,
-                            horaire.heure_fin,
-                            horaire.type,
-                            tranche,
-                        )));
+                        createEvents();
 
                     }
                 }
@@ -149,12 +159,7 @@ $("#dateJour").on("change", function () {
     * alors ça ne causera pas de soucis.
     * */
 
-    let iHoraire = 1;
-    while(iHoraire <= 4){
-        updateSelect(iHoraire);
-        iHoraire++;
-    }
-    createEvents();
+    updateSelect();
 
 });
 
@@ -193,3 +198,13 @@ function createEvents(){
 
 
 }
+
+$("#prev_button").on("click", function () {
+
+    if(currJour <= 0){
+        toastr["success"]("Retour au pré-requis.", "D'accord !")
+        setTimeout(function(){ window.location = "/index.php" }, 2000);
+        return;
+    }
+
+});

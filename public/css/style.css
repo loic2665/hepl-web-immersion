@@ -9,6 +9,12 @@
 .bg-primary {
   background-color: #cb2020 !important;
 }
+.bg-primary .dropdown-menu {
+  background-color: #cb2020 !important;
+}
+.bg-primary .dropdown-menu .dropdown-item:hover {
+  background-color: #cb2020 !important;
+}
 
 .nav-logo {
   width: auto;
@@ -27,6 +33,13 @@ fieldset {
   border: rgba(0, 0, 0, 0.1) 1px solid;
   height: 30vh;
   overflow-y: scroll;
+}
+
+.center-elements {
+  text-align: center;
+}
+.center-elements a {
+  width: 150px;
 }
 
 /*# sourceMappingURL=style.css.map */

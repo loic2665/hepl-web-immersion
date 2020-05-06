@@ -121,6 +121,7 @@ function generateForm($champs){
 
 function generateArray($col)
 {
+
     if($col["Key"] == "PRI") /* On affiche pas la clé primaire dans le formulaire */
     {
         return null;

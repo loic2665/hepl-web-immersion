@@ -70,7 +70,6 @@ $afficheJour = $_SESSION["currJour"] + 1;
                         la date devra rester le premier truc généré
                     */
 
-                    var_dump(setlocale(LC_TIME, 'fr_FR'));
 
                     foreach (Horaire::getAllDateLessons() as $date){
                         array_push($champs[0]["options"], array(
@@ -156,10 +155,24 @@ $afficheJour = $_SESSION["currJour"] + 1;
         </div>
     </div>
 
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+
+            <div id="cours-buttons" class="center-elements">
+
+                <a class="btn btn-warning" id="prev_button">Retour / Précédent</a> <a class="btn btn-success" id="next_button">Suivant</a>
+
+            </div>
+
+        </div>
+    </div>
+
 
 
     <script>
         var nbJours = <?php echo($_SESSION["jours"]); ?>;
+        var currJour = <?php echo($_SESSION["currJour"]); ?>
     </script>
     <script src="/js/inscription.js"></script>
 

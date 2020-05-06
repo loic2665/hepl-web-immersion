@@ -10,11 +10,10 @@
 /*
  * N'est jamais cencé planter, permet de garder les cookies de session en vie > 20 mins
  */
-
+require_once(__DIR__."/../php/require_all.php");
 @session_start();
 
 $error = false;
-$registration = file_get_contents(__DIR__."/../../config/settings.conf");
 
 if($error){
 
@@ -22,7 +21,7 @@ if($error){
         "error" => $error,
         "message" => "Le site rencontre des problèmes, il se peut qu'il ne fonctionne pas comme prévu.",
         "data" => array(
-            "registrationOpen" => true, // Config::areRegistrationOpen();
+            "registrationOpen" => Config::areRegistrationOpen(), // Config::areRegistrationOpen();
         )
     );
 
@@ -30,7 +29,7 @@ if($error){
     $toReturn = array(
         "error" => $error,
         "data" => array(
-            "registrationOpen" => true, // Config::areRegistrationOpen();
+            "registrationOpen" => Config::areRegistrationOpen(), // Config::areRegistrationOpen();
         )
     );
 
