@@ -9,7 +9,7 @@
 
 @session_start();
 
-$posts = array("nom", "prenom", "interet", "jours");
+$posts = array("nom", "prenom", "interet", "etablissement", "jours");
 $data = array();
 
 

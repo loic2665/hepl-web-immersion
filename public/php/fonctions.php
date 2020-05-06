@@ -32,6 +32,13 @@ function generateForm($champs){
                 <input type="text" class="form-control" name="<?php echo($champ["name"]); ?>" placeholder="<?php echo($champ["placeholder"]); ?>" id="<?php echo($champ["id"]); ?>">
             </div>
 
+        <?php }else if($champ["type"] == "date"){ ?>
+
+            <div class="form-group">
+                <label class="col-form-label" for="<?php echo($champ["id"]); ?>"><?php echo($champ["label"]); ?></label>
+                <input type="date" class="form-control" name="<?php echo($champ["name"]); ?>" placeholder="<?php echo($champ["placeholder"]); ?>" id="<?php echo($champ["id"]); ?>">
+            </div>
+
         <?php }else if($champ["type"] == "email"){ ?>
 
             <div class="form-group">
@@ -114,6 +121,7 @@ function generateForm($champs){
 
 function generateArray($col)
 {
+
     if($col["Key"] == "PRI") /* On affiche pas la clé primaire dans le formulaire */
     {
         return null;
@@ -156,7 +164,6 @@ function generateArray($col)
         SELECT *
         FROM ".$table.";");
 
-        var_dump($table);
 
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
