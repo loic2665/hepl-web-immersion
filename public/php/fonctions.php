@@ -7,6 +7,7 @@
 /*Date de la dernière mise à jour : 26/04/2020             */
 /***********************************************************/
 
+require_once(__DIR__."/../php/require_all.php");
 
 /*
  *
@@ -113,17 +114,91 @@ function generateForm($champs){
 
 function generateArray($col)
 {
-    if (strpos($col["Type"], "int") !== FALSE)
+    if($col["Key"] == "PRI") /* On affiche pas la clé primaire dans le formulaire */
+    {
+        return null;
+    }
+    else if($col["Key"] == "MUL") /* Premet de crée le tableau pour la combobox, clés étrangères */
+    {
+        $table = substr($col["Field"], 3); /* Récupère le nom de la table pour la clé étrangère */
+
+        $db = new Database();
+
+        $colonnesToShow = array();
+
+        /* Crée un tableaux pour les données qui nous intéresse selon la table */
+        if($table == "enseignants")
+        {
+            $colonnesToShow = array("nom", "prenom");
+        }
+        else if($table == "locaux")
+        {
+            $colonnesToShow = array("local");
+        }
+        else if($table == "eleves")
+        {
+            $colonnesToShow = array("nom", "prenom");
+        }
+        else if($table == "cours")
+        {
+            $colonnesToShow = array("intitule");
+        }
+        else if($table == "type_cours")
+        {
+            $colonnesToShow = array("type");
+        }
+        else if($table == "tranches_horaires")
+        {
+            $colonnesToShow = array("heure_debut", "heure_fin");
+        }
+
+        $result = $db->conn->query("
+        SELECT *
+        FROM ".$table.";");
+
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        $tab = array(
+            "id" => $col["Field"],
+            "type" => "select",
+            "label" => $col["Field"],
+            "name" => $col["Field"],
+            "options" => [],
+        );
+
+        foreach ($array as $line)
+        {
+            $tmpArray = array();
+            $tmpArray["value"] = $line["id"];
+
+            $tmpText = "";
+            $tmpText .= $line["id"]." - ";
+            for ($i = 0; $i < count($colonnesToShow); $i++)
+            {
+                 $tmpText .= $line[$colonnesToShow[$i]]. " ";
+            }
+            $tmpArray["text"] = $tmpText;
+            array_push($tab["options"], $tmpArray);
+
+        }
+
+        return $tab;
+
+    }
+    else if (strpos($col["Type"], "tinyint") !== FALSE) /* Premet de crée le tableau pour la combobox, pour les boolean */
     {
         return array(
             "id" => $col["Field"],
-            "type" => "number",
-            "placeholder" => $col["Field"],
+            "type" => "select",
             "label" => $col["Field"],
-            "name" => $col["Field"]
+            "name" => $col["Field"],
+            "options" => [
+                ["value" => "1", "text" => "Oui"],
+                ["value" => "0", "text" => "Non"],
+            ],
         );
     }
-    else if (strpos($col["Type"], "varchar") !== FALSE)
+    else if (strpos($col["Type"], "varchar") !== FALSE) /* Premet de crée le tableau pour les champs texte*/
     {
         if($col["Field"] == "email")
         {
@@ -133,6 +208,19 @@ function generateArray($col)
                 "placeholder" => $col["Field"],
                 "label" => $col["Field"],
                 "name" => $col["Field"]
+            );
+        }
+        else if($col["Field"] == "sexe")
+        {
+            return array(
+                "id" => $col["Field"],
+                "type" => "radio",
+                "label" => $col["Field"],
+                "name" => $col["Field"],
+                "options" => [
+                    ["value" => "m", "text" => "Homme", "id" => "Homme"],
+                    ["value" => "f", "text" => "Femme", "id" => "Femme"],
+                ],
             );
         }
         else
