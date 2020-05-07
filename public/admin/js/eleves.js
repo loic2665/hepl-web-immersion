@@ -6,19 +6,21 @@
 /*Date de la dernière mise à jour : 06/05/2020             */
 /***********************************************************/
 
-export function ajouter()
-{
+export function ajouter(){
     console.log("ajouter");
 }
 
-export function modifier()
-{
+export function modifier(){
     console.log("modifier");
 }
 
-export function supprimer()
-{
+export function supprimer(){
     console.log("supprimer");
+}
+
+/* Fonction qui vide le formulaire  */
+function initForm(){
+    console.log("initform");
 }
 
 /* Fonction qui permet de récupérer les données de */

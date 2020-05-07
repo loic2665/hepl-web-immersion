@@ -45,7 +45,7 @@ class Cours
     }
 
     /*récupérer un cours et son type de la base de données selon l'id*/
-    public static function getAllSubjectsById($id)
+    public static function getSubjectById($id)
     {
         /* evite les attaques SQL (securite)  échape --> ' " \ */
         $id = addslashes(htmlspecialchars($id));
@@ -55,8 +55,7 @@ class Cours
         $result = $db->conn->query("
         SELECT *
         FROM  cours
-            INNER JOIN type_cours t_c on cours.type_cours = t_c.id
-        WHERE cours.id = '".$id."'
+        WHERE id = '".$id."'
         ");
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
