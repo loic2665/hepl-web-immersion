@@ -206,7 +206,7 @@ function generateArray($col)
             ],
         );
     }
-    else if (strpos($col["Type"], "varchar") !== FALSE) /* Premet de crée le tableau pour les champs texte*/
+    else if (strpos($col["Type"], "char") !== FALSE) /* Premet de crée le tableau pour les champs texte*/
     {
         if($col["Field"] == "email")
         {

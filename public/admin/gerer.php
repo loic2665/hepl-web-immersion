@@ -41,7 +41,7 @@
         $colums = $db->conn->query(" SHOW COLUMNS FROM ".$gerer.";");
         $colname = $colums->fetchAll(PDO::FETCH_ASSOC);
     ?>
-    <article id="ajout_modif" hidden>
+    <article id="ajout_modif">
         <?php
         $champs = array();
         foreach ($colname as $col)
@@ -60,9 +60,9 @@
         <button class="btn btn-danger" id="cancel_btn">Annuler</button>
 
     </article>
-    <article>
-        <legend>Gestion des <?php echo($gerer); ?></legend>
-        <a class="btn btn-info">Ajouter</a>
+    <article id="table_list">
+        <h2>Gestion des <?php echo($gerer); ?></h2>
+        <a class="btn btn-info add-row">Ajouter</a>
 
         <table class="table table-hover">
             <thead>
@@ -81,7 +81,7 @@
                     <?php foreach ($colname as $ligne2){ ?>
                     <th scope="row"><?php echo($ligne[$ligne2["Field"]]); ?></th>
                     <?php } ?>
-                    <th scope="row"><a class="btn btn-success"  data-course-id="<?php echo($ligne["id"]); ?>">Modifier</a></th>
+                    <th scope="row"><a class="btn btn-success modif-<?php echo($gerer); ?>"  data-course-id="<?php echo($ligne["id"]); ?>">Modifier</a></th>
                     <th scope="row"><a class="btn btn-danger"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
                 </tr>
             <?php } ?>
@@ -92,10 +92,7 @@
     <?php } ?>
 </section>
 </body>
-<script>
+<!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
+<script type="module" src="./js/gerer.js"></script>
 
-
-
-
-</script>
 </html>

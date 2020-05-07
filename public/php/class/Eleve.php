@@ -12,6 +12,22 @@ require_once(__DIR__."/Database.php");
 
 class Eleve
 {
+    /*récupérer le professeur de la base de données selon l'identifiant*/
+    public static function getStudentById($id)
+    {
+        /* evite les attaques SQL (securite)  échape --> ' " \ */
+        $id = addslashes(htmlspecialchars($id));
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT *
+        FROM eleves
+        WHERE id = '".$id."'" );
+        $line = $result->fetch(PDO::FETCH_ASSOC);
+
+        return $line;
+    }
+
     /*récupérer l'élève de la base de données selon l'adresse e-mail*/
     public static function getStudentByMail($email)
     {
