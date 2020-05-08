@@ -44,17 +44,6 @@ class Eleve
         return $line;
     }
 
-
-    /*enregistrer un élève dans la base de données*/
-    public static function registerStudent($student)
-    {
-
-        //code pour ajouter l'élève a la BD
-        //voir comment faire par après
-
-    }
-
-
     /*récupérer le nombre d'élèves de la base de données*/
     public static function countStudents()
     {
@@ -79,5 +68,45 @@ class Eleve
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
+    }
+
+    /*insérer un élève dans la base de données*/
+    public static function insertStudent($nom, $prenom, $email, $etablissement, $indus, $gestion, $reseau)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        INSERT INTO eleves (nom, prenom, email, etablissement, indus, gestion, reseau) 
+            VALUES ('".$nom."', '".$prenom."', '".$email."', '".$etablissement."', '".$indus."', '".$gestion."', '".$reseau."')" );
+
+        return $result;
+    }
+
+    /*mettre à jour un élève dans la base de données*/
+    public static function updateStudent($id, $nom, $prenom, $email, $etablissement, $indus, $gestion, $reseau)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        UPDATE eleves 
+            SET nom = '".$nom."',
+                prenom = '".$prenom."',
+                email = '".$email."',
+                etablissement = '".$etablissement."',
+                indus = '".$indus."',
+                gestion = '".$gestion."',
+                reseau = '".$reseau."'
+        WHERE id = '".$id."' " );
+
+        return $result->rowCount();
+    }
+
+    /*supprimer un élève dans la base de données*/
+    public static function deleteStudent($id)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        DELETE FROM eleves
+        WHERE id = '".$id."' " );
+
+        return $result->rowCount();
     }
 }

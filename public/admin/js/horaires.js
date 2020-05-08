@@ -6,6 +6,8 @@
 /*Date de la dernière mise à jour : 06/05/2020             */
 /***********************************************************/
 
+import * as requeteAjax from "/js/requeteAjax.js"
+
 export function ajouter(){
     console.log("ajouter");
 }

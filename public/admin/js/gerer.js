@@ -17,8 +17,6 @@ import * as enseignants from "./enseignants.js"
 /* Évenement qui attends que la page soit entièrement chargée */
 $(document).ready(function () {
 
-    /* mets l'article 'ajout_modif en caché */
-    $('#ajout_modif').css("display", "none");
 
     let tab;
     let idModif;
@@ -70,9 +68,8 @@ $(document).ready(function () {
         tab.remplirForm(idModif);
         $('#entete_ajout_modif').text('Modifier un '+singulier);
 
-
-        $('#table_list').css("display", "none");
-        $('#ajout_modif').css("display", "block");
+        $('#table_list').addClass("hidden");
+        $('#ajout_modif').removeClass("hidden");
     });
 
 
@@ -87,8 +84,8 @@ $(document).ready(function () {
         action = "ajout";
         $('#entete_ajout_modif').text('Ajouter un '+singulier);
 
-        $('#table_list').css("display", "none");
-        $('#ajout_modif').css("display", "block");
+        $('#table_list').addClass("hidden");
+        $('#ajout_modif').removeClass("hidden");
     });
 
 
@@ -100,7 +97,7 @@ $(document).ready(function () {
 
     /* Évenement au click sur le bouton supprimer */
     $(".del").on("click", function () {
-
+        tab.supprimer($(this).data("course-id"));
 
     });
 
@@ -113,8 +110,9 @@ $(document).ready(function () {
     /* Évenement au click sur le bouton annuler */
     $(".annul").on("click", function () {
         tab.initForm();
-        $('#table_list').css("display", "block");
-        $('#ajout_modif').css("display", "none");
+
+        $('#ajout_modif').addClass("hidden");
+        $('#table_list').removeClass("hidden");
     });
 
 
@@ -129,6 +127,8 @@ $(document).ready(function () {
 
         let tableau = {};
 
+        console.log(table);
+
         if(tab.formValid()) {
             if(action === "ajout"){ // si on ajoute
                 switch (table){
@@ -138,12 +138,19 @@ $(document).ready(function () {
                         tableau.sexe = $('input[name=sexe]:checked').val();
                         break;
 
-                    case 'élèves':
-
+                    case 'eleves':
+                        tableau.nom = $('#nom').val();
+                        tableau.prenom = $('#prenom').val();
+                        tableau.email = $('#email').val();
+                        tableau.etablissement = $('#etablissement').val();
+                        tableau.indus = $("#indus option:selected").val();
+                        tableau.gestion = $("#gestion option:selected").val();
+                        tableau.reseau = $("#reseau option:selected").val();
                         break;
 
                     case 'cours':
-
+                        tableau.intitule = $('#intitule').val();
+                        tableau.bloc = $('#bloc').val();
                         break;
 
                     case 'horaires' :
@@ -161,11 +168,20 @@ $(document).ready(function () {
                         break;
 
                     case 'eleves':
-
+                        tableau.id = idModif;
+                        tableau.nom = $('#nom').val();
+                        tableau.prenom = $('#prenom').val();
+                        tableau.email = $('#email').val();
+                        tableau.etablissement = $('#etablissement').val();
+                        tableau.indus = $("#indus option:selected").val();
+                        tableau.gestion = $("#gestion option:selected").val();
+                        tableau.reseau = $("#reseau option:selected").val();
                         break;
 
                     case 'cours':
-
+                        tableau.id = idModif;
+                        tableau.intitule = $('#intitule').val();
+                        tableau.bloc = $('#bloc').val();
                         break;
 
                     case 'horaires' :
@@ -176,8 +192,8 @@ $(document).ready(function () {
                 tab.modifier(tableau)
             }
             tab.initForm();
-            $('#table_list').css("display", "block");
-            $('#ajout_modif').css("display", "none");
+            $('#ajout_modif').addClass("hidden");
+            $('#table_list').removeClass("hidden");
         } else {
 
         }

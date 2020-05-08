@@ -69,7 +69,13 @@ else /* Effectuer la requete demandée */
     {
 
         case "add":
-
+            if(Cours::insertSubject($data["intitule"], $data["bloc"])){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "Le cours ".$data["intitule"]."à bien été insérer.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de l'ajout du cours.";
+            }
             break;
 
         case "get":
@@ -77,11 +83,23 @@ else /* Effectuer la requete demandée */
             break;
 
         case "delete":
-
+            if(Cours::deleteSubject($data["id"]) > 0){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "Le cours a bien été supprimé.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de la suppression du cours.";
+            }
             break;
 
         case "modif":
-
+            if(Cours::updateSubject($data["id"], $data["intitule"], $data["bloc"]) > 0){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "Le cours ".$data["intitule"]."à bien été modifier.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de la modification du cours.";
+            }
             break;
 
         default:

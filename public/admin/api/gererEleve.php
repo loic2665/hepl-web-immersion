@@ -43,7 +43,7 @@ $message = "Attention, les champs ";
 $error = false;
 $input_error = array();
 foreach ($posts as $post) {
-    if (!isset($_POST[$post]) || empty($_POST[$post])) {
+    if (!isset($_POST[$post])) {
         $message .= $post . ", ";
         array_push($input_error, $post);
         $error = true;
@@ -65,11 +65,19 @@ if ($error) /* Si erreur */
 }
 else /* Effectuer la requete demandée */
 {
+    $toReturn["error"] = false;
+
     switch ($_POST["action"])
     {
 
         case "add":
-
+            if(Eleve::insertStudent($data["nom"], $data["prenom"], $data["email"], $data["etablissement"], $data["indus"], $data["gestion"], $data["reseau"])){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "L'élève ".$data["nom"]." ".$data["prenom"]."à bien été insérer.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de l'ajout de l'élève.";
+            }
             break;
 
         case "get":
@@ -77,18 +85,29 @@ else /* Effectuer la requete demandée */
             break;
 
         case "delete":
-
+            if(Eleve::deleteStudent($data["id"]) > 0){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "L'élève a bien été supprimé.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de la suppression de l'élève.";
+            }
             break;
 
         case "modif":
-
+            if(Eleve::updateStudent($data["id"], $data["nom"], $data["prenom"], $data["email"], $data["etablissement"], $data["indus"], $data["gestion"], $data["reseau"]) > 0){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "L'élève ".$data["nom"]." ".$data["prenom"]."à bien été modifier.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de la modification de l'élève.";
+            }
             break;
 
         default:
 
             break;
     }
-    $toReturn["error"] = false;
 }
 
 echo(json_encode($toReturn));

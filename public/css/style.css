@@ -37,4 +37,8 @@ fieldset {
   width: 150px;
 }
 
+.hidden {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */

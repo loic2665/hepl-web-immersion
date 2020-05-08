@@ -101,7 +101,30 @@ class Enseignant
         return $result;
     }
 
+    /*mettre à jour un professeur dans la base de données*/
+    public static function updateTeacher($id, $nom, $prenom, $sexe)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        UPDATE enseignants 
+            SET nom = '".$nom."',
+                prenom = '".$prenom."',
+                sexe = '".$sexe."'
+        WHERE id = '".$id."' " );
 
+        return $result->rowCount();
+    }
+
+    /*supprimer un professeur dans la base de données*/
+    public static function deleteTeacher($id)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        DELETE FROM enseignants
+        WHERE id = '".$id."' " );
+
+        return $result->rowCount();
+    }
     // ...
 
 }

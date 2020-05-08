@@ -12,44 +12,45 @@ export function ajouter(tableau){
     tableau.action = "add";
 
     function successCallback(result){
-        toastr["success"](result.message, "Succès");
+        if(result.error === false){
+            toastr["success"](result.message, "Succès");
+        } else {
+            toastr["warning"](result.message, "Attention");
+        }
     }
 
     requeteAjax.requeteAjax("POST", "/admin/api/gererEnseignant.php", tableau, "json", successCallback, null, null);
-
-/*    $.ajax({
-        type: "POST",                                    // type de requete
-        url: "/admin/api/gererEnseignant.php",           // url de la requete
-        data: {                                          // data de la requetes, les paramètres
-            action: "add",
-            nom: tableau.nom,
-            prenom: tableau.prenom,
-            sexe: tableau.sexe,
-        },
-        dataType: "json",                                 // le type de data attendu par jquery
-        success: function (result, data, xhrStatus){      // si il correspond pas ou code http != 200 => callback dans error
-            toastr["success"](result.message, "Succès");
-
-        },
-        error: function (result){
-            toastr["error"]("Oops !", "Erreur !"); // toast..
-        },
-        complete: function(result){ // on execute le quoi que ce soit une erreur ou non
-
-        },
-    });*/
 }
 
 export function modifier(tableau){
-    console.log("modifier");
-    console.log(tableau.id);
-    console.log(tableau.nom);
-    console.log(tableau.prenom);
-    console.log(tableau.sexe);
+    tableau.action = "modif";
+
+    function successCallback(result){
+        if(result.error === false){
+            toastr["success"](result.message, "Succès");
+        } else {
+            toastr["warning"](result.message, "Attention");
+        }
+    }
+
+    requeteAjax.requeteAjax("POST", "/admin/api/gererEnseignant.php", tableau, "json", successCallback, null, null);
 }
 
-export function supprimer(){
-    console.log("supprimer");
+export function supprimer(id){
+    let tableau = {
+        action: "delete",
+        id:id,
+    };
+
+    function successCallback(result){
+        if(result.error === false){
+            toastr["success"](result.message, "Succès");
+        } else {
+            toastr["warning"](result.message, "Attention");
+        }
+    }
+
+    requeteAjax.requeteAjax("POST", "/admin/api/gererEnseignant.php", tableau, "json", successCallback, null, null);
 }
 
 /* Fonction qui vérifie si le formulaire est bien rempli */
@@ -72,38 +73,28 @@ export function initForm(){
 /* Fonction qui permet de récupérer les données de */
 /* l'enseignants et de remplir le formulaire avec  */
 export function remplirForm(id){
-    $.ajax({
-        type: "POST",                                    // type de requete
-        url: "/admin/api/gererEnseignant.php",           // url de la requete
-        data: {                                          // data de la requetes, les paramètres
-            action: "get",
-            id: id,
-        },
-        dataType: "json",                                 // le type de data attendu par jquery
-        success: function (result, data, xhrStatus){      // si il correspond pas ou code http != 200 => callback dans error
-            if(xhrStatus.status === 200){
-                if(result.error === true){
-                    toastr["warning"](result.message, "Erreur");              // on affiche le toast
-                }else{                                                        // merci bootsrap
-                    toastr["success"](result.message, "Succès");              // on affiche le toast
+    let tableau = {
+        action: "get",
+        id:id,
+    };
 
-                    let inputs = $('input[type=text]');                       // on récupere les differents types d'input text du formulaire
-                    for( let input of inputs){                                // boucle pour remplir les champs texte
-                        input.value = result.data[input.name];
-                    }
-                    inputs = $('input[type=radio]');                          // on récupere les differents types d'input radio du formulaire
-                    for( let input of inputs){                                // boucle pour check le bon bouton radio
-                        if(input.value === result.data[input.name])
-                            input.checked = true;
-                    }
-                }
+    function successCallback(result){
+        if(result.error === false){
+            toastr["success"](result.message, "Succès");
+
+            let inputs = $('input[type=text]');                       // on récupere les differents types d'input text du formulaire
+            for( let input of inputs){                                // boucle pour remplir les champs texte
+                input.value = result.data[input.name];
             }
-        },
-        error: function (result){
-            toastr["error"]("Oops !", "Erreur !"); // toast..
-        },
-        complete: function(result){ // on execute le quoi que ce soit une erreur ou non
+            inputs = $('input[type=radio]');                          // on récupere les differents types d'input radio du formulaire
+            for( let input of inputs){                                // boucle pour check le bon bouton radio
+                if(input.value === result.data[input.name])
+                    input.checked = true;
+            }
+        } else {
+            toastr["warning"](result.message, "Attention");
+        }
+    }
 
-        },
-    });
+    requeteAjax.requeteAjax("POST", "/admin/api/gererEnseignant.php", tableau, "json", successCallback, null, null);
 }

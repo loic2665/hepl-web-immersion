@@ -73,4 +73,39 @@ class Cours
 
         return $line[0];
     }
+
+    /*insérer un cours dans la base de données*/
+    public static function insertSubject($intitule, $bloc)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        INSERT INTO cours (intitule, bloc) 
+            VALUES ('".$intitule."', '".$bloc."')" );
+
+        return $result;
+    }
+
+    /*mettre à jour un cours dans la base de données*/
+    public static function updateSubject($id, $intitule, $bloc)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        UPDATE cours 
+            SET intitule = '".$intitule."',
+                bloc = '".$bloc."'
+        WHERE id = '".$id."' " );
+
+        return $result->rowCount();
+    }
+
+    /*supprimer un cours dans la base de données*/
+    public static function deleteSubject($id)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        DELETE FROM cours
+        WHERE id = '".$id."' " );
+
+        return $result->rowCount();
+    }
 }

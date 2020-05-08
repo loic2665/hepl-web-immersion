@@ -41,7 +41,7 @@
         $colums = $db->conn->query(" SHOW COLUMNS FROM ".$gerer.";");
         $colname = $colums->fetchAll(PDO::FETCH_ASSOC);
     ?>
-    <article id="ajout_modif" >
+    <article id="ajout_modif" class="hidden">
         <?php
         $champs = array();
         foreach ($colname as $col)
