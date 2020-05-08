@@ -6,21 +6,67 @@
 /*Date de la dernière mise à jour : 06/05/2020             */
 /***********************************************************/
 
-export function ajouter(){
-    console.log("ajouter");
+import * as requeteAjax from "/js/requeteAjax.js"
+
+export function ajouter(tableau){
+    tableau.action = "add";
+
+    function successCallback(result){
+        toastr["success"](result.message, "Succès");
+    }
+
+    requeteAjax.requeteAjax("POST", "/admin/api/gererEnseignant.php", tableau, "json", successCallback, null, null);
+
+/*    $.ajax({
+        type: "POST",                                    // type de requete
+        url: "/admin/api/gererEnseignant.php",           // url de la requete
+        data: {                                          // data de la requetes, les paramètres
+            action: "add",
+            nom: tableau.nom,
+            prenom: tableau.prenom,
+            sexe: tableau.sexe,
+        },
+        dataType: "json",                                 // le type de data attendu par jquery
+        success: function (result, data, xhrStatus){      // si il correspond pas ou code http != 200 => callback dans error
+            toastr["success"](result.message, "Succès");
+
+        },
+        error: function (result){
+            toastr["error"]("Oops !", "Erreur !"); // toast..
+        },
+        complete: function(result){ // on execute le quoi que ce soit une erreur ou non
+
+        },
+    });*/
 }
 
-export function modifier(){
+export function modifier(tableau){
     console.log("modifier");
+    console.log(tableau.id);
+    console.log(tableau.nom);
+    console.log(tableau.prenom);
+    console.log(tableau.sexe);
 }
 
 export function supprimer(){
     console.log("supprimer");
 }
 
+/* Fonction qui vérifie si le formulaire est bien rempli */
+export function formValid(){
+    return true;
+}
+
 /* Fonction qui vide le formulaire  */
-function initForm(){
-    console.log("initform");
+export function initForm(){
+    let inputs = $('input[type=text]');                       // on récupere les differents types d'input text du formulaire
+    for( let input of inputs){                                // boucle pour remplir les champs texte
+        input.value = "";
+    }
+    inputs = $('input[type=radio]');                          // on récupere les differents types d'input radio du formulaire
+    for( let input of inputs){                                // boucle pour check le bon bouton radio
+        input.checked = false;
+    }
 }
 
 /* Fonction qui permet de récupérer les données de */

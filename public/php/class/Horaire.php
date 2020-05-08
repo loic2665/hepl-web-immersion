@@ -100,5 +100,19 @@ class Horaire
 
     }
 
+    /*récupérer l'horaire de la base de données selon l'identifiant*/
+    public static function getHoraireById($id)
+    {
+        /* evite les attaques SQL (securite)  échape --> ' " \ */
+        $id = addslashes(htmlspecialchars($id));
 
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT *
+        FROM horaires
+        WHERE id = '".$id."'" );
+        $line = $result->fetch(PDO::FETCH_ASSOC);
+
+        return $line;
+    }
 }

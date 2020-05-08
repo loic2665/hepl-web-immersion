@@ -28,12 +28,12 @@ export function initForm(){
     console.log("initform");
 }
 
-/* Fonction qui permet de récupérer les données du */
-/* cours et de remplir le formulaire avec  */
+/* Fonction qui permet de récupérer les données de */
+/* l'horaire et de remplir le formulaire avec  */
 export function remplirForm(id){
     $.ajax({
         type: "POST",                                    // type de requete
-        url: "/admin/api/gererCours.php",                // url de la requete
+        url: "/admin/api/gererHoraire.php",              // url de la requete
         data: {                                          // data de la requetes, les paramètres
             action: "get",
             id: id,
@@ -54,6 +54,15 @@ export function remplirForm(id){
                     inputs = $('input[type=number]');                          // on récupere les differents types d'input email du formulaire
                     for( let input of inputs){                                // boucle pour remplir les champs email
                         input.value = result.data[input.name];
+                    }
+                    inputs = $('select');                                     // on récupere les differents types d'input radio du formulaire
+                    for( let input of inputs){                                // boucle pour check le bon bouton radio
+                        let options = $(input).find('option');
+
+                        for( let option of options){
+                            if(option.value === result.data[input.name])
+                                option.selected = true;
+                        }
                     }
                 }
             }

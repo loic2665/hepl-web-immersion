@@ -29,7 +29,7 @@
                 <a class="nav-link" href="/admin/gerer.php?gerer=cours">Gérer les cours</a>
             </li>
             <li class="nav-item"> <!-- permet d'envoyer la valeur horaires à la page gerer.php via $_GET -->
-                <a class="nav-link" href="/admin/gerer.php?gerer=horaires">Gérer l'horraire</a>
+                <a class="nav-link" href="/admin/gerer.php?gerer=horaires">Gérer les horaires</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

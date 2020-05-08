@@ -10,6 +10,7 @@
 
 import * as cours from "./cours.js"
 import * as eleves from "./eleves.js"
+import * as horaires from "./horaires.js"
 import * as enseignants from "./enseignants.js"
 
 
@@ -19,77 +20,167 @@ $(document).ready(function () {
     /* mets l'article 'ajout_modif en caché */
     $('#ajout_modif').css("display", "none");
 
+    let tab;
+    let idModif;
+    let table = $('#page').val();
+    let action; // pour pouvoir différencier un ajout à une modification dans le bouton valider
+    let pluriel = 'erreur';
+    let singulier = 'erreur';
+
+    /* permet de mettre le titre selon la page ouverte */
+    switch (table){
+        case 'enseignants':
+            pluriel = 'professeurs';
+            singulier = 'professeur';
+            tab = enseignants; // tab référencie la librairie enseignants maintenant
+            break;
+
+        case 'eleves':
+            pluriel = 'élèves';
+            singulier = 'élèves';
+            tab = eleves;
+            break;
+
+        case 'cours':
+            pluriel = 'cours';
+            singulier = 'cours';
+            tab = cours;
+            break;
+
+        case 'horaires' :
+            pluriel = 'horaires';
+            singulier = 'horaire';
+            tab = horaires;
+            break;
+
+    }
+    $('#entete_gestion').text('Gestion des '+pluriel);
+
+
     /***************************************/
     /*                                     */
-    /*           Boutons eleves            */
+    /*          Boutons modifier           */
     /*                                     */
     /***************************************/
 
     /* Évenement au click sur le bouton modifier pour eleves */
-    $(".modif-eleves").on("click", function () {
+    $(".modif").on("click", function () {
+        action = "modif";
+        idModif = $(this).data("course-id");
+        tab.remplirForm(idModif);
+        $('#entete_ajout_modif').text('Modifier un '+singulier);
+
+
         $('#table_list').css("display", "none");
         $('#ajout_modif').css("display", "block");
-
-        eleves.remplirForm($(this).data("course-id"));
     });
 
 
     /***************************************/
     /*                                     */
-    /*        Boutons enseignants          */
+    /*          Boutons ajouter            */
     /*                                     */
     /***************************************/
-
-    /* Évenement au click sur le bouton modifier pour enseignants */
-    $(".modif-enseignants").on("click", function () {
-        $('#table_list').css("display", "none");
-        $('#ajout_modif').css("display", "block");
-
-        enseignants.remplirForm($(this).data("course-id"));
-    });
-
-
-    /***************************************/
-    /*                                     */
-    /*           Boutons cours             */
-    /*                                     */
-    /***************************************/
-
-    /* Évenement au click sur le bouton modifier pour cours */
-    $(".modif-cours").on("click", function () {
-        $('#table_list').css("display", "none");
-        $('#ajout_modif').css("display", "block");
-
-        cours.remplirForm($(this).data("course-id"));
-    });
-
-
-    /***************************************/
-    /*                                     */
-    /*          Boutons horaires           */
-    /*                                     */
-    /***************************************/
-
-    /* Évenement au click sur le bouton modifier pour horaires */
-    $(".modif-horaires").on("click", function () {
-        $('#table_list').css("display", "none");
-        $('#ajout_modif').css("display", "block");
-
-    });
-
-
-
-
 
     /* Évenement au click sur le bouton ajouter */
     $(".add-row").on("click", function () {
+        action = "ajout";
+        $('#entete_ajout_modif').text('Ajouter un '+singulier);
+
         $('#table_list').css("display", "none");
         $('#ajout_modif').css("display", "block");
     });
 
+
+    /***************************************/
+    /*                                     */
+    /*          Boutons supprimer          */
+    /*                                     */
+    /***************************************/
+
+    /* Évenement au click sur le bouton supprimer */
+    $(".del").on("click", function () {
+
+
+    });
+
+    /***************************************/
+    /*                                     */
+    /*           Boutons annuler           */
+    /*                                     */
+    /***************************************/
+
     /* Évenement au click sur le bouton annuler */
-    $("#cancel_btn").on("click", function () {
+    $(".annul").on("click", function () {
+        tab.initForm();
         $('#table_list').css("display", "block");
         $('#ajout_modif').css("display", "none");
     });
+
+
+    /***************************************/
+    /*                                     */
+    /*           Boutons valider           */
+    /*                                     */
+    /***************************************/
+
+    /* Évenement au click sur le bouton valider */
+    $(".valid").on("click", function () {
+
+        let tableau = {};
+
+        if(tab.formValid()) {
+            if(action === "ajout"){ // si on ajoute
+                switch (table){
+                    case 'enseignants':
+                        tableau.nom = $('#nom').val();
+                        tableau.prenom = $('#prenom').val();
+                        tableau.sexe = $('input[name=sexe]:checked').val();
+                        break;
+
+                    case 'élèves':
+
+                        break;
+
+                    case 'cours':
+
+                        break;
+
+                    case 'horaires' :
+
+                        break;
+                }
+                tab.ajouter(tableau);
+            } else {                // si on modifie
+                switch (table){
+                    case 'enseignants':
+                        tableau.id = idModif;
+                        tableau.nom = $('#nom').val();
+                        tableau.prenom = $('#prenom').val();
+                        tableau.sexe = $('input[name=sexe]:checked').val();
+                        break;
+
+                    case 'eleves':
+
+                        break;
+
+                    case 'cours':
+
+                        break;
+
+                    case 'horaires' :
+
+                        break;
+
+                }
+                tab.modifier(tableau)
+            }
+            tab.initForm();
+            $('#table_list').css("display", "block");
+            $('#ajout_modif').css("display", "none");
+        } else {
+
+        }
+    });
+
 });

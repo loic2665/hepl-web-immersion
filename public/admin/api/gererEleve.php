@@ -24,7 +24,7 @@ switch($_POST["action"])
         break;
 
     case "modif":
-        $posts = array("action", "nom", "prenom", "email", "etablissement", "indus", "gestion", "reseau");
+        $posts = array("action", "id", "nom", "prenom", "email", "etablissement", "indus", "gestion", "reseau");
         break;
 
     case "delete":

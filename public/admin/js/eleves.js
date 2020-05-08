@@ -18,8 +18,13 @@ export function supprimer(){
     console.log("supprimer");
 }
 
+/* Fonction qui vérifie si le formulaire est bien rempli */
+export function formValid(){
+
+}
+
 /* Fonction qui vide le formulaire  */
-function initForm(){
+export function initForm(){
     console.log("initform");
 }
 

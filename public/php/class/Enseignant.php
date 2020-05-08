@@ -90,6 +90,17 @@ class Enseignant
         return $line[0];
     }
 
+    /*insérer un professeur dans la base de données*/
+    public static function insertTeacher($nom, $prenom, $sexe)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        INSERT INTO enseignants (nom, prenom, sexe) 
+            VALUES ('".$nom."', '".$prenom."', '".$sexe."')" );
+
+        return $result;
+    }
+
 
     // ...
 

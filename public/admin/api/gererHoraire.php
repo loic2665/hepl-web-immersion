@@ -16,7 +16,7 @@ require_once(__DIR__."/../../php/require_all.php");
 switch($_POST["action"])
 {
     case "add":
-        $posts = array("action", "nom", "prenom", "sexe");
+        $posts = array("action", "id_cours", "id_enseignants", "id_type_cours", "date_cours", "id_tranches_horaires", "id_locaux", "inscription_max", "indus", "gestion", "reseau");
         break;
 
     case "get":
@@ -24,7 +24,7 @@ switch($_POST["action"])
         break;
 
     case "modif":
-        $posts = array("action", "id", "nom", "prenom", "sexe");
+        $posts = array("action", "id", "id_cours", "id_enseignants", "id_type_cours", "date_cours", "id_tranches_horaires", "id_locaux", "inscription_max", "indus", "gestion", "reseau");
         break;
 
     case "delete":
@@ -65,23 +65,15 @@ if ($error) /* Si erreur */
 }
 else /* Effectuer la requete demandée */
 {
-    $toReturn["error"] = false;
-
     switch ($_POST["action"])
     {
 
         case "add":
-            if(Enseignant::insertTeacher($data["nom"], $data["prenom"], $data["sexe"])){
-                $toReturn["error"] = false;
-                $toReturn["message"] = "L'enseignant ".$data["nom"]." ".$data["prenom"]."à bien été insérer.";
-            } else {
-                $toReturn["error"] = true;
-                $toReturn["message"] = "Une erreur s'est produite lors de l'ajout de l'enseignant.";
-            }
+
             break;
 
         case "get":
-            $toReturn["data"] = Enseignant::getTeacherById($data["id"]);
+            $toReturn["data"] = Horaire::getHoraireById($_POST["id"]);
             break;
 
         case "delete":
@@ -96,7 +88,7 @@ else /* Effectuer la requete demandée */
 
             break;
     }
-
+    $toReturn["error"] = false;
 }
 
 echo(json_encode($toReturn));

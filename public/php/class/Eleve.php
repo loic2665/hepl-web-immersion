@@ -12,7 +12,7 @@ require_once(__DIR__."/Database.php");
 
 class Eleve
 {
-    /*récupérer le professeur de la base de données selon l'identifiant*/
+    /*récupérer l'élève de la base de données selon l'identifiant*/
     public static function getStudentById($id)
     {
         /* evite les attaques SQL (securite)  échape --> ' " \ */

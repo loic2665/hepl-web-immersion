@@ -41,7 +41,7 @@
         $colums = $db->conn->query(" SHOW COLUMNS FROM ".$gerer.";");
         $colname = $colums->fetchAll(PDO::FETCH_ASSOC);
     ?>
-    <article id="ajout_modif">
+    <article id="ajout_modif" >
         <?php
         $champs = array();
         foreach ($colname as $col)
@@ -51,17 +51,17 @@
 
         ?>
 
-        <fieldset>
-            <legend>Ajouter un <?php echo($gerer); ?></legend>
-            <?php generateForm($champs); ?>
-        </fieldset>
 
-        <button class="btn btn-success" id="send_btn">Valider</button>
-        <button class="btn btn-danger" id="cancel_btn">Annuler</button>
+        <h2 id="entete_ajout_modif"></h2>
+
+        <?php generateForm($champs); ?>
+
+        <button class="btn btn-success valid" id="send_btn">Valider</button>
+        <button class="btn btn-danger annul" id="cancel_btn">Annuler</button>
 
     </article>
     <article id="table_list">
-        <h2>Gestion des <?php echo($gerer); ?></h2>
+        <h2 id="entete_gestion"></h2>
         <a class="btn btn-info add-row">Ajouter</a>
 
         <table class="table table-hover">
@@ -81,8 +81,8 @@
                     <?php foreach ($colname as $ligne2){ ?>
                     <th scope="row"><?php echo($ligne[$ligne2["Field"]]); ?></th>
                     <?php } ?>
-                    <th scope="row"><a class="btn btn-success modif-<?php echo($gerer); ?>"  data-course-id="<?php echo($ligne["id"]); ?>">Modifier</a></th>
-                    <th scope="row"><a class="btn btn-danger"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
+                    <th scope="row"><a class="btn btn-success modif"  data-course-id="<?php echo($ligne["id"]); ?>">Modifier</a></th>
+                    <th scope="row"><a class="btn btn-danger del"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
                 </tr>
             <?php } ?>
             </tbody>
@@ -91,6 +91,8 @@
     </article>
     <?php } ?>
 </section>
+<!-- pour pouvoir récuperer la valeur de $gerer dans la page JS -->
+<input type="hidden" id="page" value="<?php echo $gerer; ?>" />
 </body>
 <!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
 <script type="module" src="./js/gerer.js"></script>
