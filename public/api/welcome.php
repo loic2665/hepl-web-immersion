@@ -47,14 +47,11 @@ if($error){
     $_SESSION["currJour"] = 0;
     $_SESSION["data_jours"] = array();
 
-    for($i = 0; $i < $data["jours"]; $i++){
+    for($i = 0; $i < $_SESSION["jours"]; $i++){
 
-        array_push($_SESSION["data_jours"], array());
+        $_SESSION["data_jours"][$i] = array();
         $_SESSION["data_jours"][$i]["date"] = "";
         $_SESSION["data_jours"][$i]["cours"] = array();
-        for($j = 0; $j <= 3; $j++){
-            array_push($_SESSION["data_jours"][$i]["cours"], array());
-        }
 
     }
 

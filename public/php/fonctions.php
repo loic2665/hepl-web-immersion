@@ -266,3 +266,15 @@ function generateArray($col)
         );
     }
 }
+
+function dateAlreadyChosen($date){
+
+    @session_start();
+    foreach ($_SESSION["data_jours"] as $curr){
+        if($curr["date"] == $date){
+            return true;
+        }
+    }
+    return false;
+
+}

@@ -6,14 +6,9 @@
 /*Application : Site d'immersion à l'école                 */
 /*Date de la dernière mise à jour : 26/04/2020             */
 /***********************************************************/
-.bg-primary {
+.bg-primary, .dropdown-menu, .dropdown-item:hover, .alert-primary, .list-group-item.active {
   background-color: #cb2020 !important;
-}
-.bg-primary .dropdown-menu {
-  background-color: #cb2020 !important;
-}
-.bg-primary .dropdown-menu .dropdown-item:hover {
-  background-color: #cb2020 !important;
+  border-color: #cb2020 !important;
 }
 
 .nav-logo {
@@ -31,8 +26,8 @@ fieldset {
 
 #cours-tranche-1, #cours-tranche-2, #cours-tranche-3, #cours-tranche-4 {
   border: rgba(0, 0, 0, 0.1) 1px solid;
-  height: 30vh;
-  overflow-y: scroll;
+  height: 27vh;
+  overflow-y: hidden;
 }
 
 .center-elements {

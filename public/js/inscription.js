@@ -6,15 +6,11 @@
 //--Date de la dernière mise à jour : [DATE DU JOUR]      -->
 //-- ---------------------------------------------------- -->
 
-var cours1 = 0;
-var cours2 = 0;
-var cours3 = 0;
-var cours4 = 0;
 
 
 $("#dateJour").on("change", function () {
 
-    let dateChoisie = $(this).val();
+    dateChoisie = $(this).val();
     // récupère la valeur du select
 
     cours1 = 0;
@@ -41,6 +37,7 @@ $("#dateJour").on("change", function () {
         a_class.forEach(classElement => $(a).addClass(classElement));
 
         a.setAttribute("data-cours-id", cours_id);
+        a.setAttribute("data-cours-name", intitule + " - " + type + " - " + heure_debut + "~" + heure_fin);
         a.setAttribute("data-tranche", tranche);
 
         let div = document.createElement("div");
@@ -104,8 +101,6 @@ $("#dateJour").on("change", function () {
                     }else{
                         toastr["success"](result.message, "Succès");              // on affiche le toast
 
-                        console.log(result.data);
-
                         for(let i = 0; i < result.data.length; i++){
 
                             if((i === 2 || i === 3) && nbJours > 1){
@@ -165,13 +160,14 @@ $("#dateJour").on("change", function () {
 
 function createEvents(){
 
-    $(".clickable").off("click").on("click", function () {
+    $(".clickable").off("click").on("click", function (e) {
 
-
+        e.preventDefault();
         var tranche = $(this).data("tranche");
         $(".tranche"+tranche).removeClass("active");
         $(this).addClass("active");
         var cours = $(this).data("cours-id");
+        $("#list-cours-"+tranche).text($(this).data("cours-name"));
 
         switch (tranche) {
             case 1:
@@ -191,7 +187,7 @@ function createEvents(){
                 break;
         }
 
-        console.log(tranche, cours1, cours2, cours3, cours4);
+        //console.log(tranche, cours1, cours2, cours3, cours4);
 
 
     });
@@ -202,9 +198,81 @@ function createEvents(){
 $("#prev_button").on("click", function () {
 
     if(currJour <= 0){
-        toastr["success"]("Retour au pré-requis.", "D'accord !")
+        toastr["success"]("Retour au pré-requis.", "D'accord !");
+        $("#next_button").addClass("disabled");
         setTimeout(function(){ window.location = "/index.php" }, 2000);
-        return;
+    }else{
+
     }
 
 });
+
+
+$("#next_button").on("click", function () {
+
+    function SaveAndGoToNextDay() {
+        $("#next_button").addClass("disabled");
+
+        $.ajax({
+            type: "POST",
+            url: "/api/saveUserDataInSession.php",
+            data: {
+                cours1: cours1,
+                cours2: cours2,
+                cours3: cours3,
+                cours4: cours4,
+                date: dateChoisie,
+            },
+            dataType: "json",
+            success: function (result, data, xhrStatus) {
+                if(xhrStatus.status === 200){
+                    if(result.error === true){
+                        toastr["warning"](result.message, "Erreur");
+                    }else{
+                        toastr["success"](result.message, "Succès");
+                        setTimeout(function(){ location.reload() }, 2000);
+
+                    }
+                }
+            },
+            error: function () {
+                toastr["error"]("Oops !", "Erreur !"); // toast..
+                $("#next_button").removeClass("disabled");
+
+            },
+            complete: function () {
+
+            }
+
+        });
+
+    }
+
+    if(currJour >= nbJours){
+        toastr["success"]("Terminé, passons à l'enregistrement.", "D'accord !");
+        $("#prev_button").addClass("disabled");
+        setTimeout(function(){ window.location = "/enregistrement.php" }, 2000);
+    }else{
+
+        if(nbJours > 1){
+            if(cours1 === 0 || cours2 === 0){
+                toastr["warning"]("Veuillez choisir un cours pour la première et deuxième tranche horaire.", "Attention...");
+            }else{
+                SaveAndGoToNextDay();
+            }
+        }else{
+            if(cours1 === 0 || cours2 === 0 || cours3 === 0){
+                toastr["warning"]("Veuillez choisir un cours pour la première, deuxième et troisième tranche horaire.", "Attention...");
+            }else{
+                if(cours3 === 0 && cours4 !== 0){
+                    toastr["warning"]("Vous ne pouvez pas selectionner de 4ème cours si vous ne prenez pas de 3ème cours.", "Attention...");
+                }else{
+                    SaveAndGoToNextDay();
+                }
+            }
+        }
+
+    }
+
+});
+

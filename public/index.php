@@ -103,7 +103,8 @@
                 jours: $("#jours").val(),
             },
             dataType: "json",                                 // le type de data attendu par jquery
-            success: function (result, data, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error
+            success: function (result, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error
+                console.log(result, xhrStatus);
                 if(xhrStatus.status === 200){
                     if(result.error === true){
                         toastr["warning"](result.message, "Erreur");              // on affiche le toast

@@ -72,10 +72,13 @@ $afficheJour = $_SESSION["currJour"] + 1;
 
 
                     foreach (Horaire::getAllDateLessons() as $date){
-                        array_push($champs[0]["options"], array(
+                        if(!dateAlreadyChosen($date["date_cours"])){
+                            array_push($champs[0]["options"], array(
                                 "value" => $date["date_cours"],
                                 "text" => strftime("%A %d %B %G", strtotime($date["date_cours"]))
-                        ));
+                            ));
+                        }
+
                     }
 
                     generateForm($champs);
@@ -94,7 +97,14 @@ $afficheJour = $_SESSION["currJour"] + 1;
     <!-- todo:  previsualiser ses choix ici -->
 
     <div class="alert alert-primary" role="alert">
-        Veuillez sélectionner des cours
+        Selection pour le jour <?php echo($afficheJour); ?> :<br/>
+        <ol>
+            <?php for($i = 1; $i <= 4;$i++){ ?>
+                <li id="list-cours-<?php echo($i) ?>">
+                    Aucun choix
+                </li>
+            <?php } ?>
+        </ol>
     </div>
     <!-- section des cours a afficher  -->
 
@@ -128,7 +138,7 @@ $afficheJour = $_SESSION["currJour"] + 1;
                 <div class="list-group" id="liste-cours-horaire-tranche-3">
 
                     <?php if($_SESSION["jours"] > 1){ ?>
-                    <a href="#" data-cours-id="0" data-tranche="3" class="list-group-item list-group-item-action clickable tranche3">
+                    <a href="#" data-cours-id="0" data-cours-name="Pas de cours" data-tranche="3" class="list-group-item list-group-item-action clickable tranche3">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Pas de cours</h5>
                         </div>
@@ -144,7 +154,7 @@ $afficheJour = $_SESSION["currJour"] + 1;
 
                 <div class="list-group" id="liste-cours-horaire-tranche-4">
 
-                    <a href="#" data-cours-id="0" data-tranche="4" class="list-group-item list-group-item-action clickable tranche4">
+                    <a href="#" data-cours-id="0" data-cours-name="Pas de cours" data-tranche="4" class="list-group-item list-group-item-action clickable tranche4">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Pas de cours</h5>
                         </div>
@@ -161,7 +171,13 @@ $afficheJour = $_SESSION["currJour"] + 1;
 
             <div id="cours-buttons" class="center-elements">
 
-                <a class="btn btn-warning" id="prev_button">Retour / Précédent</a> <a class="btn btn-success" id="next_button">Suivant</a>
+                <a class="btn btn-warning" id="prev_button">
+                    <?php if($_SESSION["currJour"] == 0){ ?>Retour<?php } else {?>Précédent<?php } ?>
+                </a>
+
+                <a class="btn btn-success" id="next_button">
+                    Suivant
+                </a>
 
             </div>
 
@@ -173,6 +189,25 @@ $afficheJour = $_SESSION["currJour"] + 1;
     <script>
         var nbJours = <?php echo($_SESSION["jours"]); ?>;
         var currJour = <?php echo($_SESSION["currJour"]); ?>
+
+        var cours1 = 0;
+        var cours2 = 0;
+        var cours3 = 0;
+        var cours4 = 0;
+        var dateChoisie = "";
+
+
+        <?php
+        for($i = 1; $i <= 4; $i++){
+            if($_SESSION["data_jours"][$afficheJour-1]["date"] != ""){
+               $affichage = Horaire::getLabelById($_SESSION["data_jours"][$afficheJour-1]["date"][$i-1]);
+        ?>
+
+        <?php
+            }
+        }
+        ?>
+
     </script>
     <script src="/js/inscription.js"></script>
 

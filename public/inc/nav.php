@@ -29,5 +29,8 @@
                 <a class="nav-link" href="/contact.php">Contact</a>
             </li>
         </ul>
+        <span class="navbar-text">
+            Mis à jour il y a <span data-sec="0" id="update-secs">{secs}</span> secondes.
+    </span>
     </div>
 </nav>

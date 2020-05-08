@@ -10,16 +10,11 @@
 $primary-color : rgba(203, 32, 32, 100);
 $primary-color-light : rgba(203, 32, 32, 0.5);
 
-.bg-primary{
+.bg-primary, .dropdown-menu, .dropdown-item:hover, .alert-primary, .list-group-item.active{
   background-color: $primary-color !important;
-  .dropdown-menu{
-    background-color: $primary-color !important;
-    .dropdown-item:hover{
-
-      background-color: $primary-color !important;
-    }
-  }
+  border-color: $primary-color !important;
 }
+
 
 .nav-logo
 {
@@ -37,8 +32,8 @@ fieldset{
 
 #cours-tranche-1, #cours-tranche-2, #cours-tranche-3, #cours-tranche-4{
   border: rgba(0,0,0,0.1) 1px solid;
-  height: 30vh;
-  overflow-y: scroll;
+  height: 27vh;
+  overflow-y: hidden;
 }
 
 .center-elements{
@@ -47,3 +42,4 @@ fieldset{
     width: 150px;
   }
 }
+
