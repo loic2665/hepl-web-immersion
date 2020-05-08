@@ -115,26 +115,7 @@ class Horaire
 
         return $line;
     }
-=======
-    /* Javascript text */
 
-    public static function getLabelById($id){
-
-        $db = new Database();
-        $result = $db->conn->query("
-        SELECT c.intitule, tc.type, 
-        FROM horaires
-            INNER JOIN cours c on horaires.id_cours = c.id
-            INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
-        WHERE horaires.id = ".$id.";");
-        $array = $result->fetchAll(PDO::FETCH_ASSOC);
-
-        return $array;
-
-    }
-
-
->>>>>>> Stashed changes
     /* Javascript text */
 
     public static function getLabelById($id){
