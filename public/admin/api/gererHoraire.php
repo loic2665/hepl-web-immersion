@@ -43,7 +43,7 @@ $message = "Attention, les champs ";
 $error = false;
 $input_error = array();
 foreach ($posts as $post) {
-    if (!isset($_POST[$post]) || empty($_POST[$post])) {
+    if (!isset($_POST[$post])) {
         $message .= $post . ", ";
         array_push($input_error, $post);
         $error = true;
@@ -69,7 +69,13 @@ else /* Effectuer la requete demandée */
     {
 
         case "add":
-
+            if(Horaire::insertHoraire($data["id_cours"], $data["id_enseignants"], $data["id_type_cours"], $data["date_cours"], $data["id_tranches_horaires"], $data["id_locaux"], $data["inscription_max"], $data["indus"], $data["gestion"], $data["reseau"])){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "L'horaire à bien été insérer.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de l'ajout de l'horaire.";
+            }
             break;
 
         case "get":
@@ -77,11 +83,23 @@ else /* Effectuer la requete demandée */
             break;
 
         case "delete":
-
+            if(Horaire::deleteHoraire($data["id"]) > 0){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "L'horaire a bien été supprimé.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de la suppression de l'horaire.";
+            }
             break;
 
         case "modif":
-
+            if(Horaire::updateHoraire($data["id"], $data["id_cours"], $data["id_enseignants"], $data["id_type_cours"], $data["date_cours"], $data["id_tranches_horaires"], $data["id_locaux"], $data["inscription_max"], $data["indus"], $data["gestion"], $data["reseau"]) > 0){
+                $toReturn["error"] = false;
+                $toReturn["message"] = "L'horaire à bien été modifier.";
+            } else {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Une erreur s'est produite lors de la modification de l'horaire.";
+            }
             break;
 
         default:

@@ -130,65 +130,45 @@ $(document).ready(function () {
         console.log(table);
 
         if(tab.formValid()) {
+            switch (table){
+                case 'enseignants':
+                    tableau.nom = $('#nom').val();
+                    tableau.prenom = $('#prenom').val();
+                    tableau.sexe = $('input[name=sexe]:checked').val();
+                    break;
+
+                case 'eleves':
+                    tableau.nom = $('#nom').val();
+                    tableau.prenom = $('#prenom').val();
+                    tableau.email = $('#email').val();
+                    tableau.etablissement = $('#etablissement').val();
+                    tableau.indus = $("#indus option:selected").val();
+                    tableau.gestion = $("#gestion option:selected").val();
+                    tableau.reseau = $("#reseau option:selected").val();
+                    break;
+
+                case 'cours':
+                    tableau.intitule = $('#intitule').val();
+                    tableau.bloc = $('#bloc').val();
+                    break;
+
+                case 'horaires' :
+                    tableau.id_cours = $("#id_cours option:selected").val();
+                    tableau.id_enseignants = $("#id_enseignants option:selected").val();
+                    tableau.id_type_cours = $("#id_type_cours option:selected").val();
+                    tableau.date_cours = $('#date_cours').val();
+                    tableau.id_tranches_horaires = $("#id_tranches_horaires option:selected").val();
+                    tableau.id_locaux = $("#id_locaux option:selected").val();
+                    tableau.inscription_max = $('#inscription_max').val();
+                    tableau.indus = $("#indus option:selected").val();
+                    tableau.gestion = $("#gestion option:selected").val();
+                    tableau.reseau = $("#reseau option:selected").val();
+                    break;
+            }
             if(action === "ajout"){ // si on ajoute
-                switch (table){
-                    case 'enseignants':
-                        tableau.nom = $('#nom').val();
-                        tableau.prenom = $('#prenom').val();
-                        tableau.sexe = $('input[name=sexe]:checked').val();
-                        break;
-
-                    case 'eleves':
-                        tableau.nom = $('#nom').val();
-                        tableau.prenom = $('#prenom').val();
-                        tableau.email = $('#email').val();
-                        tableau.etablissement = $('#etablissement').val();
-                        tableau.indus = $("#indus option:selected").val();
-                        tableau.gestion = $("#gestion option:selected").val();
-                        tableau.reseau = $("#reseau option:selected").val();
-                        break;
-
-                    case 'cours':
-                        tableau.intitule = $('#intitule').val();
-                        tableau.bloc = $('#bloc').val();
-                        break;
-
-                    case 'horaires' :
-
-                        break;
-                }
                 tab.ajouter(tableau);
             } else {                // si on modifie
-                switch (table){
-                    case 'enseignants':
-                        tableau.id = idModif;
-                        tableau.nom = $('#nom').val();
-                        tableau.prenom = $('#prenom').val();
-                        tableau.sexe = $('input[name=sexe]:checked').val();
-                        break;
-
-                    case 'eleves':
-                        tableau.id = idModif;
-                        tableau.nom = $('#nom').val();
-                        tableau.prenom = $('#prenom').val();
-                        tableau.email = $('#email').val();
-                        tableau.etablissement = $('#etablissement').val();
-                        tableau.indus = $("#indus option:selected").val();
-                        tableau.gestion = $("#gestion option:selected").val();
-                        tableau.reseau = $("#reseau option:selected").val();
-                        break;
-
-                    case 'cours':
-                        tableau.id = idModif;
-                        tableau.intitule = $('#intitule').val();
-                        tableau.bloc = $('#bloc').val();
-                        break;
-
-                    case 'horaires' :
-
-                        break;
-
-                }
+                tableau.id = idModif;
                 tab.modifier(tableau)
             }
             tab.initForm();

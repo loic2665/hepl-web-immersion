@@ -117,7 +117,6 @@ class Horaire
     }
 
     /* Javascript text */
-
     public static function getLabelById($id){
 
         $db = new Database();
@@ -130,8 +129,49 @@ class Horaire
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
-
     }
 
 
+    /*insérer un horaire dans la base de données*/
+    public static function insertHoraire($id_cours, $id_enseignants, $id_type_cours, $date_cours, $id_tranches_horaires, $id_locaux, $inscription_max, $indus, $gestion, $reseau)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        INSERT INTO horaires ( id_cours, id_enseignants, id_type_cours, date_cours, id_tranches_horaires, id_locaux, inscription_max, indus, gestion, reseau) 
+            VALUES ('".$id_cours."', '".$id_enseignants."', '".$id_type_cours."', '".$date_cours."', '".$id_tranches_horaires."', '".$id_locaux."', '".$inscription_max."', '".$indus."', '".$gestion."', '".$reseau."')" );
+
+        return $result;
+    }
+
+    /*mettre à jour un horaire dans la base de données*/
+    public static function updateHoraire($id, $id_cours, $id_enseignants, $id_type_cours, $date_cours, $id_tranches_horaires, $id_locaux, $inscription_max, $indus, $gestion, $reseau)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        UPDATE horaires 
+            SET id_cours = '".$id_cours."',
+                id_enseignants = '".$id_enseignants."',
+                id_type_cours = '".$id_type_cours."',
+                date_cours = '".$date_cours."',
+                id_tranches_horaires = '".$id_tranches_horaires."',
+                id_locaux = '".$id_locaux."',
+                inscription_max = '".$inscription_max."',
+                indus = '".$indus."',
+                gestion = '".$gestion."',
+                reseau = '".$reseau."'
+        WHERE id = '".$id."' " );
+
+        return $result->rowCount();
+    }
+
+    /*supprimer un horaire dans la base de données*/
+    public static function deleteHoraire($id)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        DELETE FROM horaires
+        WHERE id = '".$id."' " );
+
+        return $result->rowCount();
+    }
 }
