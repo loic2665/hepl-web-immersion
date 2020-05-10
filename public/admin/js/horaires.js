@@ -63,7 +63,19 @@ export function formValid(){
 
 /* Fonction qui vide le formulaire  */
 export function initForm(){
-    console.log("initform");
+    let inputs = $('input[type=number]');                          // on récupere les differents types d'input email du formulaire
+    for( let input of inputs){                                // boucle pour remplir les champs email
+        input.value = "";
+    }
+    inputs = $('select');                                     // on récupere les differents types d'input radio du formulaire
+    for( let input of inputs){                                // boucle pour check le bon bouton radio
+        $(input).val($("#"+ input.id +" option:first").val());// on défini la val selectionner à la première valeur de ce même premier element
+    }
+    inputs = $('input[type=date]');                          // on récupere les differents types d'input email du formulaire
+    for( let input of inputs){                                // boucle pour remplir les champs email
+        input.value = "";
+    }
+
 }
 
 /* Fonction qui permet de récupérer les données de */
