@@ -6,7 +6,7 @@
 //--Date de la dernière mise à jour : [DATE DU JOUR]      -->
 //-- ---------------------------------------------------- -->
 
-
+import * as requetes from '/js/requeteAjax.js'
 
 $("#dateJour").on("change", function () {
 
@@ -87,59 +87,48 @@ $("#dateJour").on("change", function () {
 
     function updateSelect(){
         // on va faire 4 req. ajax, chaque vont peupler les select correpondant
-        $.ajax({
-            type: "POST",                                           // type de requete
-            url: "/api/inscription/getAllHorairesByDate.php",       // url de la requete
-            data: {                                                 // data de la requetes, les paramètres
-                date: dateChoisie,
-            },
-            dataType: "json",                                 // le type de data attendu par jquery
-            success: function (result, data, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error
-                if(xhrStatus.status === 200){
-                    if(result.error === true){
-                        toastr["warning"](result.message, "Erreur");              // on affiche le toast
+
+        let data = {
+            date: dateChoisie
+        }
+
+        function callbackSuccess(result){
+
+            if(result.error === true){
+                toastr["warning"](result.message, "Erreur");              // on affiche le toast
+            }else{
+                toastr["success"](result.message, "Succès");              // on affiche le toast
+
+                for(let i = 0; i < result.data.length; i++){
+
+                    if((i === 2 || i === 3) && nbJours > 1){
+                        $('#liste-cours-horaire-tranche-'+(i+1)).find('a:not(:first)').remove();
                     }else{
-                        toastr["success"](result.message, "Succès");              // on affiche le toast
-
-                        for(let i = 0; i < result.data.length; i++){
-
-                            if((i === 2 || i === 3) && nbJours > 1){
-                                $('#liste-cours-horaire-tranche-'+(i+1)).find('a:not(:first)').remove();
-                            }else{
-                                $('#liste-cours-horaire-tranche-'+(i+1)).find('a').remove();
-
-                            }
-
-
-                            // dans le selecteur de dateJour, je veux trouver tout les tag options (sauf le premier), je veux ensuite les enelever,
-                            result.data[i].forEach(horaire => $('#liste-cours-horaire-tranche-'+(i+1)).append(createCoursElement(
-                                horaire.cours_id,
-                                horaire.intitule,
-                                horaire.bloc,
-                                horaire.gestion,
-                                horaire.indus,
-                                horaire.reseau,
-                                horaire.heure_debut,
-                                horaire.heure_fin,
-                                horaire.type,
-                                i+1,
-                            )));
-
-                        }
-
-
-                        createEvents();
-
+                        $('#liste-cours-horaire-tranche-'+(i+1)).find('a').remove();
                     }
-                }
-            },
-            error: function (result) {
-                toastr["error"]("Oops !", "Erreur !"); // toast..
-            },
-            complete: function(result){ // on execute le quoi que ce soit une erreur ou non
+                    // dans le selecteur de dateJour, je veux trouver tout les tag options (sauf le premier), je veux ensuite les enelever,
+                    result.data[i].forEach(horaire => $('#liste-cours-horaire-tranche-'+(i+1)).append(createCoursElement(
+                        horaire.cours_id,
+                        horaire.intitule,
+                        horaire.bloc,
+                        horaire.gestion,
+                        horaire.indus,
+                        horaire.reseau,
+                        horaire.heure_debut,
+                        horaire.heure_fin,
+                        horaire.type,
+                        i+1,
+                    )));
 
-            },
-        });
+                }
+                createEvents();
+
+            }
+
+        }
+
+        requetes.requeteAjax("POST", "/api/inscription/getAllHorairesByDate.php", data, "json", callbackSuccess, null, null);
+
     }
 
     /*
@@ -203,6 +192,18 @@ $("#prev_button").on("click", function () {
         setTimeout(function(){ window.location = "/index.php" }, 2000);
     }else{
 
+        function callbackSuccess(result){
+            if(result.error === true){
+                toastr["warning"](result.message, "Erreur");
+            }else{
+                toastr["success"](result.message, "Succès");
+                setTimeout(function(){ location.reload() }, 2000);
+            }
+        }
+
+
+        requetes.requeteAjax("GET", "/api/inscription/getBackOneDay.php", {}, "json", callbackSuccess, null, null);
+
     }
 
 });
@@ -213,38 +214,29 @@ $("#next_button").on("click", function () {
     function SaveAndGoToNextDay() {
         $("#next_button").addClass("disabled");
 
-        $.ajax({
-            type: "POST",
-            url: "/api/saveUserDataInSession.php",
-            data: {
-                cours1: cours1,
-                cours2: cours2,
-                cours3: cours3,
-                cours4: cours4,
-                date: dateChoisie,
-            },
-            dataType: "json",
-            success: function (result, data, xhrStatus) {
-                if(xhrStatus.status === 200){
-                    if(result.error === true){
-                        toastr["warning"](result.message, "Erreur");
-                    }else{
-                        toastr["success"](result.message, "Succès");
-                        setTimeout(function(){ location.reload() }, 2000);
-
-                    }
-                }
-            },
-            error: function () {
-                toastr["error"]("Oops !", "Erreur !"); // toast..
-                $("#next_button").removeClass("disabled");
-
-            },
-            complete: function () {
-
+        function callbackSuccess(result){
+            if(result.error === true){
+                toastr["warning"](result.message, "Erreur");
+            }else{
+                toastr["success"](result.message, "Succès");
+                setTimeout(function(){ location.reload() }, 2000);
             }
+        }
 
-        });
+        function callbackError(result){
+            toastr["error"]("Oops !", "Erreur !"); // toast..
+            $("#next_button").removeClass("disabled");
+        }
+
+        let data = {
+            cours1: cours1,
+            cours2: cours2,
+            cours3: cours3,
+            cours4: cours4,
+            date: dateChoisie,
+        };
+
+        requetes.requeteAjax("POST", "/api/inscription/saveUserDataInSession.php", data, "json", callbackSuccess, callbackError, null);
 
     }
 
