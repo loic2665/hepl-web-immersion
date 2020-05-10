@@ -22,6 +22,9 @@ if(!isset($_SESSION["currJour"])){
     // idem todo plus haut
     die("?????");
 
+}else if($_SESSION["currJour"] > $_SESSION["jours"]){
+    header("Location: /enregistrement.php");
+    die();
 }
 $afficheJour = $_SESSION["currJour"] + 1;
 
@@ -202,14 +205,14 @@ $afficheJour = $_SESSION["currJour"] + 1;
             if($_SESSION["data_jours"][$afficheJour-1]["date"] != ""){
                $affichage = Horaire::getLabelById($_SESSION["data_jours"][$afficheJour-1]["date"][$i-1]);
         ?>
-
+            $("#list-cours-<?php echo($i) ?>").text("<?php echo($affichage); ?>");
         <?php
             }
         }
         ?>
 
     </script>
-    <script src="/js/inscription.js"></script>
+    <script  type="module" src="/js/inscription.js"></script>
 
 
 

@@ -84,48 +84,6 @@
 
 </section>
 </body>
-<script>
-
-    $("#nom, #prenom, #interet, #etablissement, #jours").on("focus", function () {
-        $(this).removeClass("is-invalid");
-    });
-
-    $("#send_btn").on("click", function () {
-
-        $.ajax({
-            type: "POST",                                    // type de requete
-            url: "/api/welcome.php",                         // url de la requete
-            data: {                                          // data de la requetes, les paramètres
-                nom: $("#nom").val(),
-                prenom: $("#prenom").val(),
-                interet: $("#interet").val(),
-                etablissement: $("#etablissement").val(),
-                jours: $("#jours").val(),
-            },
-            dataType: "json",                                 // le type de data attendu par jquery
-            success: function (result, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error
-                console.log(result, xhrStatus);
-                if(xhrStatus.status === 200){
-                    if(result.error === true){
-                        toastr["warning"](result.message, "Erreur");              // on affiche le toast
-                        result.input_error.forEach(element => $("#"+element).addClass("is-invalid"));  // pour chaque element des input en erreur j'ajoute la classe d'invalidité du champs
-                    }else{                                                                             // merci bootsrap
-                        toastr["success"](result.message, "Succès");              // on affiche le toast
-                        setTimeout(function(){ window.location = "/inscription.php" }, 2000);
-                    }
-                }
-            },
-            error: function (result) {
-                toastr["error"]("Oops !", "Erreur !"); // toast..
-            },
-            complete: function(result){ // on execute le quoi que ce soit une erreur ou non
-
-            },
-        });
-
-    });
-
-
-</script>
+<script type="module" src="/js/prerequis.js"></script>
 </html>
 

@@ -121,17 +121,18 @@ class Horaire
 
         $db = new Database();
         $result = $db->conn->query("
-        SELECT c.intitule, tc.type, 
+        SELECT c.intitule, tc.type, th.heure_debut, th.heure_fin, 
         FROM horaires
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
+            INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id 
         WHERE horaires.id = ".$id.";");
-        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+        $array = $result->fetch(PDO::FETCH_ASSOC);
 
-        return $array;
+        return $array["intitile"]." - ".$array["type"]." - ".$array["heure_debut"]."~".$array["heure_fin"];
+
     }
-
-
+    
     /*insérer un horaire dans la base de données*/
     public static function insertHoraire($id_cours, $id_enseignants, $id_type_cours, $date_cours, $id_tranches_horaires, $id_locaux, $inscription_max, $indus, $gestion, $reseau)
     {
