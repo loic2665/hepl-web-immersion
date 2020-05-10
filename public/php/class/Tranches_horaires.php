@@ -10,17 +10,17 @@
 
 require_once(__DIR__."/Database.php");
 
-class Local
+class Tranches_horaires
 {
 
-    /*récupérer tous les locaux de la base de données*/
-    public static function getAllLocals()
+    /*récupérer toutes les tranches horaires de la base de données*/
+    public static function getAllTranchesHoraires()
     {
         $db = new Database();
 
         $result = $db->conn->query("
         SELECT *
-        FROM locaux
+        FROM tranches_horaires
         ");
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
@@ -28,7 +28,7 @@ class Local
     }
 
     /*récupérer le local de la base de données selon l'identifiant*/
-    public static function getLocalById($id)
+    public static function getTrancheHoraireById($id)
     {
         /* evite les attaques SQL (securite)  échape --> ' " \ */
         $id = addslashes(htmlspecialchars($id));
@@ -36,7 +36,7 @@ class Local
         $db = new Database();
         $result = $db->conn->query("
         SELECT *
-        FROM locaux
+        FROM tranches_horaires
         WHERE id = '".$id."'" );
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
@@ -44,34 +44,36 @@ class Local
     }
 
     /*insérer un local dans la base de données*/
-    public static function insertLocal($local)
+    public static function insertTrancheHoraire($heure_debut, $heure_fin, $tranche_horaire)
     {
         $db = new Database();
         $result = $db->conn->query("
-        INSERT INTO locaux (local)
-            VALUES ('".$local."')" );
+        INSERT INTO tranches_horaires (heure_debut, heure_fin, tranche_horaire)
+            VALUES ('".$heure_debut."', '".$heure_fin."', '".$tranche_horaire."')" );
 
         return $result;
     }
 
     /*mettre à jour un local dans la base de données*/
-    public static function updateLocal($id, $local)
+    public static function updateTrancheHoraire($id, $heure_debut, $heure_fin, $tranche_horaire)
     {
         $db = new Database();
         $result = $db->conn->query("
-        UPDATE locaux 
-            SET local = '".$local."'
+        UPDATE tranches_horaires 
+            SET heure_debut = '".$heure_debut."',
+                heure_fin = '".$heure_fin."',
+                tranche_horaire = '".$tranche_horaire."'
         WHERE id = '".$id."' " );
 
         return $result->rowCount();
     }
 
     /*supprimer un local dans la base de données*/
-    public static function deleteLocal($id)
+    public static function deleteTrancheHoraire($id)
     {
         $db = new Database();
         $result = $db->conn->query("
-        DELETE FROM locaux
+        DELETE FROM tranches_horaires
         WHERE id = '".$id."' " );
 
         return $result->rowCount();

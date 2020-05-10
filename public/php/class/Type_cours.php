@@ -10,25 +10,25 @@
 
 require_once(__DIR__."/Database.php");
 
-class Local
+class Type_cours
 {
 
-    /*récupérer tous les locaux de la base de données*/
-    public static function getAllLocals()
+    /*récupérer tous les types des cours de la base de données*/
+    public static function getAllTypes()
     {
         $db = new Database();
 
         $result = $db->conn->query("
         SELECT *
-        FROM locaux
+        FROM type_cours
         ");
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
     }
 
-    /*récupérer le local de la base de données selon l'identifiant*/
-    public static function getLocalById($id)
+    /*récupérer le type de cours de la base de données selon l'identifiant*/
+    public static function getTypeById($id)
     {
         /* evite les attaques SQL (securite)  échape --> ' " \ */
         $id = addslashes(htmlspecialchars($id));
@@ -36,42 +36,42 @@ class Local
         $db = new Database();
         $result = $db->conn->query("
         SELECT *
-        FROM locaux
+        FROM type_cours
         WHERE id = '".$id."'" );
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
     }
 
-    /*insérer un local dans la base de données*/
-    public static function insertLocal($local)
+    /*insérer un type de cours dans la base de données*/
+    public static function insertType($type)
     {
         $db = new Database();
         $result = $db->conn->query("
-        INSERT INTO locaux (local)
-            VALUES ('".$local."')" );
+        INSERT INTO type_cours (type)
+            VALUES ('".$type."')" );
 
         return $result;
     }
 
-    /*mettre à jour un local dans la base de données*/
-    public static function updateLocal($id, $local)
+    /*mettre à jour un type de cours dans la base de données*/
+    public static function updateType($id, $type)
     {
         $db = new Database();
         $result = $db->conn->query("
-        UPDATE locaux 
-            SET local = '".$local."'
+        UPDATE type_cours 
+            SET type = '".$type."'
         WHERE id = '".$id."' " );
 
         return $result->rowCount();
     }
 
-    /*supprimer un local dans la base de données*/
-    public static function deleteLocal($id)
+    /*supprimer un type de cours dans la base de données*/
+    public static function deleteType($id)
     {
         $db = new Database();
         $result = $db->conn->query("
-        DELETE FROM locaux
+        DELETE FROM type_cours
         WHERE id = '".$id."' " );
 
         return $result->rowCount();

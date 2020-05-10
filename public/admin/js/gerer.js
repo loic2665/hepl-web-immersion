@@ -9,10 +9,12 @@
 //import {ajouter, modifier} as enseignants from "./enseignants.js" Permet d'import juste une partie de la librairie
 
 import * as cours from "./cours.js"
+import * as locaux from "./locaux.js"
 import * as eleves from "./eleves.js"
 import * as horaires from "./horaires.js"
+import * as type_cours from "./type_cours.js"
 import * as enseignants from "./enseignants.js"
-
+import * as tranches_horaires from "./tranches_horaires.js"
 
 /* Évenement qui attends que la page soit entièrement chargée */
 $(document).ready(function () {
@@ -51,6 +53,23 @@ $(document).ready(function () {
             tab = horaires;
             break;
 
+        case 'locaux' :
+            pluriel = 'locaux';
+            singulier = 'local';
+            tab = locaux;
+            break;
+
+        case 'type_cours' :
+            pluriel = 'types de cours';
+            singulier = 'type de cours';
+            tab = type_cours;
+            break;
+
+        case 'tranches_horaires' :
+            pluriel = 'tranches horaires';
+            singulier = 'tranche horaire';
+            tab = tranches_horaires;
+            break;
     }
     $('#entete_gestion').text('Gestion des '+pluriel);
 
@@ -164,6 +183,19 @@ $(document).ready(function () {
                     tableau.gestion = $("#gestion option:selected").val();
                     tableau.reseau = $("#reseau option:selected").val();
                     break;
+
+                case 'locaux':
+                    tableau.local = $('#local').val();
+                    break;
+
+                case 'type_cours':
+                    tableau.type = $('#type').val();
+                    break;
+
+                case'tranches_horaires':
+                    tableau.heure_debut = $('#heure_debut').val();
+                    tableau.heure_fin = $('#heure_fin').val();
+                    tableau.tranche_horaire = $('#tranche_horaire').val();
             }
             if(action === "ajout"){ // si on ajoute
                 tab.ajouter(tableau);
