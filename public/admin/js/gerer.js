@@ -6,15 +6,10 @@
 /*Date de la dernière mise à jour : 06/05/2020             */
 /***********************************************************/
 
-//import {ajouter, modifier} as enseignants from "./enseignants.js" Permet d'import juste une partie de la librairie
+//import {ajouter, modifier} as repartir from "./repartir.js" Permet d'import juste une partie de la librairie
 
-import * as cours from "./cours.js"
-import * as locaux from "./locaux.js"
-import * as eleves from "./eleves.js"
-import * as horaires from "./horaires.js"
-import * as type_cours from "./type_cours.js"
-import * as enseignants from "./enseignants.js"
-import * as tranches_horaires from "./tranches_horaires.js"
+import * as repartir from "./repartir.js"
+
 
 /* Évenement qui attends que la page soit entièrement chargée */
 $(document).ready(function () {
@@ -32,43 +27,43 @@ $(document).ready(function () {
         case 'enseignants':
             pluriel = 'professeurs';
             singulier = 'professeur';
-            tab = enseignants; // tab référencie la librairie enseignants maintenant
+            tab = repartir; // tab référencie la librairie enseignants maintenant
             break;
 
         case 'eleves':
             pluriel = 'élèves';
             singulier = 'élèves';
-            tab = eleves;
+            tab = repartir;
             break;
 
         case 'cours':
             pluriel = 'cours';
             singulier = 'cours';
-            tab = cours;
+            tab = repartir;
             break;
 
         case 'horaires' :
             pluriel = 'horaires';
             singulier = 'horaire';
-            tab = horaires;
+            tab = repartir;
             break;
 
         case 'locaux' :
             pluriel = 'locaux';
             singulier = 'local';
-            tab = locaux;
+            tab = repartir;
             break;
 
         case 'type_cours' :
             pluriel = 'types de cours';
             singulier = 'type de cours';
-            tab = type_cours;
+            tab = repartir;
             break;
 
         case 'tranches_horaires' :
             pluriel = 'tranches horaires';
             singulier = 'tranche horaire';
-            tab = tranches_horaires;
+            tab = repartir;
             break;
     }
     $('#entete_gestion').text('Gestion des '+pluriel);
