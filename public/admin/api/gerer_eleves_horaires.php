@@ -5,7 +5,7 @@
 /*Groupe : 2203                                            */
 /*Labo : Programmation Web avancée                         */
 /*Application : Site d'immersion à l'école                 */
-/*Date de la dernière mise à jour : 10/05/2020             */
+/*Date de la dernière mise à jour : 11/05/2020             */
 /***********************************************************/
 
 
@@ -16,7 +16,7 @@ require_once(__DIR__ . "/../../php/require_all.php");
 
 switch ($_POST["action"]) {
     case "add":
-        $posts = array("action", "heure_debut", "heure_fin", "tranche_horaire");
+        $posts = array("action", "id_horaires", "id_eleves");
         break;
 
     case "get":
@@ -24,7 +24,7 @@ switch ($_POST["action"]) {
         break;
 
     case "modif":
-        $posts = array("action", "id", "heure_debut", "heure_fin", "tranche_horaire");
+        $posts = array("action", "id", "id_horaires", "id_eleves");
         break;
 
     case "delete":
@@ -67,36 +67,36 @@ if ($error) /* Si erreur */ {
     switch ($_POST["action"]) {
 
         case "add":
-            if (Tranches_horaires::insertTrancheHoraire($data["heure_debut"], $data["heure_fin"], $data["tranche_horaire"])) {
+            if (Eleves_horaires::insertEleveHoraire($data["id_horaires"], $data["id_eleves"])) {
                 $toReturn["error"] = false;
-                $toReturn["message"] = "La tranche horaire à bien été insérer.";
+                $toReturn["message"] = "L'horaire à bien été insérer.";
             } else {
                 $toReturn["error"] = true;
-                $toReturn["message"] = "Une erreur s'est produite lors de la tranche horaire.";
+                $toReturn["message"] = "Une erreur s'est produite lors de l'horaire.";
             }
             break;
 
         case "get":
-            $toReturn["data"] = Tranches_horaires::getTrancheHoraireById($data["id"]);
+            $toReturn["data"] = Eleves_horaires::getEleveHoraireById($data["id"]);
             break;
 
         case "delete":
-            if (Tranches_horaires::deleteTrancheHoraire($data["id"]) > 0) {
+            if (Eleves_horaires::deleteEleveHoraire($data["id"]) > 0) {
                 $toReturn["error"] = false;
-                $toReturn["message"] = "La tranche horaire a bien été supprimé.";
+                $toReturn["message"] = "L'horaire a bien été supprimé.";
             } else {
                 $toReturn["error"] = true;
-                $toReturn["message"] = "Une erreur s'est produite lors de la suppression de la tranche horaire.";
+                $toReturn["message"] = "Une erreur s'est produite lors de la suppression de l'horaire.";
             }
             break;
 
         case "modif":
-            if (Tranches_horaires::updateTrancheHoraire($data["id"], $data["heure_debut"], $data["heure_fin"], $data["tranche_horaire"]) > 0) {
+            if (Eleves_horaires::updateEleveHoraire($data["id"], $data["id_horaires"], $data["id_eleves"]) > 0) {
                 $toReturn["error"] = false;
-                $toReturn["message"] = "La tranche horaire à bien été modifier.";
+                $toReturn["message"] = "L'horaire à bien été modifier.";
             } else {
                 $toReturn["error"] = true;
-                $toReturn["message"] = "Une erreur s'est produite lors de la modification de la tranche horaire.";
+                $toReturn["message"] = "Une erreur s'est produite lors de la modification de l'horaire.";
             }
             break;
 

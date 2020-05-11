@@ -30,6 +30,45 @@ class Horaire
         return $array;
     }
 
+    /*récupérer tous les cours de l'horaire dans la base de données pour un affichage propre*/
+    public static function getAllLessonsDisplay()
+    {
+
+        $db = new Database();
+
+        $result = $db->conn->query("
+        SELECT  horaires.id AS id, CONCAT(horaires.id_cours, ' - ',c.intitule) AS id_cours, CONCAT(horaires.id_enseignants, ' - ', e.nom, ' ', e.prenom) AS id_enseignants,
+                CONCAT(horaires.id_type_cours, ' - ', tc.type) AS id_type_cours, horaires.date_cours AS date_cours, 
+                CONCAT(horaires.id_tranches_horaires, ' - ', th.heure_debut, '  ',th.heure_fin) AS id_tranches_horaires, CONCAT(horaires.id_locaux, ' - ', l.local) AS id_locaux,
+                horaires.inscription_max AS inscription_max, 
+                CASE
+                    WHEN horaires.indus = 1
+                        THEN 'Oui'
+                        ELSE 'Non'
+                    END AS indus,
+                               CASE
+                    WHEN horaires.gestion = 1
+                        THEN 'Oui'
+                        ELSE 'Non'
+                    END AS gestion,
+                               CASE
+                    WHEN horaires.reseau = 1
+                        THEN 'Oui'
+                        ELSE 'Non'
+                    END AS reseau           
+        FROM horaires
+            INNER JOIN cours c on horaires.id_cours = c.id
+            INNER JOIN enseignants e on horaires.id_enseignants = e.id
+            INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
+            INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id
+            INNER JOIN locaux l on horaires.id_locaux = l.id    
+
+        ");
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+    }
+
     /*récupérer tous les cours de l'horaire dans la base de données d'après l'intitulé*/
     public static function getLessonsByName($name)
     {

@@ -15,7 +15,6 @@ import * as repartir from "./repartir.js"
 $(document).ready(function () {
 
 
-    let tab;
     let idModif;
     let table = $('#page').val();
     let action; // pour pouvoir différencier un ajout à une modification dans le bouton valider
@@ -25,48 +24,46 @@ $(document).ready(function () {
     /* permet de mettre le titre selon la page ouverte */
     switch (table){
         case 'enseignants':
-            pluriel = 'professeurs';
-            singulier = 'professeur';
-            tab = repartir; // tab référencie la librairie enseignants maintenant
+            pluriel = 'des professeurs';
+            singulier = 'un professeur';
             break;
 
         case 'eleves':
-            pluriel = 'élèves';
-            singulier = 'élèves';
-            tab = repartir;
+            pluriel = 'des élèves';
+            singulier = 'un élève';
             break;
 
         case 'cours':
-            pluriel = 'cours';
-            singulier = 'cours';
-            tab = repartir;
+            pluriel = 'des cours';
+            singulier = 'un cours';
             break;
 
         case 'horaires' :
-            pluriel = 'horaires';
-            singulier = 'horaire';
-            tab = repartir;
+            pluriel = 'des horaires';
+            singulier = 'un horaire';
             break;
 
         case 'locaux' :
-            pluriel = 'locaux';
-            singulier = 'local';
-            tab = repartir;
+            pluriel = 'des locaux';
+            singulier = 'un local';
             break;
 
         case 'type_cours' :
-            pluriel = 'types de cours';
-            singulier = 'type de cours';
-            tab = repartir;
+            pluriel = 'des types de cours';
+            singulier = 'un type de cours';
             break;
 
         case 'tranches_horaires' :
-            pluriel = 'tranches horaires';
-            singulier = 'tranche horaire';
-            tab = repartir;
+            pluriel = 'des tranches horaires';
+            singulier = 'une tranche horaire';
+            break;
+
+        case 'eleves_horaires' :
+            pluriel = 'des horaires d\'élèves';
+            singulier = 'un horaire d\'éleve';
             break;
     }
-    $('#entete_gestion').text('Gestion des '+pluriel);
+    $('#entete_gestion').text('Gestion '+pluriel);
 
 
     /***************************************/
@@ -79,7 +76,7 @@ $(document).ready(function () {
     $(".modif").on("click", function () {
         action = "modif";
         idModif = $(this).data("course-id");
-        tab.remplirForm(idModif);
+        repartir.remplirForm(idModif);
         $('#entete_ajout_modif').text('Modifier un '+singulier);
 
         $('#table_list').addClass("hidden");
@@ -111,7 +108,7 @@ $(document).ready(function () {
 
     /* Évenement au click sur le bouton supprimer */
     $(".del").on("click", function () {
-        tab.supprimer($(this).data("course-id"));
+        repartir.supprimer($(this).data("course-id"));
 
     });
 
@@ -123,7 +120,7 @@ $(document).ready(function () {
 
     /* Évenement au click sur le bouton annuler */
     $(".annul").on("click", function () {
-        tab.initForm();
+        repartir.initForm();
 
         $('#ajout_modif').addClass("hidden");
         $('#table_list').removeClass("hidden");
@@ -143,7 +140,7 @@ $(document).ready(function () {
 
         console.log(table);
 
-        if(tab.formValid()) {
+        if(repartir.formValid()) {
             switch (table){
                 case 'enseignants':
                     tableau.nom = $('#nom').val();
@@ -191,14 +188,20 @@ $(document).ready(function () {
                     tableau.heure_debut = $('#heure_debut').val();
                     tableau.heure_fin = $('#heure_fin').val();
                     tableau.tranche_horaire = $('#tranche_horaire').val();
+                    break;
+
+                case'eleves_horaires':
+                    tableau.id_horaires = $('#id_horaires').val();
+                    tableau.id_eleves = $('#id_eleves').val();
+                    break;
             }
             if(action === "ajout"){ // si on ajoute
-                tab.ajouter(tableau);
+                repartir.ajouter(tableau);
             } else {                // si on modifie
                 tableau.id = idModif;
-                tab.modifier(tableau)
+                repartir.modifier(tableau)
             }
-            tab.initForm();
+            repartir.initForm();
             $('#ajout_modif').addClass("hidden");
             $('#table_list').removeClass("hidden");
         } else {
