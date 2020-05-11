@@ -75,7 +75,8 @@
                 <?php foreach ($colname as $ligne){ ?>
                 <th scope="col"><?php echo($ligne["Field"]); ?> </th>
                 <?php } ?>
-                <th scope="col">Modifier</th>
+                <th scope="col">Changer visibilité</th>
+                <th scope="col">Déplacer élèves</th>
                 <th scope="col">Supprimer</th>
             </tr>
             </thead>
@@ -86,7 +87,8 @@
                     <?php foreach ($colname as $ligne2){ ?>
                     <th scope="row"><?php echo($ligne[$ligne2["Field"]]); ?></th>
                     <?php } ?>
-                    <th scope="row"><a class="btn btn-success modif"  data-course-id="<?php echo($ligne["id"]); ?>">Modifier</a></th>
+                    <th scope="row"><a class="btn btn-info visible"  data-course-id="<?php echo($ligne["id"]); ?>">Changer visibilité</a></th>
+                    <th scope="row"><a class="btn btn-success dep"  data-course-id="<?php echo($ligne["id"]); ?>">Déplacer élèves</a></th>
                     <th scope="row"><a class="btn btn-danger del"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
                 </tr>
             <?php } ?>

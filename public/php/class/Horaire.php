@@ -40,22 +40,27 @@ class Horaire
         SELECT  horaires.id AS id, CONCAT(horaires.id_cours, ' - ',c.intitule) AS id_cours, CONCAT(horaires.id_enseignants, ' - ', e.nom, ' ', e.prenom) AS id_enseignants,
                 CONCAT(horaires.id_type_cours, ' - ', tc.type) AS id_type_cours, horaires.date_cours AS date_cours, 
                 CONCAT(horaires.id_tranches_horaires, ' - ', th.heure_debut, '  ',th.heure_fin) AS id_tranches_horaires, CONCAT(horaires.id_locaux, ' - ', l.local) AS id_locaux,
-                horaires.inscription_max AS inscription_max, 
+                horaires.inscription AS inscription, horaires.inscription_max AS inscription_max, 
                 CASE
                     WHEN horaires.indus = 1
                         THEN 'Oui'
                         ELSE 'Non'
                     END AS indus,
-                               CASE
+                CASE
                     WHEN horaires.gestion = 1
                         THEN 'Oui'
                         ELSE 'Non'
                     END AS gestion,
-                               CASE
+                CASE
                     WHEN horaires.reseau = 1
                         THEN 'Oui'
                         ELSE 'Non'
-                    END AS reseau           
+                    END AS reseau,
+                CASE
+                    WHEN horaires.visible = 1
+                        THEN 'Oui'
+                        ELSE 'Non'
+                    END AS visible  
         FROM horaires
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN enseignants e on horaires.id_enseignants = e.id
@@ -173,18 +178,18 @@ class Horaire
     }
     
     /*insérer un horaire dans la base de données*/
-    public static function insertHoraire($id_cours, $id_enseignants, $id_type_cours, $date_cours, $id_tranches_horaires, $id_locaux, $inscription_max, $indus, $gestion, $reseau)
+    public static function insertHoraire($id_cours, $id_enseignants, $id_type_cours, $date_cours, $id_tranches_horaires, $id_locaux, $inscription, $inscription_max, $indus, $gestion, $reseau, $visible)
     {
         $db = new Database();
         $result = $db->conn->query("
-        INSERT INTO horaires ( id_cours, id_enseignants, id_type_cours, date_cours, id_tranches_horaires, id_locaux, inscription_max, indus, gestion, reseau) 
-            VALUES ('".$id_cours."', '".$id_enseignants."', '".$id_type_cours."', '".$date_cours."', '".$id_tranches_horaires."', '".$id_locaux."', '".$inscription_max."', '".$indus."', '".$gestion."', '".$reseau."')" );
+        INSERT INTO horaires ( id_cours, id_enseignants, id_type_cours, date_cours, id_tranches_horaires, id_locaux, inscription, inscription_max, indus, gestion, reseau, visible) 
+            VALUES ('".$id_cours."', '".$id_enseignants."', '".$id_type_cours."', '".$date_cours."', '".$id_tranches_horaires."', '".$id_locaux."', '".$inscription."', '".$inscription_max."', '".$indus."', '".$gestion."', '".$reseau."', '".$visible."')" );
 
         return $result;
     }
 
     /*mettre à jour un horaire dans la base de données*/
-    public static function updateHoraire($id, $id_cours, $id_enseignants, $id_type_cours, $date_cours, $id_tranches_horaires, $id_locaux, $inscription_max, $indus, $gestion, $reseau)
+    public static function updateHoraire($id, $id_cours, $id_enseignants, $id_type_cours, $date_cours, $id_tranches_horaires, $id_locaux, $inscription, $inscription_max, $indus, $gestion, $reseau, $visible)
     {
         $db = new Database();
         $result = $db->conn->query("
@@ -195,10 +200,12 @@ class Horaire
                 date_cours = '".$date_cours."',
                 id_tranches_horaires = '".$id_tranches_horaires."',
                 id_locaux = '".$id_locaux."',
+                inscription = '".$inscription."',
                 inscription_max = '".$inscription_max."',
                 indus = '".$indus."',
                 gestion = '".$gestion."',
-                reseau = '".$reseau."'
+                reseau = '".$reseau."',
+                visible = '".$visible."'
         WHERE id = '".$id."' " );
 
         return $result->rowCount();
@@ -210,6 +217,35 @@ class Horaire
         $db = new Database();
         $result = $db->conn->query("
         DELETE FROM horaires
+        WHERE id = '".$id."' " );
+
+        return $result->rowCount();
+    }
+
+    /*mettre à jour la visibilitée d'un horaire dans la base de données*/
+    public static function setvisibilityHoraire($id)
+    {
+        $db = new Database();
+
+        $result = $db->conn->query("
+        SELECT visible
+        FROM horaires
+        WHERE id = '".$id."' " );
+
+        $line = $result->fetch(PDO::FETCH_ASSOC);
+
+        if($line['visible'] == 1)
+        {
+            $visible = 0;
+        }
+        else
+        {
+            $visible = 1;
+        }
+
+        $result = $db->conn->query("
+        UPDATE horaires 
+            SET visible = '".$visible."'
         WHERE id = '".$id."' " );
 
         return $result->rowCount();

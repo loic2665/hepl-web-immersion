@@ -72,7 +72,7 @@ $(document).ready(function () {
     /*                                     */
     /***************************************/
 
-    /* Évenement au click sur le bouton modifier pour eleves */
+    /* Évenement au click sur le bouton modifier */
     $(".modif").on("click", function () {
         action = "modif";
         idModif = $(this).data("course-id");
@@ -81,6 +81,32 @@ $(document).ready(function () {
 
         $('#table_list').addClass("hidden");
         $('#ajout_modif').removeClass("hidden");
+    });
+
+
+    /***************************************/
+    /*                                     */
+    /*       Boutons déplacer élèves       */
+    /*                                     */
+    /***************************************/
+
+    /* Évenement au click sur le bouton déplacer élèves */
+    $(".dep").on("click", function () {
+        console.log("déplacer");
+    });
+
+
+    /***************************************/
+    /*                                     */
+    /*      Boutons changer visibilité     */
+    /*                                     */
+    /***************************************/
+
+    /* Évenement au click sur le bouton changer visibilite */
+    $(".visible").on("click", function () {
+        console.log("visibilite " + $(this).data("course-id"));
+
+        repartir.visible($(this).data("course-id"));
     });
 
 
@@ -170,10 +196,12 @@ $(document).ready(function () {
                     tableau.date_cours = $('#date_cours').val();
                     tableau.id_tranches_horaires = $("#id_tranches_horaires option:selected").val();
                     tableau.id_locaux = $("#id_locaux option:selected").val();
+                    tableau.inscription = $('#inscription').val();
                     tableau.inscription_max = $('#inscription_max').val();
                     tableau.indus = $("#indus option:selected").val();
                     tableau.gestion = $("#gestion option:selected").val();
                     tableau.reseau = $("#reseau option:selected").val();
+                    tableau.visible = $("#visible option:selected").val();
                     break;
 
                 case 'locaux':

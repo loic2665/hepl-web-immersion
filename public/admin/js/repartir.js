@@ -77,6 +77,26 @@ export function supprimer(id){
     requeteAjax.requeteAjax("POST", "/admin/api/gerer_"+table+".php", tableau, "json", successCallback, null, null);
 }
 
+export function visible(id){
+    let tableau = {
+        action: "visible",
+        id:id,
+    };
+
+    let table = $_GET('gerer');
+
+    function successCallback(result){
+        if(result.error === false){
+            toastr["success"](result.message, "Succès");
+        } else {
+            toastr["warning"](result.message, "Attention");
+        }
+    }
+
+    requeteAjax.requeteAjax("POST", "/admin/api/gerer_"+table+".php", tableau, "json", successCallback, null, null);
+
+}
+
 /* Fonction qui vérifie si le formulaire est bien rempli */
 export function formValid(){
     return true;
