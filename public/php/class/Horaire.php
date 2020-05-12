@@ -301,6 +301,42 @@ class Horaire
         return $placesdispo;
     }
 
+    /* Fonction qui permet d'ajouter un inscrit a l'id de horraire*/
+    public static function IncIsc($id)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+            SELECT inscription 
+            FROM horaires
+            WHERE id = '".$id."' " );
+        $insc = $result->fetch(PDO::FETCH_ASSOC);
+
+        $inscit = $insc["inscription"] + 1;
+
+        $result = $db->conn->query("
+            UPDATE horaires 
+            SET inscription = '".$inscit."'
+            WHERE id = '".$id."' " );
+    }
+
+    /* Fonction qui permet d'ajouter un inscrit a l'id de horraire*/
+    public static function DecIsc($id)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+            SELECT inscription 
+            FROM horaires
+            WHERE id = '".$id."' " );
+        $insc = $result->fetch(PDO::FETCH_ASSOC);
+
+        $inscit = $insc["inscription"] - 1;
+
+        $result = $db->conn->query("
+            UPDATE horaires 
+            SET inscription = '".$inscit."'
+            WHERE id = '".$id."' " );
+    }
+
 
     /* Fonction qui permet de déplacer les élèves d'après l'id de horraire*/
     public static function DoDeplacement($id, $eleves)
@@ -328,39 +364,9 @@ class Horaire
             /* ici on assigne l'élève à ce cours */
             Eleves_horaires::insertEleveHoraire($line["id"], $eleve["id"]);
 
-            /* ici on incremente le nouveau cours de 1 */
-            $result = $db->conn->query("
-            SELECT inscription 
-            FROM horaires
-            WHERE id = '".$line["id"]."' " );
-            $insc = $result->fetch(PDO::FETCH_ASSOC);
-
-            $inscit = $insc["inscription"] + 1;
-
-            $result = $db->conn->query("
-            UPDATE horaires 
-            SET inscription = '".$inscit."'
-            WHERE id = '".$line["id"]."' " );
-
             /* supprime l'élève de l'ancien cours */
-            $result = $db->conn->query("
-            DELETE FROM eleves_horaires
-            WHERE id_horaires = '".$id."'
-            AND id_eleves = '".$eleve["id"]."' " );
+            Eleves_horaires::deleteEleveHoraire($id, $eleve["id"]);
 
-            /* ici on décremente l'ancien cours de 1 */
-            $result = $db->conn->query("
-            SELECT inscription 
-            FROM horaires
-            WHERE id = '".$id."' " );
-            $insc = $result->fetch(PDO::FETCH_ASSOC);
-
-            $inscit = $insc["inscription"] - 1;
-
-            $result = $db->conn->query("
-            UPDATE horaires 
-            SET inscription = '".$inscit."'
-            WHERE id = '".$id."' " );
         }
         return 1;
     }
