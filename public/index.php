@@ -8,6 +8,15 @@
 
 <?php require_once(__DIR__."/php/require_all.php"); ?>
 
+<?php
+
+if(Config::areRegistrationOpen() == false){
+    header("Location: /registrationClosed.php");
+    die();
+}
+
+?>
+
 
 <html>
 <head>
@@ -81,11 +90,19 @@
     <fieldset>
         <legend>Qui êtes-vous ?</legend>
         <?php generateForm($champs); ?>
+        <button class="btn btn-success" id="send_btn">Commencer</button>
     </fieldset>
 
 
 
-    <button class="btn btn-success" id="send_btn">Commencer</button>
+    <h3>Dates disponibles</h3>
+    <ul class="list-group list-group-flush">
+    <?php foreach(Horaire::getAllDateLessons() as $date){ ?>
+
+        <li class="list-group-item"><?php echo($date["date_cours"]); ?></li>
+
+    <?php } ?>
+    </ul>
 
 
 
