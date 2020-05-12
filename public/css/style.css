@@ -41,4 +41,8 @@ fieldset {
   display: none;
 }
 
+.disabled {
+  disabled: true;
+}
+
 /*# sourceMappingURL=style.css.map */

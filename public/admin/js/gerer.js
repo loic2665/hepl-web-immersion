@@ -93,6 +93,8 @@ $(document).ready(function () {
     /* Évenement au click sur le bouton déplacer élèves */
     $(".dep").on("click", function () {
         console.log("déplacer");
+
+        $("#visible").removeClass("disabled");
     });
 
 

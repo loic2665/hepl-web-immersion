@@ -40,11 +40,23 @@
 
         /* Requête SQL pour avoir le nom des colonnes */
         $colums = $db->conn->query(" SHOW COLUMNS FROM ".$gerer.";");
-        $colname = $colums->fetchAll(PDO::FETCH_ASSOC);
+        $colname2 = $colums->fetchAll(PDO::FETCH_ASSOC);
 
         /* traitement pour la liste d'affichage */
         $array2 = Horaire::getAllLessonsDisplay();
 
+        /* on recupèle les champs qui nous intéresse pour l'ajout */
+        $colname = array();
+        foreach ($colname2 as $ligne){
+            if(strpos($ligne["Field"], "inscription") !== FALSE)
+            {
+                //je n'ai pas trouver pour faire ça plus proprement -_-
+            }
+            else
+            {
+                array_push($colname, $ligne);
+            }
+        }
     ?>
     <article id="ajout_modif" class="hidden">
         <?php
@@ -72,7 +84,7 @@
         <table class="table table-hover">
             <thead>
             <tr> <!-- Permet d'afficher dans le tableau chaque nom de colonne récupéré -->
-                <?php foreach ($colname as $ligne){ ?>
+                <?php foreach ($colname2 as $ligne){ ?>
                 <th scope="col"><?php echo($ligne["Field"]); ?> </th>
                 <?php } ?>
                 <th scope="col">Changer visibilité</th>
@@ -84,12 +96,12 @@
 
             <?php foreach ($array2 as $ligne){ ?>
                 <tr class="table"> <!-- Boucle imbriquée pour affiché les valeurs en fonction du nom de la colonne -->
-                    <?php foreach ($colname as $ligne2){ ?>
+                    <?php foreach ($colname2 as $ligne2){ ?>
                     <th scope="row"><?php echo($ligne[$ligne2["Field"]]); ?></th>
                     <?php } ?>
-                    <th scope="row"><a class="btn btn-info visible"  data-course-id="<?php echo($ligne["id"]); ?>">Changer visibilité</a></th>
-                    <th scope="row"><a class="btn btn-success dep"  data-course-id="<?php echo($ligne["id"]); ?>">Déplacer élèves</a></th>
-                    <th scope="row"><a class="btn btn-danger del"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
+                    <th scope="row"><a class="btn btn-info visible disabled " data-course-id="<?php echo($ligne["id"]); ?>">Changer visibilité</a></th>
+                    <th scope="row"><a class="btn btn-success dep"  <?php if($ligne["inscription"] < 1){echo("disabled");} ?> data-course-id="<?php echo($ligne["id"]); ?>">Déplacer élèves</a></th>
+                    <th scope="row"><a class="btn btn-danger del" <?php if($ligne["inscription"] > 0){echo("disabled");} ?> data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
                 </tr>
             <?php } ?>
             </tbody>
