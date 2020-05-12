@@ -29,22 +29,17 @@
                 <a class="nav-link" href="/admin/gerer.php?gerer=cours">Gérer les cours</a>
             </li>
             <li class="nav-item"> <!-- permet d'envoyer la valeur horaires à la page gerer.php via $_GET -->
-                <a class="nav-link" href="/admin/gerer.php?gerer=horaires">Gérer les horaires</a>
+                <a class="nav-link" href="/admin/gerer_horaires_front.php?gerer=horaires">Gérer les horaires</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Gérer...
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <?php
-                    $gerer = addslashes(htmlspecialchars($_GET['gerer']));
-                    $db = new Database();
-                    $result = $db->conn->query("SHOW TABLES;");
-
-                    foreach ($result->fetchAll(PDO::FETCH_NUM) as $tableName){
-                    ?>
-                        <a class="dropdown-item" href="/admin/gerer.php?gerer=<?php echo($tableName[0]); ?>"><?php echo($tableName[0]); ?></a>
-                    <?php } ?>
+                        <a class="dropdown-item" href="/admin/gerer.php?gerer=locaux">les locaux</a>
+                        <a class="dropdown-item" href="/admin/gerer.php?gerer=type_cours">les types de cours</a>
+                        <a class="dropdown-item" href="/admin/gerer.php?gerer=tranches_horaires">les tranches horaires</a>
+                        <a class="dropdown-item" href="/admin/gerer_eleves_horaires_front.php?gerer=eleves_horaires">les horaires d'élèves</a>
                 </div>
             </li>
         </ul>

@@ -16,18 +16,18 @@ require_once(__DIR__."/../../php/require_all.php");
 switch($_POST["action"])
 {
     case "add":
-        $posts = array("action", "id_cours", "id_enseignants", "id_type_cours", "date_cours", "id_tranches_horaires", "id_locaux", "inscription_max", "indus", "gestion", "reseau");
+        $posts = array("action", "id_cours", "id_enseignants", "id_type_cours", "date_cours", "id_tranches_horaires", "id_locaux", "inscription", "inscription_max", "indus", "gestion", "reseau", "visible");
         break;
 
     case "get":
         $posts = array("action", "id");
         break;
 
-    case "modif":
-        $posts = array("action", "id", "id_cours", "id_enseignants", "id_type_cours", "date_cours", "id_tranches_horaires", "id_locaux", "inscription_max", "indus", "gestion", "reseau");
+    case "delete":
+        $posts = array("action", "id");
         break;
 
-    case "delete":
+    case "visible":
         $posts = array("action", "id");
         break;
 
@@ -69,7 +69,7 @@ else /* Effectuer la requete demandée */
     {
 
         case "add":
-            if(Horaire::insertHoraire($data["id_cours"], $data["id_enseignants"], $data["id_type_cours"], $data["date_cours"], $data["id_tranches_horaires"], $data["id_locaux"], $data["inscription_max"], $data["indus"], $data["gestion"], $data["reseau"])){
+            if(Horaire::insertHoraire($data["id_cours"], $data["id_enseignants"], $data["id_type_cours"], $data["date_cours"], $data["id_tranches_horaires"], $data["id_locaux"], $data["inscription"], $data["inscription_max"], $data["indus"], $data["gestion"], $data["reseau"], $data["visible"])){
                 $toReturn["error"] = false;
                 $toReturn["message"] = "L'horaire à bien été insérer.";
             } else {
@@ -92,8 +92,8 @@ else /* Effectuer la requete demandée */
             }
             break;
 
-        case "modif":
-            if(Horaire::updateHoraire($data["id"], $data["id_cours"], $data["id_enseignants"], $data["id_type_cours"], $data["date_cours"], $data["id_tranches_horaires"], $data["id_locaux"], $data["inscription_max"], $data["indus"], $data["gestion"], $data["reseau"]) > 0){
+        case "visible":
+            if(Horaire::setvisibilityHoraire($data["id"]) > 0){
                 $toReturn["error"] = false;
                 $toReturn["message"] = "L'horaire à bien été modifier.";
             } else {

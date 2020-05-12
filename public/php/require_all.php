@@ -4,7 +4,7 @@
 /*Groupe : 2203                                            */
 /*Labo : Programmation Web avancée                         */
 /*Application : Site d'immersion à l'école                 */
-/*Date de la dernière mise à jour : 26/04/2020             */
+/*Date de la dernière mise à jour : 11/05/2020             */
 /***********************************************************/
 
 @session_start();
@@ -14,14 +14,14 @@
  *
  * */
 
-require_once(__DIR__."/class/Database.php");
-require_once(__DIR__ . "/class/Eleve.php");
-require_once(__DIR__ . "/class/Local.php");
-require_once(__DIR__ . "/class/Horaire.php");
-require_once(__DIR__ . "/class/Cours.php");
-require_once(__DIR__ . "/class/Type_cours.php");
-require_once(__DIR__ . "/class/Tranches_horaires.php");
-require_once(__DIR__ . "/class/Local.php");
-require_once(__DIR__ . "/class/Enseignant.php");
-require_once(__DIR__ . "/class/Config.php");
 require_once(__DIR__ . "/fonctions.php");
+require_once(__DIR__ . "/class/Eleve.php");
+require_once(__DIR__ . "/class/Cours.php");
+require_once(__DIR__ . "/class/Local.php");
+require_once(__DIR__ . "/class/Config.php");
+require_once(__DIR__ . "/class/Horaire.php");
+require_once(__DIR__ . "/class/Database.php");
+require_once(__DIR__ . "/class/Type_cours.php");
+require_once(__DIR__ . "/class/Enseignant.php");
+require_once(__DIR__ . "/class/Eleves_horaires.php");
+require_once(__DIR__ . "/class/Tranches_horaires.php");

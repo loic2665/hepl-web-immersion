@@ -8,6 +8,22 @@
 
 import * as requeteAjax from "/js/requeteAjax.js"
 
+/* Fonction pour récupérer le GET */
+function $_GET(param){
+    var vars = {};
+    window.location.href.replace( location.hash, '' ).replace(
+        /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+        function( m, key, value ) { // callback
+            vars[key] = value !== undefined ? value : '';
+        }
+    );
+
+    if ( param ) {
+        return vars[param] ? vars[param] : null;
+    }
+    return vars;
+}
+
 export function ajouter(tableau){
     tableau.action = "add";
 
@@ -59,6 +75,26 @@ export function supprimer(id){
     }
 
     requeteAjax.requeteAjax("POST", "/admin/api/gerer_"+table+".php", tableau, "json", successCallback, null, null);
+}
+
+export function visible(id){
+    let tableau = {
+        action: "visible",
+        id:id,
+    };
+
+    let table = $_GET('gerer');
+
+    function successCallback(result){
+        if(result.error === false){
+            toastr["success"](result.message, "Succès");
+        } else {
+            toastr["warning"](result.message, "Attention");
+        }
+    }
+
+    requeteAjax.requeteAjax("POST", "/admin/api/gerer_"+table+".php", tableau, "json", successCallback, null, null);
+
 }
 
 /* Fonction qui vérifie si le formulaire est bien rempli */
@@ -157,18 +193,3 @@ export function remplirForm(id){
 
 }
 
-/* Fonction pour récupérer le GET */
-function $_GET(param) {
-    var vars = {};
-    window.location.href.replace( location.hash, '' ).replace(
-        /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-        function( m, key, value ) { // callback
-            vars[key] = value !== undefined ? value : '';
-        }
-    );
-
-    if ( param ) {
-        return vars[param] ? vars[param] : null;
-    }
-    return vars;
-}
