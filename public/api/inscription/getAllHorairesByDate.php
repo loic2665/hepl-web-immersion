@@ -16,7 +16,7 @@ $data = array();
 /*
  * Ici mon couteau suisse est utile,
  * car il y a + que 1 champ, et puis le message d'erreur se construit tout seul.
- *
+ * update du 12/5/2020 : quelle connerie, c'est inutile mais flemme de changer ptdrr
  */
 
 $message = "Attention, les champs ";

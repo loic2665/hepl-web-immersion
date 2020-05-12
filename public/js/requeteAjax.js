@@ -7,6 +7,9 @@
 /***********************************************************/
 
 export function requeteAjax(type, url, data, dataType, callbackSuccess, callbackError, callbackComplete){
+
+    $("#loader-spinner").show();
+
     $.ajax({
         type: type,                                       // type de requete
         url: url,                                         // url de la requete
@@ -28,6 +31,8 @@ export function requeteAjax(type, url, data, dataType, callbackSuccess, callback
             if(callbackComplete !== null){
                 callbackComplete(result);
             }
+
+            $("#loader-spinner").hide();
         },
     });
 }

@@ -197,7 +197,7 @@ $("#prev_button").on("click", function () {
                 toastr["warning"](result.message, "Erreur");
             }else{
                 toastr["success"](result.message, "Succès");
-                setTimeout(function(){ location.reload() }, 2000);
+                setTimeout(function(){ location.reload() }, 500);
             }
         }
 
@@ -211,7 +211,7 @@ $("#prev_button").on("click", function () {
 
 $("#next_button").on("click", function () {
 
-    function SaveAndGoToNextDay() {
+    function SaveAndGoToNextDay(last) {
         $("#next_button").addClass("disabled");
 
         function callbackSuccess(result){
@@ -219,7 +219,11 @@ $("#next_button").on("click", function () {
                 toastr["warning"](result.message, "Erreur");
             }else{
                 toastr["success"](result.message, "Succès");
-                setTimeout(function(){ location.reload() }, 2000);
+                if(!last){
+                    setTimeout(function(){ location.reload() }, 2000);
+                }else{
+                    setTimeout(function(){ window.location = "/enregistrement.php" }, 2000);
+                }
             }
         }
 
@@ -241,16 +245,16 @@ $("#next_button").on("click", function () {
     }
 
     if(currJour >= nbJours){
-        toastr["success"]("Terminé, passons à l'enregistrement.", "D'accord !");
         $("#prev_button").addClass("disabled");
-        setTimeout(function(){ window.location = "/enregistrement.php" }, 2000);
+        SaveAndGoToNextDay(true);
+        toastr["success"]("Terminé, passons à l'enregistrement.", "D'accord !");
     }else{
 
         if(nbJours > 1){
             if(cours1 === 0 || cours2 === 0){
                 toastr["warning"]("Veuillez choisir un cours pour la première et deuxième tranche horaire.", "Attention...");
             }else{
-                SaveAndGoToNextDay();
+                SaveAndGoToNextDay(false);
             }
         }else{
             if(cours1 === 0 || cours2 === 0 || cours3 === 0){
@@ -259,7 +263,7 @@ $("#next_button").on("click", function () {
                 if(cours3 === 0 && cours4 !== 0){
                     toastr["warning"]("Vous ne pouvez pas selectionner de 4ème cours si vous ne prenez pas de 3ème cours.", "Attention...");
                 }else{
-                    SaveAndGoToNextDay();
+                    SaveAndGoToNextDay(false);
                 }
             }
         }

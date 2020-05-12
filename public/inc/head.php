@@ -74,6 +74,11 @@
         var secsUpdateInterval = setInterval(addSecs, 1000);
 
 
+    $("#loader-spinner").show();
+    $(document).ready(function () {
+        $("#loader-spinner").hide();
+    });
+
 
 </script>
 

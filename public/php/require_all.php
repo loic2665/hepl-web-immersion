@@ -16,6 +16,7 @@
 
 require_once(__DIR__."/class/Database.php");
 require_once(__DIR__ . "/class/Eleve.php");
+require_once(__DIR__ . "/class/Local.php");
 require_once(__DIR__ . "/class/Horaire.php");
 require_once(__DIR__ . "/class/Cours.php");
 require_once(__DIR__ . "/class/Type_cours.php");

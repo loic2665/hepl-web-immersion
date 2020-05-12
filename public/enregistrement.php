@@ -9,24 +9,33 @@
 
 require_once(__DIR__."/php/require_all.php");
 
-if(!isset($_GET["nbDay"]) || empty($_GET["nbDay"])){
 
-    // si les la clé dans l'url GET 'nbDay' n'existe pas OU
-    // que la valeur de la clé 'nbDay' est vide (ou = à 0)
-    // todo: redirige l'utilisateur vers la page precédente + msg erreur
+// verification de l'inscription, trouver les éventuelle érreurs
 
-    die();
+$error = false;
+$joursChoisis = array();
+$listErrors = array();
 
-}else if($_GET["nbDay"] <= 0){
+foreach ($_SESSION["data_jours"] as $jour) {
 
-    // si le nombre de jour que l'utilisateur à entré est plus petit ou égal à zéro
-    // idem todo plus haut
-    die("?????");
+    if (in_array($jour["date"], $joursChoisis)) {
+        $error = true;
+        array_push($listErrors, "Le jour " . $jour["date"] . " est spécifié à deux jours différent.");
+    } else {
+        array_push($joursChoisis, $jour["date"]);
+        for ($i = 1; $i <= 4; $i++) {
 
-}else{
-    $nbDay = addslashes(htmlspecialchars($_GET["nbDay"]));
-    // recupère la donnée
+            if ($jour["cours"][$i - 1] != 0 && !Horaire::checkHoraireAndId($jour["cours"][$i - 1], $jour["date"], $i)) {
+                $error = true;
+                array_push($listErrors, "Incohérence entre " . $jour["date"] . " - Cours : " . $jour["cours"][$i - 1] . " et tranche : " . $i);
+            }
+
+        }
+    }
+
 }
+
+
 
 
 ?>
@@ -43,49 +52,69 @@ if(!isset($_GET["nbDay"]) || empty($_GET["nbDay"])){
 <?php require_once(__DIR__."/inc/nav.php"); ?>
 
 <section id="content">
-    <div class="row">
-        <div class="col-xs-12 col-xl-3">
-            <div class="block-gauche">
-                <br/>
-                <h1>Inscription</h1>
 
-
-            </div>
+    <?php if($error){ ?>
+        <div class="alert alert-danger">
+            Désolé, l'inscription donnée n'est pas conforme. Liste des erreurs :
+            <ul>
+                <?php foreach ($listErrors as $erreur){ ?>
+                    <li><?php echo($erreur); ?></li>
+                <?php } ?>
+            </ul>
         </div>
-        <div class="col-xl-9">
-            <div class="block-droite">
+    <?php }else{ ?>
 
 
-                <!-- les sections sont ici -->
-
-            </div>
+        <div class="alert alert-success">
+            Super ! Votre inscription est conforme.
         </div>
-    </div>
+
+    <?php } ?>
 
 
-    <div class="row">
-        <div class="col-xs-12 col-xl-9">
-
-            <div class="petit-block-gauche"></div>
-
-        </div>
-        <div class="col-xl-3">
-
-            <div class="petit-block-droite block-button">
-
-                <div>
-                    <a class="btn btn-info prev-button">Précédent</a>
-                    <a class="btn btn-warning suiv-button">Suivant</a>
-                </div>
-
-            </div>
+    <?php
+    $iJour = 1;
+    ?>
 
 
-        </div>
+
+
+    <?php foreach($_SESSION["data_jours"] as $jour){ ?>
+
+        <h2>Journée N°<?php echo($iJour); ?> - <?php echo($jour["date"]); ?></h2>
+
+        <p>La journée <?php echo($iJour); ?> est constituée de <?php $nbCours = 0; foreach($jour["cours"] as $cours){ if($cours != 0){ $nbCours++; } } echo($nbCours);?> cours.</p>
+
+        <ul class="list-group">
+            <?php foreach ($jour["cours"] as $cours){ ?>
+                <?php if($cours != 0){ ?>
+                    <li class="list-group-item"><?php echo(Horaire::getLabelById($cours)); ?></li>
+                <?php } else { ?>
+                    <li class="list-group-item">Aucun cours.</li>
+                <?php } ?>
+            <?php } ?>
+        </ul>
+
+        <br />
+
+    <?php $iJour++; } ?>
+
+
+    <div>
+        <a class="btn btn-danger" id="reset-button">Annuler l'inscription</a>
+        <a class="btn btn-success" id="confirm-button">Confirmer l'inscription</a>
     </div>
 
 </section>
-</body>
 
+<section>
+
+</section>
+</body>
+<script>
+
+
+</script>
+<script type="module" src="/js/enregistrement.js"></script>
 </html>
 

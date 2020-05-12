@@ -25,7 +25,8 @@ $("#send_btn").on("click", function () {
         }
     }
 
-    let data = {                                          // data de la requetes, les paramètres
+    let data = {
+        email: $("#email").val(),                       // data de la requetes, les paramètres
         nom: $("#nom").val(),
         prenom: $("#prenom").val(),
         interet: $("#interet").val(),
