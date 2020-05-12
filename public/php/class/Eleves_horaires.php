@@ -98,4 +98,21 @@ class Eleves_horaires
 
         return $result->rowCount();
     }
+
+    /*récupérer les élèves de la base de données selon l'identifiant d'un horaire*/
+    public static function getEleveByHoraireId($id)
+    {
+        /* evite les attaques SQL (securite)  échape --> ' " \ */
+        $id = addslashes(htmlspecialchars($id));
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT eleves.id AS id, eleves.nom AS nom, eleves.prenom AS prenom
+        FROM eleves_horaires
+            INNER JOIN eleves on eleves_horaires.id_eleves = eleves.id
+        WHERE eleves_horaires.id_horaires = '".$id."'" );
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+    }
 }

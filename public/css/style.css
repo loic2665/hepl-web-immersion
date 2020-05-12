@@ -41,6 +41,10 @@ fieldset {
   display: none;
 }
 
+.disabled {
+  disabled: true;
+}
+
 #loader-spinner {
   z-index: 999999999999;
   background-color: rgba(0, 0, 0, 0.4);

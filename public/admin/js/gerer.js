@@ -94,7 +94,9 @@ $(document).ready(function () {
     $(".dep").on("click", function () {
         console.log("déplacer");
 
-        $("#visible").removeClass("disabled");
+        repartir.depeleves($(this).data("course-id"));
+
+
     });
 
 
@@ -198,8 +200,8 @@ $(document).ready(function () {
                     tableau.date_cours = $('#date_cours').val();
                     tableau.id_tranches_horaires = $("#id_tranches_horaires option:selected").val();
                     tableau.id_locaux = $("#id_locaux option:selected").val();
-                    tableau.inscription = $('#inscription').val();
-                    tableau.inscription_max = $('#inscription_max').val();
+                    tableau.inscription = 0;
+                    tableau.inscription_max = 10;
                     tableau.indus = $("#indus option:selected").val();
                     tableau.gestion = $("#gestion option:selected").val();
                     tableau.reseau = $("#reseau option:selected").val();

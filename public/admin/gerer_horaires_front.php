@@ -99,9 +99,9 @@
                     <?php foreach ($colname2 as $ligne2){ ?>
                     <th scope="row"><?php echo($ligne[$ligne2["Field"]]); ?></th>
                     <?php } ?>
-                    <th scope="row"><a class="btn btn-info visible disabled " data-course-id="<?php echo($ligne["id"]); ?>">Changer visibilité</a></th>
-                    <th scope="row"><a class="btn btn-success dep"  <?php if($ligne["inscription"] < 1){echo("disabled");} ?> data-course-id="<?php echo($ligne["id"]); ?>">Déplacer élèves</a></th>
-                    <th scope="row"><a class="btn btn-danger del" <?php if($ligne["inscription"] > 0){echo("disabled");} ?> data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
+                    <th scope="row"><a id="chang<?php echo($ligne["id"]); ?>" class="btn btn-info visible <?php if($ligne["inscription"] > 0){echo('disabled');} ?> " data-course-id="<?php echo($ligne["id"]); ?>">Changer visibilité</a></th>
+                    <th scope="row"><a id="depel<?php echo($ligne["id"]); ?>" class="btn btn-success dep  <?php if($ligne["inscription"] < 1){echo("disabled");} ?>"  data-course-id="<?php echo($ligne["id"]); ?>">Déplacer élèves</a></th>
+                    <th scope="row"><a id="suppr<?php echo($ligne["id"]); ?>" class="btn btn-danger del   <?php if($ligne["inscription"] > 0){echo("disabled");} ?>"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
                 </tr>
             <?php } ?>
             </tbody>

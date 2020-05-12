@@ -193,3 +193,25 @@ export function remplirForm(id){
 
 }
 
+export function depeleves(id){
+    let tableau = {
+        action: "depeleves",
+        id:id,
+    };
+
+    let table = $_GET('gerer');
+
+    function successCallback(result){
+        if(result.error === false){
+            toastr["success"](result.message, "Succès");
+
+            $("#chang"+id).removeClass("disabled");//change la visibilité du bouton changer visibilité horaire
+            $("#suppr"+id).removeClass("disabled");//change la visibilité du bouton changer supprimer horaire
+            $("#depel"+id).addClass("disabled");//change la visibilité du bouton changer déplacer élèves
+        } else {
+            toastr["warning"](result.message, "Attention");
+        }
+    }
+
+    requeteAjax.requeteAjax("POST", "/admin/api/gerer_"+table+".php", tableau, "json", successCallback, null, null);
+}

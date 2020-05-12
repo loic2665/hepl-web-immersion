@@ -31,6 +31,9 @@ switch($_POST["action"])
         $posts = array("action", "id");
         break;
 
+    case "depeleves":
+        $posts = array("action", "id");
+        break;
     default:
 
         break;
@@ -65,6 +68,7 @@ if ($error) /* Si erreur */
 }
 else /* Effectuer la requete demandée */
 {
+    $toReturn["error"] = false;
     switch ($_POST["action"])
     {
 
@@ -102,11 +106,33 @@ else /* Effectuer la requete demandée */
             }
             break;
 
+        case "depeleves":
+            $eleves = Eleves_horaires::getEleveByHoraireId($data["id"]);
+            $nombreEleves = count($eleves);
+
+            if(Horaire::getPlacesDispoHoraireId($data["id"]) >= $nombreEleves)//verifie le nombre de places disponible
+            {
+                if(Horaire::DoDeplacement($data["id"], $eleves)){
+                    $toReturn["error"] = false;
+                    $toReturn["message"] = "Les élèves ont été déplacé.";
+                    $toReturn["eleves"] = $eleves;
+                } else {
+                    $toReturn["error"] = true;
+                    $toReturn["message"] = "Une erreur s'est produite lors du déplacement des élèves.";
+                }
+            }
+            else
+            {
+                $toReturn["error"] = true;
+                $toReturn["message"] = "Le déplacement des élèves est impossible!";
+            }
+
+
+            break;
         default:
 
             break;
     }
-    $toReturn["error"] = false;
 }
 
 echo(json_encode($toReturn));

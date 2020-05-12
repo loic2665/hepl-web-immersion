@@ -63,7 +63,6 @@ if ($error) /* Si erreur */ {
 
 } else /* Effectuer la requete demandée */ {
     $toReturn["error"] = false;
-
     switch ($_POST["action"]) {
 
         case "add":

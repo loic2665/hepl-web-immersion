@@ -65,6 +65,7 @@ if ($error) /* Si erreur */
 }
 else /* Effectuer la requete demandée */
 {
+    $toReturn["error"] = false;
     switch ($_POST["action"])
     {
 
@@ -106,7 +107,6 @@ else /* Effectuer la requete demandée */
 
             break;
     }
-    $toReturn["error"] = false;
 }
 
 echo(json_encode($toReturn));

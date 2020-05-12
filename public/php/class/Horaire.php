@@ -37,9 +37,9 @@ class Horaire
         $db = new Database();
 
         $result = $db->conn->query("
-        SELECT  horaires.id AS id, CONCAT(horaires.id_cours, ' - ',c.intitule) AS id_cours, CONCAT(horaires.id_enseignants, ' - ', e.nom, ' ', e.prenom) AS id_enseignants,
-                CONCAT(horaires.id_type_cours, ' - ', tc.type) AS id_type_cours, horaires.date_cours AS date_cours, 
-                CONCAT(horaires.id_tranches_horaires, ' - ', th.heure_debut, '  ',th.heure_fin) AS id_tranches_horaires, CONCAT(horaires.id_locaux, ' - ', l.local) AS id_locaux,
+        SELECT  horaires.id AS id, c.intitule AS id_cours, CONCAT(e.nom, ' ', e.prenom) AS id_enseignants,
+                tc.type AS id_type_cours, horaires.date_cours AS date_cours, 
+                CONCAT(th.heure_debut, ' - ',th.heure_fin) AS id_tranches_horaires, l.local AS id_locaux,
                 horaires.inscription AS inscription, horaires.inscription_max AS inscription_max, 
                 CASE
                     WHEN horaires.indus = 1
@@ -271,7 +271,97 @@ class Horaire
         } else {
             return false;
         }
+    }
+
+    /* Fonction qui permet de retourner le nombre de places disponible selon un horaire pour la redirection d'élèves*/
+    public static function getPlacesDispoHoraireId($id)
+    {
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT horaires.inscription, horaires.inscription_max
+        FROM horaires
+            INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id
+        WHERE horaires.id <> ".$id."
+        AND date_cours = (SELECT date_cours
+                          FROM horaires
+                          WHERE horaires.id = ".$id.")
+        AND th.tranche_horaire = (SELECT tranche_horaire
+                                    FROM horaires
+                                        INNER JOIN tranches_horaires on horaires.id_tranches_horaires = tranches_horaires.id
+                                    WHERE horaires.id = ".$id.");");
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        $placesdispo = 0;
+
+        foreach ($array as $ligne)
+        {
+            $placesdispo = $placesdispo + ($ligne["inscription_max"] - $ligne["inscription"]);
+        }
+
+        return $placesdispo;
+    }
 
 
+    /* Fonction qui permet de déplacer les élèves d'après l'id de horraire*/
+    public static function DoDeplacement($id, $eleves)
+    {
+        $db = new Database();
+        foreach ($eleves as $eleve)
+        {
+            /* on récupère l'id du premier cours où il y à de la place*/
+            $result = $db->conn->query("
+            SELECT horaires.id as id
+            FROM horaires
+                INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id
+            WHERE horaires.id <> ".$id."
+            AND date_cours = (SELECT date_cours
+                              FROM horaires
+                              WHERE horaires.id = ".$id.")
+            AND th.tranche_horaire = (SELECT tranche_horaire
+                                        FROM horaires
+                                            INNER JOIN tranches_horaires on horaires.id_tranches_horaires = tranches_horaires.id
+                                        WHERE horaires.id = ".$id.")
+            AND horaires.inscription < horaires.inscription_max
+            LIMIT 1;");
+            $line = $result->fetch(PDO::FETCH_ASSOC);
+
+            /* ici on assigne l'élève à ce cours */
+            Eleves_horaires::insertEleveHoraire($line["id"], $eleve["id"]);
+
+            /* ici on incremente le nouveau cours de 1 */
+            $result = $db->conn->query("
+            SELECT inscription 
+            FROM horaires
+            WHERE id = '".$line["id"]."' " );
+            $insc = $result->fetch(PDO::FETCH_ASSOC);
+
+            $inscit = $insc["inscription"] + 1;
+
+            $result = $db->conn->query("
+            UPDATE horaires 
+            SET inscription = '".$inscit."'
+            WHERE id = '".$line["id"]."' " );
+
+            /* supprime l'élève de l'ancien cours */
+            $result = $db->conn->query("
+            DELETE FROM eleves_horaires
+            WHERE id_horaires = '".$id."'
+            AND id_eleves = '".$eleve["id"]."' " );
+
+            /* ici on décremente l'ancien cours de 1 */
+            $result = $db->conn->query("
+            SELECT inscription 
+            FROM horaires
+            WHERE id = '".$id."' " );
+            $insc = $result->fetch(PDO::FETCH_ASSOC);
+
+            $inscit = $insc["inscription"] - 1;
+
+            $result = $db->conn->query("
+            UPDATE horaires 
+            SET inscription = '".$inscit."'
+            WHERE id = '".$id."' " );
+        }
+        return 1;
     }
 }

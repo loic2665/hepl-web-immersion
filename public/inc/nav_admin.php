@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/admin">Accueil<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/admin/dashboard.php">Accueil<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item"> <!-- permet d'envoyer la valeur enseignants à la page gerer.php via $_GET -->
                 <a class="nav-link" href="/admin/gerer.php?gerer=enseignants">Gérer les professeurs</a>
