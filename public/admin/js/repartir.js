@@ -205,6 +205,11 @@ export function depeleves(id){
         if(result.error === false){
             toastr["success"](result.message, "Succès");
 
+            let url="afficheElevesDep.php?tab="+encodeURI(JSON.stringify(result.eleves));
+            window.open(url,"PopUp",
+                "width=700,height=600,location=no,status=no,toolbar=no,scrollbars=no");
+
+
             $("#chang"+id).removeClass("disabled");//change la visibilité du bouton changer visibilité horaire
             $("#suppr"+id).removeClass("disabled");//change la visibilité du bouton changer supprimer horaire
             $("#depel"+id).addClass("disabled");//change la visibilité du bouton changer déplacer élèves
