@@ -72,15 +72,49 @@ if ($error) {
 
     }else{
 
-        $_SESSION["data_jours"][$affDay-1]["date"] = $data["date"];
-        for($i = 1; $i <= 4; $i++){
-            $_SESSION["data_jours"][$affDay-1]["cours"][$i-1] = $data["cours".$i];
+        $joursChoisis = array();
+        foreach ($_SESSION["data_jours"] as $jour){
+            if($data["date"] != $jour["date"]){
+                array_push($joursChoisis, $jour["date"]);
+            }
         }
-        $_SESSION["currJour"]++;
-        $toReturn = array(
-            "error" => false,
-            "message" => "Le jour ".$affDay." à été enregistré, encore ".($nbDay - $affDay)." à enregistrer !",
-        );
+
+        if(in_array($data["date"], $joursChoisis)){
+
+            $toReturn = array(
+                "error" => true,
+                "message" => "Cette date à déja été enregistrée...",
+            );
+
+        }else{
+
+            /*
+             * Todo: vérifier que
+             * */
+
+            $_SESSION["data_jours"][$affDay-1]["date"] = $data["date"];
+            $_SESSION["data_jours"][$affDay-1]["cours"][0] = $data["cours1"];
+            $_SESSION["data_jours"][$affDay-1]["cours"][1] = $data["cours2"];
+            $_SESSION["data_jours"][$affDay-1]["cours"][2] = $data["cours3"];
+            $_SESSION["data_jours"][$affDay-1]["cours"][3] = $data["cours4"];
+            $_SESSION["currJour"]++;
+
+            if($_SESSION["currJour"] > $_SESSION["jours"]){
+                $toReturn = array(
+                    "error" => false,
+                    "message" => "Super ! Passons à l'enregistrement !",
+                );
+            }else{
+                $toReturn = array(
+                    "error" => false,
+                    "message" => "Super ! Passons au jour suivant !",
+                );
+            }
+
+
+        }
+
+
 
     }
 

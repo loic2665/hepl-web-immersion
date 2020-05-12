@@ -6,7 +6,7 @@
 /*Application : Site d'immersion à l'école                 */
 /*Date de la dernière mise à jour : 26/04/2020             */
 /***********************************************************/
-.bg-primary, .dropdown-menu, .dropdown-item:hover, .alert-primary, .list-group-item.active {
+.bg-primary, .dropdown-menu, .dropdown-item:hover, .alert-primary, .alert-danger, .list-group-item.active {
   background-color: #cb2020 !important;
   border-color: #cb2020 !important;
 }
@@ -41,8 +41,24 @@ fieldset {
   display: none;
 }
 
-.disabled {
-  disabled: true;
+#loader-spinner {
+  z-index: 999999999999;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+}
+#loader-spinner img, #loader-spinner p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+#loader-spinner p {
+  margin-top: 100px;
+  font-size: 25px;
+  color: white;
 }
 
 /*# sourceMappingURL=style.css.map */

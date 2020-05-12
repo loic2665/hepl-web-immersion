@@ -34,3 +34,8 @@
     </span>
     </div>
 </nav>
+
+<div id="loader-spinner">
+    <img alt="loading..." src="/img/loading.gif" />
+    <p>Chargement en cours...</p>
+</div>

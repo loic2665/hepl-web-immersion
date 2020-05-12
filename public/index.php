@@ -27,6 +27,13 @@
 
     $champs = array(
         array(
+            "id" => "email",
+            "type" => "email",
+            "placeholder" => "Adresse e-mail",
+            "label" => "Adresse e-mail",
+            "name" => "email"
+        ),
+        array(
             "id" => "nom",
             "type" => "text",
             "placeholder" => "Nom",

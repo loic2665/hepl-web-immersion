@@ -165,7 +165,7 @@ class Horaire
 
         $db = new Database();
         $result = $db->conn->query("
-        SELECT c.intitule, tc.type, th.heure_debut, th.heure_fin, 
+        SELECT c.intitule, tc.type, th.heure_debut, th.heure_fin
         FROM horaires
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
@@ -173,7 +173,7 @@ class Horaire
         WHERE horaires.id = ".$id.";");
         $array = $result->fetch(PDO::FETCH_ASSOC);
 
-        return $array["intitile"]." - ".$array["type"]." - ".$array["heure_debut"]."~".$array["heure_fin"];
+        return $array["intitule"]." - ".$array["type"]." - ".$array["heure_debut"]."~".$array["heure_fin"];
 
     }
     
@@ -249,5 +249,29 @@ class Horaire
         WHERE id = '".$id."' " );
 
         return $result->rowCount();
+    }
+
+
+    /* fonction qui verifie si le cours se donne bien à cette date (les petits malin peuvent avoir changé le cours en JS lol
+       si le cours n'existe pas, alors il renvoie faux, comme si le cours ne se donnait pas a cette date, c'est normal    */
+
+    public static function checkHoraireAndId($id, $date, $tranche){
+
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT horaires.date_cours, th.tranche_horaire
+        FROM horaires
+            INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id
+        WHERE horaires.id = ".$id.";");
+        $array = $result->fetch(PDO::FETCH_ASSOC);
+
+        if($array["date_cours"] == $date && $array["tranche_horaire"] == $tranche){
+            return true;
+        } else {
+            return false;
+        }
+
+
     }
 }

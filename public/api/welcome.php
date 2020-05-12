@@ -9,7 +9,7 @@
 
 @session_start();
 
-$posts = array("nom", "prenom", "interet", "etablissement", "jours");
+$posts = array("nom", "prenom", "interet", "etablissement", "jours", "email");
 $data = array();
 
 
@@ -38,10 +38,14 @@ if($error){
 
 }else{
 
-    $toReturn = array(
-        "error" => false,
-        "message" => "Bienvenue ".$data["prenom"]." ! Le programme peut commencer.",
-    );
+
+    $_SESSION["nom"] = $data["nom"];
+    $_SESSION["prenom"] = $data["prenom"];
+    $_SESSION["email"] = $data["email"];
+    $_SESSION["interet"] = $data["interet"];
+    $_SESSION["etablissement"] = $data["etablissement"];
+
+    // ******* //
 
     $_SESSION["jours"] = $data["jours"];
     $_SESSION["currJour"] = 0;
@@ -52,8 +56,16 @@ if($error){
         $_SESSION["data_jours"][$i] = array();
         $_SESSION["data_jours"][$i]["date"] = "";
         $_SESSION["data_jours"][$i]["cours"] = array();
+        for($j = 0; $j <= 3; $j++){
+            $_SESSION["data_jours"][$i]["cours"][$j] = 0;
+        }
 
     }
+
+    $toReturn = array(
+        "error" => false,
+        "message" => "Bienvenue ".$data["prenom"]." ! Le programme peut commencer.",
+    );
 
 }
 echo(json_encode($toReturn));
