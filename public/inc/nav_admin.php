@@ -52,7 +52,17 @@
     </div>
 </nav>
 
+<script>
+
+    $("#loader-spinner").show();
+    $(document).ready(function () {
+        $("#loader-spinner").hide();
+    });
+
+</script>
+
 <div id="loader-spinner">
     <img alt="loading..." src="/img/loading.gif" />
     <p>Chargement en cours...</p>
 </div>
+

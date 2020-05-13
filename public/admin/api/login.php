@@ -12,7 +12,6 @@
 
 $posts = array("utilisateur", "motdepasse");
 
-
 $data = array();
 $message = "Attention, les champs ";
 $error = false;

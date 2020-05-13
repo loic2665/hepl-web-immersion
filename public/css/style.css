@@ -65,32 +65,25 @@ fieldset {
   color: white;
 }
 
-.last-inscrits-block, .nb-profs-block, .nb-days-block, .nb-cours-block {
-  height: auto;
-}
-
 .white-text {
   color: white;
 }
 
-.nb-cours-block {
-  background-color: rgba(144, 0, 0, 0.7);
-}
-
-.nb-days-block {
-  background-color: rgba(0, 144, 31, 0.7);
-}
-
-.nb-profs-block {
-  background-color: rgba(0, 70, 144, 0.7);
-}
-
-.last-inscrits-block {
-  background-color: rgba(0, 144, 139, 0.7);
-}
-
 .big-size {
-  font-size: 55px;
+  font-size: 50px;
+}
+
+.block-m {
+  height: 220px;
+}
+
+.option-label {
+  font-size: 20px;
+  color: black;
+}
+
+.options h1 {
+  color: black;
 }
 
 /*# sourceMappingURL=style.css.map */

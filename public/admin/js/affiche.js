@@ -21,11 +21,11 @@ $(document).ready(function () {
         function successCallback(result){
             if(result.error === false){
                 toastr["success"](result.message, "Succès");
-                $("#nomEleve").text(result.data[0].nom+" "+result.data[0].prenom);
-
-                $("#tables").empty();
-
-                createTab(result.data);
+                if(result.data.length > 0){
+                    $("#nomEleve").text(result.data[0].nom+" "+result.data[0].prenom);
+                    $("#tables").empty();
+                    createTab(result.data);
+                }
 
             } else {
                 toastr["warning"](result.message, "Attention");
@@ -34,8 +34,6 @@ $(document).ready(function () {
 
         requeteAjax.requeteAjax("POST", "/admin/api/gerer_eleves_horaires.php", tableau, "json", successCallback, null, null);
 
-
-        $("#nomEleve").text($("#id_eleves option:selected").val());
     });
 
     function createTab(data){

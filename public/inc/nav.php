@@ -35,7 +35,63 @@
     </div>
 </nav>
 
+<script>
+
+
+    function heartbeat(){
+
+        $.ajax({
+            type: "GET",                                           // type de requete
+            url: "/api/heartbeat.php",
+            dataType: "json",                                 // le type de data attendu par jquery
+            success: function (result, data, xhrStatus) {     // si il correspond pas ou code http != 200 => callback dans error
+                if(xhrStatus.status === 200){
+                    if(result.error === true){
+                        toastr["warning"](result.message, "Erreur");              // on affiche le toast
+                    }else{
+                        $("#update-secs").text(0).data("sec", 0);
+                        //toastr["success"](result.message, "Succès");              // on affiche le toast
+                        if(result.data.registrationOpen === false){
+                            window.location = "/registrationClosed.php";
+                        }
+
+                    }
+                }
+            },
+            error: function (result) {
+                toastr["error"]("Le serveur ne réponds pas ou une erreur fatale s'est produite...", "Erreur !"); // toast..
+            },
+            complete: function(result){ // on execute le quoi que ce soit une erreur ou non
+
+            },
+        });
+
+    }
+
+    function addSecs() {
+        let sec = $("#update-secs").data("sec");
+        $("#update-secs").data("sec", sec + 1).text(sec + 1);
+    }
+
+
+    <?php if($_SERVER["SCRIPT_NAME"] != "/registrationClosed.php"){ ?>
+    var heartBeatInterval = setInterval(heartbeat, 10000);
+    <?php } ?>
+    var secsUpdateInterval = setInterval(addSecs, 1000);
+
+
+    $("#loader-spinner").show();
+    $(document).ready(function () {
+        $("#loader-spinner").hide();
+    });
+
+
+</script>
+
+
 <div id="loader-spinner">
     <img alt="loading..." src="/img/loading.gif" />
     <p>Chargement en cours...</p>
 </div>
+
+

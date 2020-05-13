@@ -59,7 +59,9 @@
 <template id="templateTable">
     <table class="table table-hover" style="display: inline">
         <thead>
-        <th colspan="4" class="date">La Date</th>
+        <tr>
+            <th colspan="4" class="date">La Date</th>
+        </tr>
         </thead>
         <tbody class="tbody">
 
