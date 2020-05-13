@@ -87,21 +87,11 @@
             </div>
         </div>
     </div>
+    <a class="btn btn-danger arch">Archiver les données</a>
 </section>
 
-<script>
-    $('.count').each(function () {
-        $(this).prop('Counter', 0).animate({
-            Counter: $(this).data('value')
-        }, {
-            duration: 1000,
-            easing: 'swing',
-            step: function (now) {
-                $(this).text(this.Counter.toFixed(0));
-            }
-        });
-    });
-</script>
+<!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
+<script type="module" src="./js/dashboard.js"></script>
 
 </body>
 

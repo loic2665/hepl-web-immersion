@@ -27,7 +27,8 @@
     $db = new Database();
     $result = $db->conn->query("
         SELECT *
-        FROM ".$gerer.";");
+        FROM ".$gerer."
+        WHERE archive = 0;");
 
     if($result == false) /* Si la requête SQl ne donne pas de résultat alors on affiche le message */
     {

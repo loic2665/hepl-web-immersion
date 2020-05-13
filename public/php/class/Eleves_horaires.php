@@ -157,4 +157,25 @@ class Eleves_horaires
 
         return $array;
     }
+
+    /*fonction qui archive les données*/
+    public static function Archiver()
+    {
+
+        $db = new Database();
+        $result = $db->conn->query("
+        UPDATE eleves_horaires 
+        SET archive = 1;");
+
+        $result = $db->conn->query("
+        UPDATE eleves 
+        SET archive = 1;");
+
+        $result = $db->conn->query("
+        UPDATE horaires 
+        SET archive = 1;");
+
+        return 1;
+    }
+
 }

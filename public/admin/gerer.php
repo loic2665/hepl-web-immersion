@@ -25,9 +25,19 @@
     $gerer = addslashes(htmlspecialchars($_GET['gerer']));
 
     $db = new Database();
-    $result = $db->conn->query("
-        SELECT *
-        FROM ".$gerer.";");
+    if($gerer == "eleves")
+    {
+        $result = $db->conn->query("
+            SELECT *
+            FROM ".$gerer."
+            WHERE archive = 0;");
+    }
+    else
+    {
+        $result = $db->conn->query("
+            SELECT *
+            FROM ".$gerer.";");
+    }
 
     if($result == false) /* Si la requête SQl ne donne pas de résultat alors on affiche le message */
     {
@@ -40,6 +50,12 @@
         /* Requête SQL pour avoir le nom des colonnes */
         $colums = $db->conn->query(" SHOW COLUMNS FROM ".$gerer.";");
         $colname = $colums->fetchAll(PDO::FETCH_ASSOC);
+
+        if($gerer == "eleves") // on retire la colonne archive
+        {
+            array_pop($colname);
+        }
+
     ?>
     <article id="ajout_modif" class="hidden">
         <?php

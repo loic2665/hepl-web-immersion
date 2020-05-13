@@ -35,6 +35,10 @@ switch ($_POST["action"]) {
         $posts = array("action", "id");
         break;
 
+    case "archive":
+        $posts = array("action");
+        break;
+
     default:
 
         break;
@@ -105,6 +109,10 @@ if ($error) /* Si erreur */ {
 
         case "affiche":
             $toReturn["data"] = Eleves_horaires::getAllEleveHoraireAffiche($data["id"]);
+            break;
+
+        case "archive":
+            $toReturn["data"] = Eleves_horaires::Archiver();
             break;
 
         default:

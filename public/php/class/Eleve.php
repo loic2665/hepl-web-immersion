@@ -111,6 +111,19 @@ class Eleve
     public static function deleteStudent($id)
     {
         $db = new Database();
+
+        $result = $db->conn->query("
+        SELECT id_horaires
+        FROM eleves_horaires
+        WHERE id_eleves = '".$id."' ;");
+
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($array as $line)
+        {
+            Eleves_horaires::deleteEleveHoraire($line["id_horaires"], $id);
+        }
+
         $result = $db->conn->query("
         DELETE FROM eleves
         WHERE id = '".$id."' ;");
