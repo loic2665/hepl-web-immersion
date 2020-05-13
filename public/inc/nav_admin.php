@@ -6,6 +6,7 @@
 <!--Date de la dernière mise à jour : 06/05/2020          -->
 <!-- ---------------------------------------------------- -->
 
+<?php require_once(__DIR__ . "/../php/fonctions.php"); ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="section-0">
     <a class="navbar-brand" href="#"><img class="nav-logo" alt="HEPL IMMERSION" src="/img/logo.png"/></a>
@@ -16,6 +17,7 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
+            <?php if (estConnecte()) { ?>
             <li class="nav-item active">
                 <a class="nav-link" href="/admin/dashboard.php">Accueil<span class="sr-only">(current)</span></a>
             </li>
@@ -45,6 +47,7 @@
                         <a class="dropdown-item" href="/admin/gerer_eleves_horaires_front.php?gerer=eleves_horaires">les horaires d'élèves</a>
                 </div>
             </li>
+            <?php } ?>
         </ul>
     </div>
 </nav>

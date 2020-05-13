@@ -51,6 +51,7 @@ if ($error) {
         );
 
     }else{
+        $_SESSION["idProfil"] = $data["utilisateur"];
 
         $toReturn = array(
             "error" => false,

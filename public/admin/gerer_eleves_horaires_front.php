@@ -86,7 +86,7 @@
                 <?php foreach ($array2 as $ligne){ ?>
                     <tr class="table"> <!-- Boucle imbriquée pour affiché les valeurs en fonction du nom de la colonne -->
                         <?php foreach ($colname as $ligne2){ ?>
-                            <th scope="row"><?php echo($ligne[$ligne2["Field"]]); ?></th>
+                            <th scope="row" id="<?php echo($ligne["id"]."_".$ligne2["Field"]); ?>"><?php echo($ligne[$ligne2["Field"]]); ?></th>
                         <?php } ?>
                         <th scope="row"><a class="btn btn-success modif"  data-course-id="<?php echo($ligne["id"]); ?>">Modifier</a></th>
                         <th scope="row"><a class="btn btn-danger del"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>

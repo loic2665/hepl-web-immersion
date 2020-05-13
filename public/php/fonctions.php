@@ -21,6 +21,20 @@ require_once(__DIR__."/../php/require_all.php");
  *
  *
  * */
+
+function estConnecte()
+{
+    if(isset($_SESSION["idProfil"]))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+
 function generateForm($champs){
 
     foreach ($champs as $champ){
@@ -160,9 +174,19 @@ function generateArray($col)
             $colonnesToShow = array("heure_debut", "heure_fin");
         }
 
-        $result = $db->conn->query("
-        SELECT *
-        FROM ".$table.";");
+        if(strpos($table, "horaires") !== FALSE || strpos($table, "eleves") !== FALSE)
+        {
+            $result = $db->conn->query("
+            SELECT *
+            FROM ".$table."
+            WHERE archive = 0;");
+        }
+        else
+        {
+            $result = $db->conn->query("
+            SELECT *
+            FROM ".$table.";");
+        }
 
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
