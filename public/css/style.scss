@@ -71,32 +71,27 @@ fieldset{
     color: white;
   }
 }
-%block{
-  height: auto;
-}
+
+
 
 .white-text{
   color: white;
 }
-.nb-cours-block{
-  @extend %block;
-  background-color: rgba(144, 0, 0, 0.7);
-}
 
-.nb-days-block{
-  @extend %block;
-  background-color: rgba(0, 144, 31, 0.7);
-}
-
-.nb-profs-block{
-  @extend %block;
-  background-color: rgba(0, 70, 144, 0.7);
-}
-.last-inscrits-block{
-  @extend %block;
-  background-color: rgba(0, 144, 139, 0.7);
-}
 
 .big-size{
-  font-size: 55px;
+  font-size: 50px;
+}
+
+.block-m{
+  height:  220px;
+}
+
+.option-label{
+  font-size: 20px;
+  color: black;
+}
+
+.options h1{
+  color: black;
 }

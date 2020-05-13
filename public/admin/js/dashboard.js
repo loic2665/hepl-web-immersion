@@ -43,4 +43,104 @@ $(document).ready(function () {
 
     });
 
+
+    $(".date_debut").on("click", function () {
+
+        let data = {
+            what: "date_debut",
+            date: $("#date_debut").val(),
+            switch: "",
+        }
+        function callbackSuccess(result){
+            if(result.error === true){
+                toastr["warning"](result.message, "Erreur");              // on affiche le toast
+            }else{
+                toastr["success"](result.message, "Succès");              // on affiche le toast
+            }
+        }
+
+        requeteAjax.requeteAjax("POST", "./api/config/updateConfig.php", data, "json", callbackSuccess, null, null);
+
+    });
+    $(".date_fin").on("click", function () {
+
+        let data = {
+            what: "date_fin",
+            date: $("#date_fin").val(),
+            switch: "",
+        }
+        function callbackSuccess(result){
+            if(result.error === true){
+                toastr["warning"](result.message, "Erreur");              // on affiche le toast
+            }else{
+                toastr["success"](result.message, "Succès");              // on affiche le toast
+            }
+        }
+
+        requeteAjax.requeteAjax("POST", "./api/config/updateConfig.php", data, "json", callbackSuccess, null, null);
+
+    });
+
+    // switchs
+
+
+
+    $("#switch_close").on("click", function () {
+
+        let value = "";
+
+        if($("#switch_close:checked").val() === undefined){
+            value = "";
+        }else{
+            value = $("#switch_close:checked").val();
+        }
+
+        let data = {
+            what: "force_close",
+            date: "",
+            switch: value,
+
+        }
+
+        function callbackSuccess(result){
+            if(result.error === true){
+                toastr["warning"](result.message, "Erreur");              // on affiche le toast
+            }else{
+                toastr["success"](result.message, "Succès");              // on affiche le toast
+            }
+        }
+
+        requeteAjax.requeteAjax("POST", "./api/config/updateConfig.php", data, "json", callbackSuccess, null, null);
+
+    });
+
+    $("#switch_active").on("click", function () {
+
+        let value = "";
+
+        if($("#switch_active:checked").val() === undefined){
+            value = "";
+        }else{
+            value = $("#switch_active:checked").val();
+        }
+
+        let data = {
+            what: "force_active",
+            date: "",
+            switch: value,
+
+        }
+
+        function callbackSuccess(result){
+            if(result.error === true){
+                toastr["warning"](result.message, "Erreur");              // on affiche le toast
+            }else{
+                toastr["success"](result.message, "Succès");              // on affiche le toast
+            }
+        }
+
+        requeteAjax.requeteAjax("POST", "./api/config/updateConfig.php", data, "json", callbackSuccess, null, null);
+
+    });
+
 });
