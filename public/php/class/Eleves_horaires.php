@@ -52,7 +52,7 @@ class Eleves_horaires
 
         $result = $db->conn->query("
         SELECT el.id as id, el.nom as nom, el.prenom as prenom, ho.date_cours as date, th.tranche_horaire as tranche_horaire,
-               th.heure_debut as heure_debut, th.heure_fin as heure_fin, co.intitule as intitule
+               th.heure_debut as heure_debut, th.heure_fin as heure_fin, co.intitule as intitule, lo.local as local
         FROM eleves_horaires ec
             INNER JOIN eleves el on ec.id_eleves = el.id
             INNER JOIN horaires ho on ec.id_horaires = ho.id
@@ -60,7 +60,7 @@ class Eleves_horaires
             INNER JOIN locaux lo on ho.id_locaux = lo.id
             INNER JOIN tranches_horaires th on ho.id_tranches_horaires = th.id
         WHERE el.id = '".$id."'
-        ORDER BY el.nom DESC, ho.date_cours, th.tranche_horaire; ");
+        ORDER BY el.nom , ho.date_cours, th.tranche_horaire; ");
         $array = $result->fetchAll(PDO::FETCH_CLASS);
 
         return $array;

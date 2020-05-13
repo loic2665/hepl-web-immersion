@@ -11,9 +11,7 @@ import * as requeteAjax from "/js/requeteAjax.js"
 $(document).ready(function () {
 
     $("#id_eleves").on("change", function () {
-        console.log("test");
         let id = $("#id_eleves option:selected").val();
-        console.log(id);
 
         let tableau = {
             action: "affiche",
@@ -23,10 +21,11 @@ $(document).ready(function () {
         function successCallback(result){
             if(result.error === false){
                 toastr["success"](result.message, "Succès");
-                console.log(result.data);
                 $("#nomEleve").text(result.data[0].nom+" "+result.data[0].prenom);
 
-                addRow();
+                $("#tables").empty();
+
+                createTab(result.data);
 
             } else {
                 toastr["warning"](result.message, "Attention");
@@ -39,16 +38,51 @@ $(document).ready(function () {
         $("#nomEleve").text($("#id_eleves option:selected").val());
     });
 
-    function addRow(){
-        let tableau = $("#table");
+    function createTab(data){
 
-        let ligne = tableau.insertAfter   insertRow(-1); // on ajoute une ligne
+        let div = document.querySelector("#tables");
+        let table;
+        let jour;
+        let jourtemplate;
+        let date = '0';
 
-        let colonne1 = ligne.insertCell(0);
-        colonne1.innerHTML += "azerty";
+        data.forEach((line) =>
+        {
+            if(date.localeCompare(line.date) != 0) {
 
-        let colonne2 = ligne.insertCell(1);
-        colonne2.innerHTML += "le deux";
+                if(date.localeCompare("0") != 0)
+                {
+                    div.appendChild(jour);
+                }
+                date = line.date;
+                jourtemplate = document.querySelector("#templateTable");
+                jour = document.importNode(jourtemplate.content, true);
+
+                jour.querySelector(".date").innerHTML = line.date;
+                table = jour.querySelector(".tbody");
+            }
+
+            let tr = document.createElement("tr");
+
+            let td = document.createElement('td');
+            td.innerHTML = line.tranche_horaire;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = line.heure_debut+" - "+line.heure_fin;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = line.intitule;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = line.local;
+            tr.appendChild(td);
+
+            table.appendChild(tr);
+        })
+
+        div.appendChild(jour);
     }
-
 });

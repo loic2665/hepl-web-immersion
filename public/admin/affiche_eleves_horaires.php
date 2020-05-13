@@ -50,18 +50,22 @@
                 </div>
                 <br><br><br>
                 <h4 id="nomEleve"></h4>
-                <table id="table" class="table table-hover">
-                    <thead id="head">
-                    </thead>
+                <div id="tables">
 
-                    <tbody id="body">
-
-                    </tbody>
-                </table>
-
+                </div>
             </article>
     </section>
 </body>
+<template id="templateTable">
+    <table class="table table-hover" style="display: inline">
+        <thead>
+        <th colspan="4" class="date">La Date</th>
+        </thead>
+        <tbody class="tbody">
+
+        </tbody>
+    </table>
+</template>
 <!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
 <script type="module" src="./js/affiche.js"></script>
 </html>
