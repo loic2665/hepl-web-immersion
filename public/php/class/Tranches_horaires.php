@@ -21,8 +21,8 @@ class Tranches_horaires
 
         $result = $db->conn->query("
         SELECT *
-        FROM tranches_horaires
-        ");
+        FROM tranches_horaires;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -38,7 +38,8 @@ class Tranches_horaires
         $result = $db->conn->query("
         SELECT *
         FROM tranches_horaires
-        WHERE id = '".$id."'" );
+        WHERE id = '".$id."';");
+
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
@@ -50,7 +51,7 @@ class Tranches_horaires
         $db = new Database();
         $result = $db->conn->query("
         INSERT INTO tranches_horaires (heure_debut, heure_fin, tranche_horaire)
-            VALUES ('".$heure_debut."', '".$heure_fin."', '".$tranche_horaire."')" );
+            VALUES ('".$heure_debut."', '".$heure_fin."', '".$tranche_horaire."');");
 
         return $result;
     }
@@ -64,7 +65,7 @@ class Tranches_horaires
             SET heure_debut = '".$heure_debut."',
                 heure_fin = '".$heure_fin."',
                 tranche_horaire = '".$tranche_horaire."'
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."' ;");
 
         return $result->rowCount();
     }
@@ -75,7 +76,7 @@ class Tranches_horaires
         $db = new Database();
         $result = $db->conn->query("
         DELETE FROM tranches_horaires
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."';");
 
         return $result->rowCount();
     }

@@ -24,7 +24,8 @@ class Horaire
         FROM horaires
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
-        ");
+        WHERE horaires.archive = 0;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -67,8 +68,8 @@ class Horaire
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
             INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id
             INNER JOIN locaux l on horaires.id_locaux = l.id    
+        WHERE horaires.archive = 0;");
 
-        ");
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -87,7 +88,9 @@ class Horaire
         FROM horaires
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
-        WHERE intitule like '%".$name."%';");
+        WHERE intitule like '%".$name."%'
+        AND horaires.archive = 0 ;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -103,7 +106,9 @@ class Horaire
         FROM horaires
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
-        WHERE bloc = ".$bloc.";");
+        WHERE bloc = ".$bloc."
+        AND horaires.archive = 0;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -121,7 +126,9 @@ class Horaire
             INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
-        WHERE date_cours = '".$date."';");
+        WHERE date_cours = '".$date."'
+        AND horaires.archive = 0;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -137,7 +144,9 @@ class Horaire
         FROM horaires
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
-        WHERE 1;");
+        WHERE horaires.archive = 0
+        AND horaires.visible = 1;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -154,7 +163,9 @@ class Horaire
         $result = $db->conn->query("
         SELECT *
         FROM horaires
-        WHERE id = '".$id."'" );
+        WHERE id = '".$id."'
+        AND archive = 0;");
+
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
@@ -170,7 +181,9 @@ class Horaire
             INNER JOIN cours c on horaires.id_cours = c.id
             INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
             INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id 
-        WHERE horaires.id = ".$id.";");
+        WHERE horaires.id = ".$id."
+        AND horaires.archive = 0;");
+
         $array = $result->fetch(PDO::FETCH_ASSOC);
 
         return $array["intitule"]." - ".$array["type"]." - ".$array["heure_debut"]."~".$array["heure_fin"];
@@ -263,7 +276,9 @@ class Horaire
         SELECT horaires.date_cours, th.tranche_horaire
         FROM horaires
             INNER JOIN tranches_horaires th on horaires.id_tranches_horaires = th.id
-        WHERE horaires.id = ".$id.";");
+        WHERE horaires.id = ".$id."
+        AND horaires.archive = 0;");
+
         $array = $result->fetch(PDO::FETCH_ASSOC);
 
         if($array["date_cours"] == $date && $array["tranche_horaire"] == $tranche){
@@ -284,11 +299,14 @@ class Horaire
         WHERE horaires.id <> ".$id."
         AND date_cours = (SELECT date_cours
                           FROM horaires
-                          WHERE horaires.id = ".$id.")
+                          WHERE horaires.id = ".$id."
+                          AND horaires.archive = 0)
         AND th.tranche_horaire = (SELECT tranche_horaire
                                     FROM horaires
                                         INNER JOIN tranches_horaires on horaires.id_tranches_horaires = tranches_horaires.id
-                                    WHERE horaires.id = ".$id.");");
+                                    WHERE horaires.id = ".$id."
+                                    AND horaires.archive = 0);");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         $placesdispo = 0;
@@ -308,7 +326,7 @@ class Horaire
         $result = $db->conn->query("
             SELECT inscription 
             FROM horaires
-            WHERE id = '".$id."' " );
+            WHERE id = '".$id."';" );
         $insc = $result->fetch(PDO::FETCH_ASSOC);
 
         $inscit = $insc["inscription"] + 1;
@@ -316,7 +334,7 @@ class Horaire
         $result = $db->conn->query("
             UPDATE horaires 
             SET inscription = '".$inscit."'
-            WHERE id = '".$id."' " );
+            WHERE id = '".$id."';" );
     }
 
     /* Fonction qui permet d'ajouter un inscrit a l'id de horraire*/
@@ -326,7 +344,7 @@ class Horaire
         $result = $db->conn->query("
             SELECT inscription 
             FROM horaires
-            WHERE id = '".$id."' " );
+            WHERE id = '".$id."';" );
         $insc = $result->fetch(PDO::FETCH_ASSOC);
 
         $inscit = $insc["inscription"] - 1;
@@ -334,7 +352,7 @@ class Horaire
         $result = $db->conn->query("
             UPDATE horaires 
             SET inscription = '".$inscit."'
-            WHERE id = '".$id."' " );
+            WHERE id = '".$id."';" );
     }
 
 

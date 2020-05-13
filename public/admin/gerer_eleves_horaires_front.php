@@ -42,6 +42,7 @@
         $colums = $db->conn->query(" SHOW COLUMNS FROM ".$gerer.";");
         $colname = $colums->fetchAll(PDO::FETCH_ASSOC);
 
+        array_pop($colname); // on vire le champs archive
 
         /* traitement pour la liste d'affichage */
         $array2 = Eleves_horaires::getAllEleveHoraireDisplay()

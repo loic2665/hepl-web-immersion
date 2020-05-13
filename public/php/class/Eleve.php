@@ -22,7 +22,9 @@ class Eleve
         $result = $db->conn->query("
         SELECT *
         FROM eleves
-        WHERE id = '".$id."'" );
+        WHERE id = '".$id."'
+        AND archive = 0;");
+
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
@@ -38,7 +40,9 @@ class Eleve
         $result = $db->conn->query("
         SELECT *
         FROM eleves
-        WHERE email = '".$email."'" );
+        WHERE email = '".$email."'
+        AND archive = 0;");
+
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
@@ -50,7 +54,9 @@ class Eleve
         $db = new Database();
         $result = $db->conn->query("
         SELECT COUNT(*)
-        FROM eleves" );
+        FROM eleves
+        WHERE archive = 0;");
+
         $line = $result->fetch();
 
         return $line[0];
@@ -63,8 +69,10 @@ class Eleve
         $result = $db->conn->query("
         SELECT *
         FROM eleves
+        WHERE archive = 0
         ORDER BY id DESC
-        LIMIT 5" );
+        LIMIT 5;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -76,7 +84,7 @@ class Eleve
         $db = new Database();
         $result = $db->conn->query("
         INSERT INTO eleves (nom, prenom, email, etablissement, indus, gestion, reseau) 
-            VALUES ('".$nom."', '".$prenom."', '".$email."', '".$etablissement."', '".$indus."', '".$gestion."', '".$reseau."')" );
+            VALUES ('".$nom."', '".$prenom."', '".$email."', '".$etablissement."', '".$indus."', '".$gestion."', '".$reseau."');");
 
         return $result;
     }
@@ -94,7 +102,7 @@ class Eleve
                 indus = '".$indus."',
                 gestion = '".$gestion."',
                 reseau = '".$reseau."'
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."' ;");
 
         return $result->rowCount();
     }
@@ -105,7 +113,7 @@ class Eleve
         $db = new Database();
         $result = $db->conn->query("
         DELETE FROM eleves
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."' ;");
 
         return $result->rowCount();
     }

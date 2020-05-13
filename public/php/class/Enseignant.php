@@ -20,8 +20,8 @@ class Enseignant
 
         $result = $db->conn->query("
         SELECT *
-        FROM enseignants 
-        ");
+        FROM enseignants ;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -38,7 +38,8 @@ class Enseignant
         SELECT *
         FROM enseignants
         WHERE nom like '%".$name."%'
-        OR prenom like '%".$name."%'" );
+        OR prenom like '%".$name."%';" );
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -54,7 +55,8 @@ class Enseignant
         $result = $db->conn->query("
         SELECT *
         FROM enseignants
-        WHERE id = '".$id."'" );
+        WHERE id = '".$id."';" );
+
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
@@ -72,7 +74,8 @@ class Enseignant
         SELECT *
         FROM enseignants
             INNER JOIN enseignants_cours e_c on enseignants.id = e_c.id_enseignant
-        WHERE e_c.id_cours = '".$id."'" );
+        WHERE e_c.id_cours = '".$id."';" );
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -84,7 +87,8 @@ class Enseignant
         $db = new Database();
         $result = $db->conn->query("
         SELECT COUNT(*)
-        FROM enseignants" );
+        FROM enseignants;" );
+
         $line = $result->fetch();
 
         return $line[0];
@@ -96,7 +100,7 @@ class Enseignant
         $db = new Database();
         $result = $db->conn->query("
         INSERT INTO enseignants (nom, prenom, sexe) 
-            VALUES ('".$nom."', '".$prenom."', '".$sexe."')" );
+            VALUES ('".$nom."', '".$prenom."', '".$sexe."');" );
 
         return $result;
     }
@@ -110,7 +114,7 @@ class Enseignant
             SET nom = '".$nom."',
                 prenom = '".$prenom."',
                 sexe = '".$sexe."'
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."' ;" );
 
         return $result->rowCount();
     }
@@ -121,7 +125,7 @@ class Enseignant
         $db = new Database();
         $result = $db->conn->query("
         DELETE FROM enseignants
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."' ;" );
 
         return $result->rowCount();
     }

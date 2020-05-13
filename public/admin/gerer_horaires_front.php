@@ -42,10 +42,12 @@
         $colums = $db->conn->query(" SHOW COLUMNS FROM ".$gerer.";");
         $colname2 = $colums->fetchAll(PDO::FETCH_ASSOC);
 
+        array_pop($colname2); // on vire le champs archive
+
         /* traitement pour la liste d'affichage */
         $array2 = Horaire::getAllLessonsDisplay();
 
-        /* on recupèle les champs qui nous intéresse pour l'ajout */
+        /* on recupère les champs qui nous intéresse pour l'ajout */
         $colname = array();
         foreach ($colname2 as $ligne){
             if(strpos($ligne["Field"], "inscription") !== FALSE)

@@ -21,7 +21,7 @@ class Eleves_horaires
         $result = $db->conn->query("
         SELECT *
         FROM eleves_horaires
-        ");
+        WHERE archive = 0;");
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -39,7 +39,10 @@ class Eleves_horaires
             INNER JOIN horaires h on eleves_horaires.id_horaires = h.id
             INNER JOIN eleves e on eleves_horaires.id_eleves = e.id
             INNER JOIN tranches_horaires th on h.id_tranches_horaires = th.id
-            INNER JOIN cours c on h.id_cours = c.id ");
+            INNER JOIN cours c on h.id_cours = c.id 
+        WHERE eleves_horaires.archive = 0
+        AND h.archive = 0
+        AND e.archive = 0;");
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -60,7 +63,10 @@ class Eleves_horaires
             INNER JOIN locaux lo on ho.id_locaux = lo.id
             INNER JOIN tranches_horaires th on ho.id_tranches_horaires = th.id
         WHERE el.id = '".$id."'
-        ORDER BY el.nom , ho.date_cours, th.tranche_horaire; ");
+        AND ec.archive = 0
+        AND ho.archive = 0
+        AND el.archive = 0
+        ORDER BY el.nom , ho.date_cours, th.tranche_horaire;");
         $array = $result->fetchAll(PDO::FETCH_CLASS);
 
         return $array;
@@ -76,7 +82,8 @@ class Eleves_horaires
         $result = $db->conn->query("
         SELECT *
         FROM eleves_horaires
-        WHERE id = '".$id."'" );
+        WHERE id = '".$id."'
+        AND archive = 0;");
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
@@ -88,7 +95,7 @@ class Eleves_horaires
         $db = new Database();
         $result = $db->conn->query("
         INSERT INTO eleves_horaires (id_horaires, id_eleves)
-            VALUES ('".$id_horaires."', '".$id_eleves."')" );
+            VALUES ('".$id_horaires."', '".$id_eleves."');");
 
         Horaire::IncIsc($id_horaires);
 
@@ -102,7 +109,7 @@ class Eleves_horaires
         $result = $db->conn->query("
         SELECT id_horaires
         FROM eleves_horaires
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."';" );
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         Horaire::DecIsc($line["id_horaires"]);
@@ -111,7 +118,7 @@ class Eleves_horaires
         UPDATE eleves_horaires 
             SET id_horaires = '".$id_horaires."',
                 id_eleves = '".$id_eleves."'
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."';" );
 
         Horaire::IncIsc($id_horaires);
 
@@ -125,7 +132,7 @@ class Eleves_horaires
         $result = $db->conn->query("
         DELETE FROM eleves_horaires
         WHERE id_horaires = '".$id_horaires."'
-        AND id_eleves = '".$id_eleves."' " );
+        AND id_eleves = '".$id_eleves."';" );
 
         Horaire::DecIsc($id_horaires);
 
@@ -143,22 +150,11 @@ class Eleves_horaires
         SELECT eleves.id AS id, eleves.nom AS nom, eleves.prenom AS prenom
         FROM eleves_horaires
             INNER JOIN eleves on eleves_horaires.id_eleves = eleves.id
-        WHERE eleves_horaires.id_horaires = '".$id."'" );
+        WHERE eleves_horaires.id_horaires = '".$id."'
+        AND eleves_horaires.archive = 0
+        AND eleves.archive = 0;");
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
     }
 }
-
-/*
-        $result = $db->conn->query("
-        SELECT el.id as id, el.nom as nom, el.prenom as prenom, ho.date_cours as date, th.tranche_horaire as tranche_horaire,
-               th.heure_debut as heure_debut, th.heure_fin as heure_fin, co.intitule as intitule
-        FROM eleves_horaires ec
-            INNER JOIN eleves el on ec.id_eleves = el.id
-            INNER JOIN horaires ho on ec.id_horaires = ho.id
-            INNER JOIN cours co on ho.id_cours = co.id
-            INNER JOIN locaux lo on ho.id_locaux = lo.id
-            INNER JOIN tranches_horaires th on ho.id_tranches_horaires = th.id
-        ORDER BY el.nom DESC, ho.date_cours, th.tranche_horaire; ");
-        $array = $result->fetchAll(PDO::FETCH_ASSOC);*/

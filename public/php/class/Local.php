@@ -20,8 +20,8 @@ class Local
 
         $result = $db->conn->query("
         SELECT *
-        FROM locaux
-        ");
+        FROM locaux;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -37,7 +37,8 @@ class Local
         $result = $db->conn->query("
         SELECT *
         FROM locaux
-        WHERE id = '".$id."'" );
+        WHERE id = '".$id."';");
+
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
@@ -49,7 +50,7 @@ class Local
         $db = new Database();
         $result = $db->conn->query("
         INSERT INTO locaux (local)
-            VALUES ('".$local."')" );
+            VALUES ('".$local."');");
 
         return $result;
     }
@@ -61,7 +62,7 @@ class Local
         $result = $db->conn->query("
         UPDATE locaux 
             SET local = '".$local."'
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."';");
 
         return $result->rowCount();
     }
@@ -72,7 +73,7 @@ class Local
         $db = new Database();
         $result = $db->conn->query("
         DELETE FROM locaux
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."';");
 
         return $result->rowCount();
     }

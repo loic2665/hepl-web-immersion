@@ -123,7 +123,6 @@
         $("#col_heure_fin, label[for=heure_fin]").text("Heure fin du cours");
         $("#col_tranche_horaire, label[for=tranche_horaire]").text("Tranche horaire");
 
-
     });
 
 </script>

@@ -20,8 +20,8 @@ class Type_cours
 
         $result = $db->conn->query("
         SELECT *
-        FROM type_cours
-        ");
+        FROM type_cours;");
+
         $array = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $array;
@@ -37,7 +37,8 @@ class Type_cours
         $result = $db->conn->query("
         SELECT *
         FROM type_cours
-        WHERE id = '".$id."'" );
+        WHERE id = '".$id."';");
+
         $line = $result->fetch(PDO::FETCH_ASSOC);
 
         return $line;
@@ -49,7 +50,7 @@ class Type_cours
         $db = new Database();
         $result = $db->conn->query("
         INSERT INTO type_cours (type)
-            VALUES ('".$type."')" );
+            VALUES ('".$type."');");
 
         return $result;
     }
@@ -61,7 +62,7 @@ class Type_cours
         $result = $db->conn->query("
         UPDATE type_cours 
             SET type = '".$type."'
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."';");
 
         return $result->rowCount();
     }
@@ -72,7 +73,7 @@ class Type_cours
         $db = new Database();
         $result = $db->conn->query("
         DELETE FROM type_cours
-        WHERE id = '".$id."' " );
+        WHERE id = '".$id."';");
 
         return $result->rowCount();
     }
