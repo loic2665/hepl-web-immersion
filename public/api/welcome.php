@@ -9,6 +9,10 @@
 
 @session_start();
 
+@session_destroy();
+
+
+
 $posts = array("nom", "prenom", "interet", "etablissement", "jours", "email");
 $data = array();
 

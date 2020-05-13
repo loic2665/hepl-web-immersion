@@ -389,6 +389,18 @@ class Horaire
         return 1;
     }
 
+    public static function getTypeCoursById($id){
+
+        $db = new Database();
+        $result = $db->conn->query("
+            SELECT tc.type
+            FROM horaires
+                INNER JOIN type_cours tc on horaires.id_type_cours = tc.id
+            WHERE horaires.id = '".$id."';" );
+        $type = $result->fetch(PDO::FETCH_ASSOC)[0];
+        return $type;
+
+    }
 
 
 }

@@ -53,6 +53,7 @@ foreach ($_SESSION["data_jours"] as $jour) {
 
 <section id="content">
 
+    <?php echo(Eleves_horaires::checkTypeAndCountEleveToAdd(1)); ?>
     <?php if($error){ ?>
         <div class="alert alert-danger">
             Désolé, l'inscription donnée n'est pas conforme. Liste des erreurs :

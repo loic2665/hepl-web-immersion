@@ -108,11 +108,14 @@ if($error){
         );
 
 
-        $db->conn->query("LOCK TABLE eleves_horaires;");
 
         foreach ($listCourses as $cours){
             if($cours != 0){
-                $result = $db->conn->query("INSERT INTO eleves_horaires VALUE (NULL, '".$cours."', '".$id."');");
+
+                //$can_add =
+
+
+                Eleves_horaires::insertEleveHoraire($cours, $id);
                 if(!$result){
                     $toReturn = array(
                         "error" => true,
@@ -123,7 +126,6 @@ if($error){
             }
         }
 
-        $db->conn->query("UNLOCK TABLE eleves_horaires;");
 
     }
 
