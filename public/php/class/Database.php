@@ -14,7 +14,7 @@ class Database
     private $host = "localhost";
     private $port = 3306;
     private $user = "root";
-    private $pass = "root";
+    private $pass = "";
     private $name = "hepl-immersion";
 
     public $conn = null;

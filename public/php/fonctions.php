@@ -174,7 +174,7 @@ function generateArray($col)
             $colonnesToShow = array("heure_debut", "heure_fin");
         }
 
-        if(strpos($table, "horaires") !== FALSE || strpos($table, "eleves") !== FALSE)
+        if(strpos($table, "eleves") !== FALSE)
         {
             $result = $db->conn->query("
             SELECT *

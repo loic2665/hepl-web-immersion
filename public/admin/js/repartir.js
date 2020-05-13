@@ -98,6 +98,14 @@ export function visible(id){
     function successCallback(result){
         if(result.error === false){
             toastr["success"](result.message, "Succès");
+
+            if($('#'+tableau['id']+"_visible").text() == 'Oui') {
+                $('#' + tableau['id'] + "_visible").text("Non");
+            } else {
+                $('#'+tableau['id']+"_visible").text("Oui");
+            }
+
+
         } else {
             toastr["warning"](result.message, "Attention");
         }

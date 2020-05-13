@@ -19,6 +19,12 @@
 <?php require_once(__DIR__."/../inc/nav_admin.php"); ?>
 <section id="content">
     <?php
+    if(!estConnecte())
+    {
+        echo("<h1>Veuillez vous connecter<h1/>");
+    }
+    else
+    {
     /* Requête SQL pour récupérer la table reçue par le $_GET */
 
     /* Évite les attaques SQL (securite)  échape --> ' " \ */
@@ -111,4 +117,5 @@
         $("#col_id, label[for=id]").text("ID");
     });
 </script>
+<?php } ?>
 </html>

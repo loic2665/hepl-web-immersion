@@ -108,8 +108,6 @@ $(document).ready(function () {
 
     /* Évenement au click sur le bouton changer visibilite */
     $(".visible").on("click", function () {
-        console.log("visibilite " + $(this).data("course-id"));
-
         repartir.visible($(this).data("course-id"));
     });
 

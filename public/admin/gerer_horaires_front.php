@@ -19,6 +19,12 @@
 <?php require_once(__DIR__."/../inc/nav_admin.php"); ?>
 <section id="content">
     <?php
+    if(!estConnecte())
+    {
+        echo("<h1>Veuillez vous connecter<h1/>");
+    }
+    else
+    {
     /* Requête SQL pour récupérer la table reçue par le $_GET */
 
     /* Évite les attaques SQL (securite)  échape --> ' " \ */
@@ -100,7 +106,7 @@
             <?php foreach ($array2 as $ligne){ ?>
                 <tr class="table"> <!-- Boucle imbriquée pour affiché les valeurs en fonction du nom de la colonne -->
                     <?php foreach ($colname2 as $ligne2){ ?>
-                    <th scope="row"><?php echo($ligne[$ligne2["Field"]]); ?></th>
+                    <th scope="row" id="<?php echo($ligne["id"]."_".$ligne2["Field"]); ?>"><?php echo($ligne[$ligne2["Field"]]); ?></th>
                     <?php } ?>
                     <th scope="row"><a id="chang<?php echo($ligne["id"]); ?>" class="btn btn-info visible <?php if($ligne["inscription"] > 0){echo('disabled');} ?> " data-course-id="<?php echo($ligne["id"]); ?>">Changer visibilité</a></th>
                     <th scope="row"><a id="depel<?php echo($ligne["id"]); ?>" class="btn btn-success dep  <?php if($ligne["inscription"] < 1){echo("disabled");} ?>"  data-course-id="<?php echo($ligne["id"]); ?>">Déplacer élèves</a></th>
@@ -136,4 +142,5 @@
         $("#col_inscription, label[for=inscription]").text("Inscrits");
     });
 </script>
+<?php } ?>
 </html>

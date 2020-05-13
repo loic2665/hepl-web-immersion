@@ -19,6 +19,9 @@
         <ul class="navbar-nav mr-auto">
             <?php if (estConnecte()) { ?>
             <li class="nav-item active">
+                <a class="nav-link" href="/admin/api/deconnexion.php">Déconnexion</a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="/admin/dashboard.php">Accueil<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">

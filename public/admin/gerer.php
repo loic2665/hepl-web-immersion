@@ -19,6 +19,12 @@
 <?php require_once(__DIR__."/../inc/nav_admin.php"); ?>
 <section id="content">
     <?php
+    if(!estConnecte())
+    {
+        echo("<h1>Veuillez vous connecter<h1/>");
+    }
+    else
+    {
     /* Requête SQL pour récupérer la table reçue par le $_GET */
 
     /* Évite les attaques SQL (securite)  échape --> ' " \ */
@@ -112,6 +118,7 @@
 
     </article>
     <?php } ?>
+
 </section>
 <!-- pour pouvoir récuperer la valeur de $gerer dans la page JS -->
 <input type="hidden" id="page" value="<?php echo $gerer; ?>" />
@@ -142,4 +149,5 @@
     });
 
 </script>
+<?php } ?>
 </html>
