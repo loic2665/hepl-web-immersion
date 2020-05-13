@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="col-xl-4">
-            <div class="nb-days-block">
+            <div class="nb-profs-block">
                 <div class="center white-text">
 
                     <h1><b>Nombre d'élèves inscrits</b></h1>
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="col-xl-4">
-            <div class="nb-days-block">
+            <div class="last-inscrits-block">
                 <div class="center white-text">
 
                     <h1><b>Les 5 derniers inscrits</b></h1>

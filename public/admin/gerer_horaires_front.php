@@ -85,7 +85,7 @@
             <thead>
             <tr> <!-- Permet d'afficher dans le tableau chaque nom de colonne récupéré -->
                 <?php foreach ($colname2 as $ligne){ ?>
-                <th scope="col"><?php echo($ligne["Field"]); ?> </th>
+                <th scope="col" id="col_<?php echo($ligne["Field"]); ?>"><?php echo($ligne["Field"]); ?> </th>
                 <?php } ?>
                 <th scope="col">Changer visibilité</th>
                 <th scope="col">Déplacer élèves</th>
@@ -115,5 +115,22 @@
 </body>
 <!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
 <script type="module" src="./js/gerer.js"></script>
+<script>
 
+    $(document).ready(function () {
+
+        $("#col_id_cours, label[for=id_cours]").text("Cours");
+        $("#col_id_enseignants, label[for=id_enseignants]").text("Enseignant");
+        $("#col_id_type_cours, label[for=id_type_cours]").text("Type de cours");
+        $("#col_date_cours, label[for=date_cours]").text("Date du cours");
+        $("#col_id_tranches_horaires, label[for=id_tranches_horaires]").text("Tranche horaire");
+        $("#col_id_locaux, label[for=id_locaux]").text("Local");
+        $("#col_inscription_max, label[for=inscription_max]").text("Inscrit maxi.");
+        $("#col_indus, label[for=indus]").text("Industriel");
+        $("#col_gestion, label[for=gestion]").text("Gestion");
+        $("#col_reseau, label[for=reseau]").text("Réseau");
+        $("#col_visible, label[for=visible]").text("Visibilité");
+        $("#col_inscription, label[for=inscription]").text("Inscrits");
+    });
+</script>
 </html>

@@ -77,3 +77,4 @@ class Local
         return $result->rowCount();
     }
 }
+

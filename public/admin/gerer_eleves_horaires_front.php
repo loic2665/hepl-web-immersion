@@ -73,7 +73,7 @@
                 <thead>
                 <tr> <!-- Permet d'afficher dans le tableau chaque nom de colonne récupéré -->
                     <?php foreach ($colname as $ligne){ ?>
-                        <th scope="col"><?php echo($ligne["Field"]); ?> </th>
+                        <th scope="col" id="col_<?php echo($ligne["Field"]); ?>"><?php echo($ligne["Field"]); ?> </th>
                     <?php } ?>
                     <th scope="col">Modifier</th>
                     <th scope="col">Supprimer</th>
@@ -101,5 +101,12 @@
 </body>
 <!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
 <script type="module" src="./js/gerer.js"></script>
+<script>
+    $(document).ready(function () {
 
+        $("#col_id_horaires, label[for=id_horaires]").text("Cours concerné");
+        $("#col_id_eleves, label[for=id_eleves]").text("Élève concerné");
+        $("#col_id, label[for=id]").text("ID");
+    });
+</script>
 </html>

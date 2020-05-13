@@ -13,6 +13,7 @@ require_once(__DIR__."/Database.php");
 class Tranches_horaires
 {
 
+
     /*récupérer toutes les tranches horaires de la base de données*/
     public static function getAllTranchesHoraires()
     {

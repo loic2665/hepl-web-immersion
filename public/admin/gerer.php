@@ -68,10 +68,13 @@
             <thead>
             <tr> <!-- Permet d'afficher dans le tableau chaque nom de colonne récupéré -->
                 <?php foreach ($colname as $ligne){ ?>
-                <th scope="col"><?php echo($ligne["Field"]); ?> </th>
+                <th scope="col" id="col_<?php echo($ligne["Field"]); ?>"><?php echo($ligne["Field"]); ?> </th>
                 <?php } ?>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
+                <?php if($gerer == "eleves"){ ?>
+                    <th scope="col">Attestation</th>
+                <?php } ?>
             </tr>
             </thead>
             <tbody>
@@ -83,6 +86,9 @@
                     <?php } ?>
                     <th scope="row"><a class="btn btn-success modif"  data-course-id="<?php echo($ligne["id"]); ?>">Modifier</a></th>
                     <th scope="row"><a class="btn btn-danger del"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
+                    <?php if($gerer == "eleves"){ ?>
+                        <th scope="col"><a class="btn btn-info" target="_blank" href="./api/export_pdf.php?nom=<?php echo($ligne["nom"]); ?>&prenom=<?php echo($ligne["prenom"]); ?>">Attestation</a></th>
+                    <?php } ?>
                 </tr>
             <?php } ?>
             </tbody>
@@ -96,5 +102,29 @@
 </body>
 <!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
 <script type="module" src="./js/gerer.js"></script>
+<script>
 
+    $(document).ready(function () {
+
+        $("#col_id, label[for=id]").text("ID");
+        $("#col_email, label[for=email]").text("Adresse e-mail");
+        $("#col_nom, label[for=nom]").text("Nom");
+        $("#col_prenom, label[for=prenom]").text("Prénom");
+        $("#col_sexe, label[for=sexe]").text("Sexe");
+        $("#col_etablissement, label[for=etablissement]").text("Établissement");
+        $("#col_indus, label[for=indus]").text("Industriel");
+        $("#col_gestion, label[for=gestion]").text("Gestion");
+        $("#col_reseau, label[for=reseau]").text("Réseau");
+        $("#col_intitule, label[for=intitule]").text("Intitulé du cours");
+        $("#col_bloc, label[for=bloc]").text("Bloc");
+        $("#col_local, label[for=local]").text("Local");
+        $("#col_type, label[for=type]").text("Type de cours");
+        $("#col_heure_debut, label[for=heure_debut]").text("Heure début du cours");
+        $("#col_heure_fin, label[for=heure_fin]").text("Heure fin du cours");
+        $("#col_tranche_horaire, label[for=tranche_horaire]").text("Tranche horaire");
+
+
+    });
+
+</script>
 </html>

@@ -17,8 +17,8 @@ if(!isset($_GET["data"])){
     $data = $_GET["data"];
 }
 
-if(!isset($_GET["nom"], $_GET["prenom"], $_GET["admin"])){
-    die("Nom/Prenom/Admin manquant !");
+if(!isset($_GET["nom"], $_GET["prenom"])){
+    die("nom=? prenom=? manquant !");
 }
 
 $mpdf = new Mpdf();
@@ -46,7 +46,7 @@ $mpdf->SetProtection([], "", "");
     <br/>
     <br/>
     <p>
-        Je sousigné <?php echo($_GET["admin"]); ?>
+        Je sousigné ____________________,
         <br/>
         <br/>
         Atteste bien que <?php echo($_GET["nom"]." ".$_GET["prenom"]); ?> à bien assisté aux cours d'immersion ce <?php echo($date); ?> à la HEPL de Seraing
