@@ -46,7 +46,7 @@ class Eleves_horaires
     }
 
     /*récupérer tous les cours de l'horaire dans la base de données pour un affichage propre*/
-    public static function getAllEleveHoraireAffiche()
+    public static function getAllEleveHoraireAffiche($id)
     {
         $db = new Database();
 
@@ -59,8 +59,9 @@ class Eleves_horaires
             INNER JOIN cours co on ho.id_cours = co.id
             INNER JOIN locaux lo on ho.id_locaux = lo.id
             INNER JOIN tranches_horaires th on ho.id_tranches_horaires = th.id
+        WHERE el.id = '".$id."'
         ORDER BY el.nom DESC, ho.date_cours, th.tranche_horaire; ");
-        $array = $result->fetchAll(PDO::FETCH_COLUMN|PDO::FETCH_GROUP);
+        $array = $result->fetchAll(PDO::FETCH_CLASS);
 
         return $array;
     }

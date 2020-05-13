@@ -31,6 +31,10 @@ switch ($_POST["action"]) {
         $posts = array("action", "id");
         break;
 
+    case "affiche":
+        $posts = array("action", "id");
+        break;
+
     default:
 
         break;
@@ -97,6 +101,10 @@ if ($error) /* Si erreur */ {
                 $toReturn["error"] = true;
                 $toReturn["message"] = "Une erreur s'est produite lors de la modification de l'horaire.";
             }
+            break;
+
+        case "affiche":
+            $toReturn["data"] = Eleves_horaires::getAllEleveHoraireAffiche($data["id"]);
             break;
 
         default:

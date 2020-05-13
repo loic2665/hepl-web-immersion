@@ -17,44 +17,51 @@
 </head>
 <body>
 <?php require_once(__DIR__."/../inc/nav_admin.php"); ?>
-<section id="content">
-    <?php
-        /* traitement pour la liste d'affichage */
-        $array = Eleves_horaires::getAllEleveHoraireAffiche();
-        ?>
-        <article>
-            <h2>Horaire des élèves</h2>
+    <section id="content">
+        <?php
+            $db = new Database();
 
-            <table class="table table-hover">
-                <thead>
-                <tr> <!-- Permet d'afficher dans le tableau chaque nom de colonne récupéré -->
-                    <?/*php foreach ($colname as $ligne){ ?>
-                        <th scope="col"><?php echo($ligne["Field"]); ?> </th>
-                    <?php }*/ ?>
-                    <th scope="col">Modifier</th>
-                    <th scope="col">Supprimer</th>
-                </tr>
-                </thead>
-                <tbody>
+            /* Requête SQL pour avoir le nom des colonnes */
+            $colums = $db->conn->query(" SHOW COLUMNS FROM eleves_horaires;");
+            $colname = $colums->fetchAll(PDO::FETCH_ASSOC);
 
-                <?php foreach ($array as $ligne){ ?>
-                    <tr class="table"> <!-- Boucle imbriquée pour affiché les valeurs en fonction du nom de la colonne -->
-                        <?php /*foreach ($colname as $ligne2){ ?>
-                            <th scope="row"><?php echo($ligne[$ligne2["Field"]]); ?></th>
-                        <?php }*/ ?>
-                        <th scope="row"><a class="btn btn-success modif"  data-course-id="<?php echo($ligne["id"]); ?>">Modifier</a></th>
-                        <th scope="row"><a class="btn btn-danger del"  data-course-id="<?php echo($ligne["id"]); ?>">Supprimer</a></th>
-                    </tr>
-                <?php } ?>
-                </tbody>
-            </table>
+            $champs = array();
+            foreach ($colname as $col)
+            {
+                array_push($champs, generateArray($col));
+            }
+            /* pour conserver juste le champs qui nous intéresse */
+            array_shift($champs); //'pop' le premier élément
+            array_shift($champs);
+            $champs[0]["label"] = "Sélectionner un élève";
+            ?>
+            <article>
+                <h2>Horaire des élèves</h2>
+                <br><br>
+                <?php $champ = $champs[0]; ?>
+                <div class="form-group">
+                    <label class="col-form-label" for="<?php echo($champ["id"]); ?>"><?php echo($champ["label"]); ?></label>
+                    <select id="id_eleves" name="<?php echo($champ["name"]); ?>" class="custom-select">
+                        <option selected="" value="0" disabled>Veuillez selectionner une option</option>
+                        <?php foreach($champ["options"] as $option){ ?>
+                            <option value="<?php echo($option["value"]); ?>"><?php echo($option["text"]); ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <br><br><br>
+                <h4 id="nomEleve"></h4>
+                <table id="table" class="table table-hover">
+                    <thead id="head">
+                    </thead>
 
-        </article>
-</section>
-<!-- pour pouvoir récuperer la valeur de $gerer dans la page JS -->
-<input type="hidden" id="page" value="<?php echo $gerer; ?>" />
+                    <tbody id="body">
+
+                    </tbody>
+                </table>
+
+            </article>
+    </section>
 </body>
 <!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
-<script type="module" src="./js/gerer.js"></script>
-
+<script type="module" src="./js/affiche.js"></script>
 </html>
