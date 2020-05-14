@@ -86,4 +86,9 @@ fieldset {
   color: black;
 }
 
+.messErr {
+  font-size: 20px;
+  color: red;
+}
+
 /*# sourceMappingURL=style.css.map */

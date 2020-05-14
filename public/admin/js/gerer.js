@@ -233,7 +233,7 @@ $(document).ready(function () {
             $('#ajout_modif').addClass("hidden");
             $('#table_list').removeClass("hidden");
         } else {
-
+            $('#messErr').text("Veuillez remplir les champs correctement");
         }
     });
 

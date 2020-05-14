@@ -75,6 +75,7 @@
 
         <?php generateForm($champs); ?>
 
+        <label id="messErr" class="messErr"></label><br>
         <button class="btn btn-success valid" id="send_btn">Valider</button>
         <button class="btn btn-danger annul" id="cancel_btn">Annuler</button>
 
