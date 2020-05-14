@@ -8,6 +8,7 @@
 /***********************************************************/
 
 require_once(__DIR__."/php/require_all.php");
+@session_start();
 if(!isset($_SESSION["currJour"])){
 
     // si les la clé dans l'url GET 'nbDay' n'existe pas OU

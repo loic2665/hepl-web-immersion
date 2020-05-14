@@ -30,6 +30,16 @@ if(Config::areRegistrationOpen() == false){
 
 <section id="content">
 
+    <h3>Dates disponibles</h3>
+    <ul class="list-group list-group-flush">
+        <?php foreach(Horaire::getAllDateLessons() as $date){ ?>
+
+            <li class="list-group-item"><?php echo($date["date_cours"]); ?></li>
+
+        <?php } ?>
+    </ul>
+    <br />
+
     <h1>Pré-requis</h1>
 
     <?php
@@ -95,14 +105,7 @@ if(Config::areRegistrationOpen() == false){
 
 
 
-    <h3>Dates disponibles</h3>
-    <ul class="list-group list-group-flush">
-    <?php foreach(Horaire::getAllDateLessons() as $date){ ?>
 
-        <li class="list-group-item"><?php echo($date["date_cours"]); ?></li>
-
-    <?php } ?>
-    </ul>
 
 
 

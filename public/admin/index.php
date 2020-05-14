@@ -81,7 +81,7 @@
                         result.input_error.forEach(element => $("#"+element).addClass("is-invalid"));  // pour chaque element des input en erreur j'ajoute la classe d'invalidité du champs
                     }else{                                                                             // merci bootsrap
                         toastr["success"](result.message, "Succès");              // on affiche le toast
-                        setTimeout(function(){ window.location = "./dashboard.php" }, 5000);
+                        setTimeout(function(){ window.location = "./dashboard.php" }, 2000);
                     }
                 }
             },

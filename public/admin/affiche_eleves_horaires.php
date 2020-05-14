@@ -40,7 +40,7 @@
             ?>
             <article>
                 <h2>Horaire des élèves</h2>
-                <br><br>
+                <br><a class="btn btn-success" target="_blank" href="./api/export_csv.php">Export CSV (tout les élèves)</a><br>
                 <?php $champ = $champs[0]; ?>
                 <div class="form-group">
                     <label class="col-form-label" for="<?php echo($champ["id"]); ?>"><?php echo($champ["label"]); ?></label>
