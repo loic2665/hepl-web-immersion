@@ -116,6 +116,52 @@ export function visible(id){
 
 /* Fonction qui vérifie si le formulaire est bien rempli */
 export function formValid(){
+
+    let inputs = $('input[type=text]');                       // on récupere les differents types d'input text du formulaire
+    for( let input of inputs){                                // boucle pour remplir les champs texte
+
+        let value = input.value;
+        let re = /^[A-Za-z]+$/;
+
+        console.log(value);
+        console.log(re.test(value));
+
+        if(re.test(value) === false)
+        {
+            return false;
+        }
+    }
+
+    inputs = $('input[type=email]');                          // on récupere les differents types d'input email du formulaire
+    for( let input of inputs){                                // boucle pour vider les champs email
+
+        let email = input.value;
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        console.log(email);
+        console.log(re.test(email));
+
+        if(re.test(email) === false)
+        {
+            return false;
+        }
+    }
+
+    inputs = $('input[type=number]');                       // on récupere les differents types d'input number du formulaire
+    for( let input of inputs){                                // boucle pour vider les champs number
+
+        let value = input.value;
+        let re = /^[0-9]+$/;
+
+        console.log(value);
+        console.log(re.test(value));
+
+        if(re.test(value) === false)
+        {
+            return false;
+        }
+    }
+
     return true;
 }
 

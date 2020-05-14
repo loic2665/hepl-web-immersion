@@ -166,8 +166,6 @@ $(document).ready(function () {
 
         let tableau = {};
 
-        console.log(table);
-
         if(repartir.formValid()) {
             switch (table){
                 case 'enseignants':
