@@ -19,13 +19,10 @@
 <?php require_once(__DIR__."/../inc/nav_admin.php"); ?>
     <section id="content">
         <?php
-        if(!estConnecte())
-        {
-            echo("<h1>Veuillez vous connecter<h1/>");
-        }
-        else
-        {
-            $db = new Database();
+
+        redirectIfnotLoggedIn();
+
+        $db = new Database();
 
             /* Requête SQL pour avoir le nom des colonnes */
             $colums = $db->conn->query(" SHOW COLUMNS FROM eleves_horaires;");
@@ -76,5 +73,4 @@
 </template>
 <!-- type="module" permet de dire que le fichier JS est composé de plusieurs librairies -->
 <script type="module" src="./js/affiche.js"></script>
-<?php } ?>
 </html>

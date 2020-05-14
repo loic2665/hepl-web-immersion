@@ -10,6 +10,8 @@
 require_once(__DIR__ . "/../../php/require_all.php");
 require_once(__DIR__ . "/../../../mpdf-6.1.3/mpdf.php");
 
+redirectIfnotLoggedIn();
+
 if(!isset($_GET["data"])){
     $qrcode = false;
 }else{

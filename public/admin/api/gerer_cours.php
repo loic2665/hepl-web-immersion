@@ -11,6 +11,8 @@
 @session_start();
 require_once(__DIR__."/../../php/require_all.php");
 
+redirectIfnotLoggedIn();
+
 /* Premier switch pour récuperer l'action et définir les champs requis */
 
 switch($_POST["action"])

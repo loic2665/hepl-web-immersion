@@ -9,6 +9,8 @@
 
 require_once(__DIR__."/../../php/require_all.php");
 
+redirectIfnotLoggedIn();
+
 $date = date("y_m_d_h_i_s", time());
 
 header("Content-type: text/csv; charset=utf-8");

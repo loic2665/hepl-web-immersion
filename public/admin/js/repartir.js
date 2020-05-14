@@ -35,9 +35,7 @@ export function ajouter(tableau){
         if(result.error === false){
             toastr["success"](result.message, "Succès");
 
-            console.log("id : "+tableau['id']+"_"+tab);
-            console.log("Valeur : "+tableau[tab]);
-
+            location.reload();
         } else {
             toastr["warning"](result.message, "Attention");
         }
@@ -79,6 +77,8 @@ export function supprimer(id){
     function successCallback(result){
         if(result.error === false){
             toastr["success"](result.message, "Succès");
+
+            location.reload();
         } else {
             toastr["warning"](result.message, "Attention");
         }
@@ -104,7 +104,6 @@ export function visible(id){
             } else {
                 $('#'+tableau['id']+"_visible").text("Oui");
             }
-
 
         } else {
             toastr["warning"](result.message, "Attention");
@@ -227,12 +226,8 @@ export function depeleves(id){
             window.open(url,"PopUp",
                 "width=700,height=600,location=no,status=no,toolbar=no,scrollbars=no");
 
-
             location.reload();
 
-           /*$("#chang"+id).removeClass("disabled");//change la visibilité du bouton changer visibilité horaire
-            $("#suppr"+id).removeClass("disabled");//change la visibilité du bouton changer supprimer horaire
-            $("#depel"+id).addClass("disabled");//change la visibilité du bouton changer déplacer élèves*/
         } else {
             toastr["warning"](result.message, "Attention");
         }

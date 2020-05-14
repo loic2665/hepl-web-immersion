@@ -22,6 +22,26 @@ require_once(__DIR__."/../php/require_all.php");
  *
  * */
 
+function isLoggedIn()
+{
+
+    @session_start();
+    if (isset($_SESSION["idProfil"])) {
+        return true;
+    }
+    return false;
+
+}
+
+function redirectIfnotLoggedIn()
+{
+    if (!isLoggedIn()) {
+        header("Location: /../admin");
+        die();
+    }
+}
+
+
 function estConnecte()
 {
     if(isset($_SESSION["idProfil"]))
