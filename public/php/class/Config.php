@@ -129,7 +129,7 @@ class Config
 
     public static function getConfigTypeCours(){
 
-        $file = json_decode(file_get_contents(__DIR__."/../../../config/type_cours.conf"));
+        $file = json_decode(file_get_contents(__DIR__."/../../../config/type_cours.conf"), true);
         return $file;
 
     }

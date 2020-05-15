@@ -44,6 +44,23 @@ class Type_cours
         return $line;
     }
 
+    /*récupérer le type de cours de la base de données selon l'identifiant*/
+    public static function getTypeTypeById($id)
+    {
+        /* evite les attaques SQL (securite)  échape --> ' " \ */
+        $id = addslashes(htmlspecialchars($id));
+
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT *
+        FROM type_cours
+        WHERE id = '".$id."';");
+
+        $line = $result->fetch(PDO::FETCH_ASSOC);
+
+        return $line["type"];
+    }
+
     /*insérer un type de cours dans la base de données*/
     public static function insertType($type)
     {

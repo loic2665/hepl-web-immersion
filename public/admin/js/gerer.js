@@ -79,6 +79,8 @@ $(document).ready(function () {
         repartir.remplirForm(idModif);
         $('#entete_ajout_modif').text('Modifier un '+singulier);
 
+        $('#messErr').text("");
+
         $('#table_list').addClass("hidden");
         $('#ajout_modif').removeClass("hidden");
     });
@@ -122,6 +124,8 @@ $(document).ready(function () {
     $(".add-row").on("click", function () {
         action = "ajout";
         $('#entete_ajout_modif').text('Ajouter un '+singulier);
+
+        $('#messErr').text("");
 
         $('#table_list').addClass("hidden");
         $('#ajout_modif').removeClass("hidden");
@@ -197,7 +201,7 @@ $(document).ready(function () {
                     tableau.id_tranches_horaires = $("#id_tranches_horaires option:selected").val();
                     tableau.id_locaux = $("#id_locaux option:selected").val();
                     tableau.inscription = 0;
-                    tableau.inscription_max = 10;
+                    tableau.inscription_max = 0;
                     tableau.indus = $("#indus option:selected").val();
                     tableau.gestion = $("#gestion option:selected").val();
                     tableau.reseau = $("#reseau option:selected").val();

@@ -75,6 +75,8 @@ else /* Effectuer la requete demandée */
     {
 
         case "add":
+            $data["inscription_max"] = Config::getConfigTypeCours()[Type_cours::getTypeTypeById($data["id_type_cours"])]; //recupere le nombre d'inscriptions selon le type
+
             if(Horaire::insertHoraire($data["id_cours"], $data["id_enseignants"], $data["id_type_cours"], $data["date_cours"], $data["id_tranches_horaires"], $data["id_locaux"], $data["inscription"], $data["inscription_max"], $data["indus"], $data["gestion"], $data["reseau"], $data["visible"])){
                 $toReturn["error"] = false;
                 $toReturn["message"] = "L'horaire à bien été insérer.";
