@@ -178,12 +178,5 @@ class Eleves_horaires
         return 1;
     }
 
-    public static function checkTypeAndCountEleveToAdd($cours){
-
-        $file = Config::getConfigTypeCours();
-        var_dump(Horaire::getTypeCoursById($cours));
-
-
-    }
 
 }

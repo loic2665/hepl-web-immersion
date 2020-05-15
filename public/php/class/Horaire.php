@@ -319,6 +319,20 @@ class Horaire
         return $placesdispo;
     }
 
+    public static function getPlaceByHoraireId($id){
+        $db = new Database();
+        $result = $db->conn->query("
+        SELECT *
+        FROM horaires
+        WHERE horaires.id = ".$id."
+        AND horaires.archive = 0;");
+
+        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array["inscription_max"] - $array["inscription"];
+
+    }
+
     /* Fonction qui permet d'ajouter un inscrit a l'id de horraire*/
     public static function IncIsc($id)
     {

@@ -108,20 +108,33 @@ if($error){
         );
 
 
+        // esce qu'il a assez de place partout ?
+        $dispo = true;
 
         foreach ($listCourses as $cours){
             if($cours != 0){
-
-                //$can_add =
-
-
-                Eleves_horaires::insertEleveHoraire($cours, $id);
-                if(!$result){
+                if(Horaire::getPlaceByHoraireId($cours) <= 0){
                     $toReturn = array(
                         "error" => true,
-                        "message" => "Une erreur est survenue lors de l'enregistrement des cours. (".$cours.") => ".$db->conn->errorInfo()[2],
+                        "message" => "Il y n'y a plus de place disponible dans le cours '(".Horaire::getLabelById($cours).")'.",
                     );
+                    $dispo = false;
                     break;
+                }
+            }
+        }
+
+        if($dispo) {
+            foreach ($listCourses as $cours) {
+                if ($cours != 0) {
+                    Eleves_horaires::insertEleveHoraire($cours, $id);
+                    if (!$result) {
+                        $toReturn = array(
+                            "error" => true,
+                            "message" => "Une erreur est survenue lors de l'enregistrement des cours. (" . $cours . ") => " . $db->conn->errorInfo()[2],
+                        );
+                        break;
+                    }
                 }
             }
         }
