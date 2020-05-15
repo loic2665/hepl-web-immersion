@@ -327,9 +327,9 @@ class Horaire
         WHERE horaires.id = ".$id."
         AND horaires.archive = 0;");
 
-        $array = $result->fetchAll(PDO::FETCH_ASSOC);
+        $array = $result->fetch(PDO::FETCH_ASSOC);
 
-        return $array["inscription_max"] - $array["inscription"];
+        return ($array["inscription_max"] - $array["inscription"]);
 
     }
 

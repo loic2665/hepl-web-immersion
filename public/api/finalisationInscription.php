@@ -76,14 +76,15 @@ if($error){
     }
 
     $db = new Database();
+    // insertStudent($nom, $prenom, $email, $etab, $indus, $gestion, $reseau)
     $db->conn->query("LOCK TABLE eleves;");
-    $result = $db->conn->query("INSERT INTO eleves VALUE (NULL, '".$email."', '".$nom."', '".$prenom."', '".$etab."', '".$indus."', '".$gestion."', '".$reseau."' );");
+    $result = Eleve::insertStudent($nom, $prenom, $email, $etab, $indus, $gestion, $reseau);
     $db->conn->query("UNLOCK TABLE eleves;");
 
     if(!$result){
         $toReturn = array(
             "error" => true,
-            "message" => "Une erreur est survenue lors de l'enregistrement de vos coordonnées.",
+            "message" => "Une erreur est survenue lors de l'enregistrement de vos coordonnées. =>".$db->conn->errorInfo()[2],
         );
     }else{
 
