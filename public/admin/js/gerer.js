@@ -14,7 +14,6 @@ import * as repartir from "./repartir.js"
 /* Évenement qui attends que la page soit entièrement chargée */
 $(document).ready(function () {
 
-
     let idModif;
     let table = $('#page').val();
     let action; // pour pouvoir différencier un ajout à une modification dans le bouton valider

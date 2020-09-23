@@ -24,7 +24,7 @@ if(!isset($_GET["nom"], $_GET["prenom"])){
 }
 
 $mpdf = new Mpdf();
-ob_start();
+ob_start(); //demarre un buffer pour receptionné le code que l'on génère
 
 
 $date = date("d/m/Y", time());
@@ -72,13 +72,13 @@ $mpdf->SetProtection([], "", "");
 <?php
 
 
-$content = ob_get_contents();
-ob_clean();
+$content = ob_get_contents(); //recupere le contenu le la page HTLM
+ob_clean(); // vide le buffer
 
-$mpdf->WriteHTML($content);
+$mpdf->WriteHTML($content); //ecrit dans le pdf
 
 $date_jour = date("Y_m_d_h_i_s", time());
 $mpdf->SetTitle("Attestation - HEPL - " . $date_jour);
-$mpdf->Output("attestation_immersion_hepl_" . $date_jour . ".pdf", "I");
+$mpdf->Output("attestation_immersion_hepl_" . $date_jour . ".pdf", "I"); //affiche le pdf
 
 // Output a PDF file directly to the browser
